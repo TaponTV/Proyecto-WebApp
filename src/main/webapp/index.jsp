@@ -11,21 +11,18 @@
 	<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="box-header">
-		<header>
-			<div>
-				<a href="index.jsp"><img src="assets/img/img_logo_petcoloria.png" class="logo"/></a>
-			</div>
-			<ul class="navigation-list">
-				<li><a href="index.jsp">Inicio</a></li>
-				<li><a href="views/comments.jsp">Comentarios</a></li>
-				<li><a href="#">Nosotros</a></li>
-				<li><a href="views/contact.html">Contacto</a></li>
-				<li><a href="views/">Sign In / Login</a></li>
-			</ul>
-			<div class="bx bx-menu" id="menu-icon"></div>
-		</header>
-	</div>
-
+    <header>
+        <div>
+            <a href="index.jsp"><img src="assets/img/img_logo_petcoloria.png" class="logo"/></a>
+        </div>
+	<ul class="navigation-list">
+            <li><a href="index.jsp">Inicio</a></li>
+            <li><a href="views/comments.jsp">Comentarios</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="views/contact.html">Contacto</a></li>
+            <li><a href="views/login/login.jsp">Sign In / Login</a></li>
+	</ul>
+	<div class="bx bx-menu" id="menu-icon"></div>
+    </header>
 </body>
 </html>
