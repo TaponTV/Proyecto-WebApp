@@ -32,6 +32,20 @@
             </ul>
             <div class="bx bx-menu" id="menu-icon"></div>
         </header>
+        <%
+            if (request.getAttribute("notFoundUser") != null) {
+                int param = Integer.parseInt(request.getAttribute("notFoundUser").toString());
+                if (param == 1) {
+        %>
+        <script>
+            alert("Credenciales incorrectas");
+            location.replace('./views/login/login.jsp');
+        </script>
+        <%
+                }
+            }
+        %>
+
         <div class="container">
             <input type="checkbox" id="hidden-btn" />
             <form action="LoginController" method="post" class="signup">
@@ -51,7 +65,7 @@
                 </select>
                 <button type="submit">Registrarse</button>
             </form>
-            <form method="post" action="<%= request.getContextPath() %>/LoginController" class="login">
+            <form method="post" action="<%= request.getContextPath()%>/LoginController" class="login">
                 <label for="hidden-btn">Iniciar Sesión</label>
                 <input type="text" placeholder="Email" name="userEmail">
                 <input type="password" placeholder="Contraseña" name="userPswrd">

@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import models.Usuario;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
@@ -24,20 +23,22 @@ public class LoginController extends HttpServlet {
         if (isExist != 0) {
             int currentUser = new UsuarioDAO().currentUser(isExist);
             if (currentUser == 1) {
-                rq.setAttribute("isAdmin", true);
+                rq.setAttribute("isAdmin", isExist);
                 rq.getRequestDispatcher("./views/users/admin/menu.jsp").forward(rq, rs);
             } else {
                 if (currentUser == 2) {
-                    rq.setAttribute("isVet", true);
+                    rq.setAttribute("isVet", isExist);
                     rq.getRequestDispatcher("./views/users/vet/menu.jsp").forward(rq, rs);
                 }
                 if (currentUser == 3) {
-                    rq.setAttribute("isClient", true);
+                    rq.setAttribute("isClient", isExist);
                     rq.getRequestDispatcher("./views/users/client/menu.jsp").forward(rq, rs);
                 }
             }
         } else {
-            rs.sendRedirect("./views/login/login.jsp");
+            rq.setAttribute("notFoundUser", 1);
+            rq.getRequestDispatcher("./views/login/login.jsp").include(rq, rs);
+            //rs.sendRedirect("./views/login/login.jsp");
         }
 
     }
