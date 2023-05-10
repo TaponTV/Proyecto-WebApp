@@ -24,6 +24,7 @@ D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\interfaces\solicit
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\interfaces\clienteInterface.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\interfaces\especieInterface.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\interfaces\generosInterface.java
+D:\Eclipse Projects\Proyecto-WebApp\src\main\java\controllers\VetSignupController.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\models\Veterinario.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\controllers\login\LoginController.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\DAO\MascotaDAO.java
@@ -34,6 +35,7 @@ D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\DAO\UsuarioDAO.jav
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\models\Generos.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\DAO\EspecieDAO.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\models\Usuario.java
+D:\Eclipse Projects\Proyecto-WebApp\src\main\java\controllers\login\SignupController.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\models\Receta.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\DataObjects\DBConnection\ConnectionDB.java
 D:\Eclipse Projects\Proyecto-WebApp\src\main\java\models\Consulta.java

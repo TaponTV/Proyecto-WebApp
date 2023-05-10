@@ -47,8 +47,10 @@ body{
 }
 .container{
     width: 500px;
-    height: 850px;
+    height: 1000px;
     flex: 0 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     border-radius: 10px;
@@ -147,7 +149,7 @@ body{
 }
 
 #hidden-btn:checked ~ .login{
-    transform: translateY(-700px);
+    transform: translateY(-900px);
 }
 #hidden-btn:checked ~ .login label{
     transform: scale(1);

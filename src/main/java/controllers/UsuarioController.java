@@ -26,19 +26,12 @@ public class UsuarioController extends HttpServlet{
         action = rq.getParameter("accion");
         
         if(action == null){
-            ds = rq.getRequestDispatcher("/index.jsp");
+            ds = rq.getRequestDispatcher("./index.jsp");
             List<Usuario> listUsers = userDAO.read();
             rq.setAttribute("Lista Usuarios", listUsers);
             
         }
         ds.forward(rq, rs);
     }
-
-    @Override
-    public String getServletInfo() {
-        return "A ver";
-    }
-    
-    
     
 }
