@@ -19,6 +19,7 @@ public class ClienteDAO implements clienteInterface {
         connect = ConnectionDB.getConnection();
     }
     
+    @Override
     public boolean create(Cliente ob) {
         try {
             ps = connect.prepareStatement(insertSQL);
@@ -33,16 +34,19 @@ public class ClienteDAO implements clienteInterface {
         }
     }
 
+    @Override
     public List<Cliente> read() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public boolean update(Cliente ob) {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public boolean delete(int id) {
         // TODO Auto-generated method stub
         return false;

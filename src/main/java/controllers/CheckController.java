@@ -1,6 +1,7 @@
 package controllers;
 
-import java.io.IOException; 
+import DataObjects.DAO.VeterinarioDAO;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -9,6 +10,7 @@ import models.Usuario;
 @WebServlet(name = "CheckController", urlPatterns = {"/CheckController"})
 public class CheckController extends HttpServlet {
 
+    private VeterinarioDAO DataVet = new VeterinarioDAO();
     private String tmp = "";
 
     @Override
@@ -21,18 +23,24 @@ public class CheckController extends HttpServlet {
         if (rq.getSession().getAttribute("NotFoundUser") == null && rq.getSession().getAttribute("CurrentUser") != null) {
             switch (((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdRol()) {
                 case 1:
-                    tmp = rq.getContextPath()+"/views/users/admin/menu.jsp";
+                    tmp = rq.getContextPath() + "/views/users/admin/menu.jsp";
                     break;
                 case 2:
-                    tmp = rq.getContextPath()+"/views/users/vet/menu.jsp";
+                    String ID = DataVet.getRowID(((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdUser());
+                    if (ID != null) {
+                        rq.getSession().setAttribute("vetID", ID);
+                        tmp = rq.getContextPath() + "/views/users/vet/menu.jsp";
+                    } else {
+                        tmp = rq.getContextPath() + "/views/login/VetForm.jsp";
+                    }
                     break;
                 case 3:
-                    tmp = rq.getContextPath()+"/views/users/client/menu.jsp";
+                    tmp = rq.getContextPath() + "/views/users/client/menu.jsp";
                     break;
             }
             rs.sendRedirect(tmp);
         } else {
-            rs.sendRedirect(rq.getContextPath()+"/views/login/login.jsp");
+            rs.sendRedirect(rq.getContextPath() + "/views/login/login.jsp");
         }
 
     }

@@ -42,12 +42,10 @@ public class LoginController extends HttpServlet {
                     rq.getSession().setAttribute("CurrentUser", user);
                     rq.getSession().setAttribute("CurrentTimeConnection", tmsp);
                     DataConnection.create(new Conexion(user.getIdUser(), tmsp, tmsp));
-
                 } else {
                     rq.getSession().setAttribute("NotFoundUser", 1);
                 }
                 rs.sendRedirect(rq.getContextPath() + "/CheckController");
-
                 break;
             case "/logout":
                 tmsp = fmt.format(new Timestamp(new Date().getTime()));

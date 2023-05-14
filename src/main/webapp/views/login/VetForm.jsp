@@ -14,89 +14,27 @@
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <!--        <header>
-                    <div>
-                        <a href="../../index.jsp"><img src="../../assets/img/img_logo_petcoloria.png" class="logo"/></a>
-                    </div>
-                    <ul class="navigation-list">
-                        <li><a href="../../index.jsp">Inicio</a></li>
-                        <li><a href="../comments.jsp">Comentarios</a></li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="../contact.html">Contacto</a></li>
-                        <li><a href="login.jsp">Sign In / Login</a></li>
-                    </ul>
-                    <div class="bx bx-menu" id="menu-icon"></div>
-                </header>-->
         <%
-            if (request.getAttribute("notFoundUser") != null) {
-                int param = Integer.parseInt(request.getAttribute("notFoundUser").toString());
-                if (param == 1) {
-        %>
-        <script>
-            alert("Credenciales incorrectas");
-            location.replace('./views/login/login.jsp');
-        </script>
-        <%
-                }
-            }
+            //if CurrentUser exists, then check the rol
             if (request.getSession().getAttribute("CurrentUser") != null) {
-                switch (((Usuario) request.getSession().getAttribute("CurrentUser")).getIdRol()) {
-                    case 1:
-        %>
-        <script>
-            location.replace("../users/admin/menu.jsp");
-        </script>          
-        <%
-                break;
-            case 2:
-        %>
-        <script>
-            location.replace("../users/vet/menu.jsp");
-        </script>          
-        <%
-                break;
-            case 3:
-        %>
-        <script>
-            location.replace("../users/client/menu.jsp");
-        </script>          
-        <%
-                        break;
+                if (request.getSession().getAttribute("vetID") != null) {
+                    request.getRequestDispatcher("/CheckController").forward(request, response);
                 }
+            }else{
+                response.sendRedirect(request.getContextPath()+"/index.jsp");
             }
-
-        %>
+        %>   
         <div class="container">
             <input type="checkbox" id="hidden-btn" />
-            <form action="<%= request.getContextPath()%>/SignupController" method="post" class="signup">
-                <label for="hidden-btn">Registrarse</label>
-                <input type="text" placeholder="Nombre" name="Nombre">
-                <input type="text" placeholder="Apellido Paterno" name="apPaterno">
-                <input type="text" placeholder="Apellido Materno" name="apMaterno">
-                <select name="genero" id="genero">
-                    <option> Masculino </option>
-                    <option> Femenino </option>
-                </select>
-                <input type="text" placeholder="Edad" name="edad">
-                <input type="text" placeholder="País" name="pais">
-                <input type="text" placeholder="Estado" name="estado">
-                <input type="text" placeholder="Ciudad" name="ciudad">
-                <input type="text" placeholder="Calle" name="calle">
-                <input type="text" placeholder="Celular" name="celular">
-                <input type="text" placeholder="Telefono" name="telefono">
-                <input type="text" placeholder="Email" name="email">
-                <input type="password" placeholder="Contraseña" name="pswrd">
-                <select name="typeUser" id="typeUser">
-                    <option> Veterinario </option>
-                    <option> Cliente </option>
-                </select>
-                <button type="submit">Registrarse</button>
-            </form>
-            <form method="post" action="<%= request.getContextPath()%>/login" class="login">
-                <label for="hidden-btn">Iniciar Sesión</label>
-                <input type="text" placeholder="Email" name="userEmail">
-                <input type="password" placeholder="Contraseña" name="userPswrd">
-                <button type="submit">Iniciar Sesión</button>
+            <form method="post" action="<%= request.getContextPath()%>/VetSignupController">
+                <label for="hidden-btn">Completa tu registro</label>
+                <p>Es importante que completes tu registro para poder comenzar a aparecer dentro de los filtros de búsqueda!</p>
+                <input type="text" placeholder="Cedula Profesional" name="cedula" required>
+                <input type="text" placeholder="Especialidad" name="specialty" value="">
+                <input type="text" placeholder="Universidad de Estudio" name="university" required>
+                <p>Fecha de titulación</p>
+                <input type="date" placeholder="Fecha Titulación" name="dateTitle" required>
+                <button type="submit">Completar Registro</button>
             </form>
 
         </div>

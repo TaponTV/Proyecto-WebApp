@@ -61,13 +61,15 @@ public class SignupController extends HttpServlet {
         if (DataUser.create(user)) {
             tmsp = fmt.format(new Timestamp(new Date().getTime()));
             user.setIdUser(DataUser.validate(user.getEmail(), user.getPswrd()));
-            DataConnection.create(new Conexion(user.getIdUser(), tmsp, tmsp));
             rq.getSession().setAttribute("CurrentUser", user);
             switch (idRol) {
                 case 2:
-                    rq.getRequestDispatcher("/VetSignupController").forward(rq, rs);
+                    rq.getSession().setAttribute("vetID", null);
+                    rs.sendRedirect(rq.getContextPath()+"/views/login/VetForm.jsp");
+                    //rq.getRequestDispatcher("/VetSignupController").forward(rq, rs);
                     break;
                 case 3:
+                    DataConnection.create(new Conexion(user.getIdUser(), tmsp, tmsp));
                     client.create(new Cliente(user.getIdUser()));
                     rs.sendRedirect(rq.getContextPath() + "/CheckController");
                     break;
