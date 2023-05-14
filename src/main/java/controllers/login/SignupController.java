@@ -5,13 +5,18 @@
 package controllers.login;
 
 import DataObjects.DAO.ClienteDAO;
+import DataObjects.DAO.ConexionDAO;
 import DataObjects.DAO.GenerosDAO;
 import DataObjects.DAO.UsuarioDAO;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import models.Cliente;
+import models.Conexion;
 import models.Usuario;
 
 /**
@@ -23,9 +28,12 @@ public class SignupController extends HttpServlet {
 
     private int idRol = 3, idGenero;
     private ClienteDAO client = new ClienteDAO();
-    private UsuarioDAO user = new UsuarioDAO();
+    private UsuarioDAO DataUser = new UsuarioDAO();
     private GenerosDAO gender = new GenerosDAO();
-    private Usuario tmp;
+    private ConexionDAO DataConnection = new ConexionDAO();
+    private Usuario user;
+    private SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private String tmsp;
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
@@ -34,7 +42,7 @@ public class SignupController extends HttpServlet {
             idRol = 2;
         }
         idGenero = gender.check(rq.getParameter("genero"));
-        tmp = new Usuario(
+        user = new Usuario(
                 rq.getParameter("Nombre"),
                 rq.getParameter("apPaterno"),
                 rq.getParameter("apMaterno"),
@@ -50,15 +58,17 @@ public class SignupController extends HttpServlet {
                 rq.getParameter("pswrd"),
                 idRol
         );
-        if (user.create(tmp)) {
-            tmp.setIdUser(user.validate(tmp.getEmail(), tmp.getPswrd()));
-            rq.getSession().setAttribute("CurrentUser", tmp);
+        if (DataUser.create(user)) {
+            tmsp = fmt.format(new Timestamp(new Date().getTime()));
+            user.setIdUser(DataUser.validate(user.getEmail(), user.getPswrd()));
+            DataConnection.create(new Conexion(user.getIdUser(), tmsp, tmsp));
+            rq.getSession().setAttribute("CurrentUser", user);
             switch (idRol) {
                 case 2:
                     rq.getRequestDispatcher("/VetSignupController").forward(rq, rs);
                     break;
                 case 3:
-                    client.create(new Cliente(tmp.getIdUser()));
+                    client.create(new Cliente(user.getIdUser()));
                     rs.sendRedirect(rq.getContextPath() + "/CheckController");
                     break;
             }

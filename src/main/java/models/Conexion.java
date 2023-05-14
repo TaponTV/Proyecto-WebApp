@@ -4,32 +4,26 @@ import java.io.*;
 
 public class Conexion implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int idConexion;
 	private int idUser;
 	private String fechaConexion;
 	private String fechaDesconexion;
-	private int idSesion;
 	
 	public Conexion() {
 	}
 
-	public Conexion(int idUser, String fechaConexion, String fechaDesconexion, int idSesion) {
+	public Conexion(int idUser, String fechaConexion, String fechaDesconexion) {
 		this.idUser = idUser;
 		this.fechaConexion = fechaConexion;
 		this.fechaDesconexion = fechaDesconexion;
-		this.idSesion = idSesion;
 	}
 
-	public Conexion(int idConexion, int idUser, String fechaConexion, String fechaDesconexion, int idSesion) {
+	public Conexion(int idConexion, int idUser, String fechaConexion, String fechaDesconexion) {
 		this.idConexion = idConexion;
 		this.idUser = idUser;
 		this.fechaConexion = fechaConexion;
 		this.fechaDesconexion = fechaDesconexion;
-		this.idSesion = idSesion;
 	}
 
 	public int getIdConexion() {
@@ -62,14 +56,6 @@ public class Conexion implements Serializable {
 
 	public void setFechaDesconexion(String fechaDesconexion) {
 		this.fechaDesconexion = fechaDesconexion;
-	}
-
-	public int getIdSesion() {
-		return idSesion;
-	}
-
-	public void setIdSesion(int idSesion) {
-		this.idSesion = idSesion;
 	}
 	
 	
