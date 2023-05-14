@@ -27,5 +27,10 @@ public class EspecieDAO implements especieInterface {
 		return false;
 	}
 
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 }

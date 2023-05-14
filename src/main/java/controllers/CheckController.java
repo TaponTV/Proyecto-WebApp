@@ -23,7 +23,7 @@ public class CheckController extends HttpServlet {
         if (rq.getSession().getAttribute("NotFoundUser") == null && rq.getSession().getAttribute("CurrentUser") != null) {
             switch (((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdRol()) {
                 case 1:
-                    tmp = rq.getContextPath() + "/views/users/admin/menu.jsp";
+                    tmp = rq.getContextPath() + "/AdminController";
                     break;
                 case 2:
                     String ID = DataVet.getRowID(((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdUser());

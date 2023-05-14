@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.*;
 import DataObjects.DBConnection.ConnectionDB;
 import DataObjects.interfaces.usuarioInterface;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Usuario;
 
 public class UsuarioDAO implements usuarioInterface {
@@ -12,7 +14,6 @@ public class UsuarioDAO implements usuarioInterface {
     private ResultSet rs = null;
     private PreparedStatement ps = null;
     private Usuario obj = null;
-    private static final String selectSQL = "SELECT * FROM Usuario";
     public static final String insertSQL = "INSERT INTO "
             + "Usuario (nombre, apPaterno, apMaterno, idGenero, edad, direccion, celular, telefono, email, pswrd, idRol)"
             + "VALUES (?,?,?,?,?,row(?,?,?,?),?,?,?,?,?)";
@@ -53,7 +54,7 @@ public class UsuarioDAO implements usuarioInterface {
     public List<Usuario> read() {
         List<Usuario> list = new ArrayList<Usuario>();
         try {
-            ps = connect.prepareStatement(selectSQL);
+            ps = connect.prepareStatement("SELECT * FROM Usuario");
             rs = ps.executeQuery();
             while (rs.next()) {
                 int idUser = rs.getInt("idUser");
@@ -86,7 +87,7 @@ public class UsuarioDAO implements usuarioInterface {
 
     public Usuario showUser(int _idUser) {
         try {
-            ps = connect.prepareStatement(selectSQL + " WHERE idUser = ?");
+            ps = connect.prepareStatement("SELECT * FROM Usuario WHERE idUser = ?");
             ps.setInt(1, _idUser);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -166,6 +167,23 @@ public class UsuarioDAO implements usuarioInterface {
         }finally{
             ConnectionDB.closeDB(ps);
             //ConnectionDB.closeDB(connect);
+        }
+        return 0;
+    }
+
+    @Override
+    public int count() {
+        try {
+            ps = connect.prepareStatement("SELECT COUNT(*) FROM Usuario");
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
         }
         return 0;
     }

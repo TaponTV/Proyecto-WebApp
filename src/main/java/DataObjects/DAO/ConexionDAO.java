@@ -4,6 +4,8 @@ import DataObjects.DBConnection.ConnectionDB;
 import java.util.List;
 import DataObjects.interfaces.conexionInterface;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Conexion;
 
 public class ConexionDAO implements conexionInterface {
@@ -68,7 +70,7 @@ public class ConexionDAO implements conexionInterface {
         try {
             ps = connect.prepareStatement("SELECT * FROM Conexion WHERE idUser = ? and fechaconexion = ?");
             ps.setInt(1, idUser);
-            ps.setTimestamp(2, Timestamp.valueOf( tmsp));
+            ps.setTimestamp(2, Timestamp.valueOf(tmsp));
             rs = ps.executeQuery();
             if (rs.next()) {
                 int idRow = rs.getInt("idConexion");
@@ -78,6 +80,20 @@ public class ConexionDAO implements conexionInterface {
             ex.printStackTrace();
         } finally {
             ConnectionDB.closeDB(ps);
+        }
+        return 0;
+    }
+
+    @Override
+    public int count() {
+        try {
+            ps = connect.prepareStatement("SELECT COUNT(*) FROM Conexion");
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }

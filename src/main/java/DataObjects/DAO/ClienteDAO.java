@@ -5,6 +5,8 @@ import java.util.List;
 
 import DataObjects.interfaces.clienteInterface;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Cliente;
 
 public class ClienteDAO implements clienteInterface {
@@ -13,12 +15,13 @@ public class ClienteDAO implements clienteInterface {
     private ResultSet rs = null;
     private PreparedStatement ps = null;
     private Cliente obj = null;
+    private static final String selectSQL = "";
     public static final String insertSQL = "INSERT INTO Cliente (idUser) VALUES (?)";
 
     public ClienteDAO() {
         connect = ConnectionDB.getConnection();
     }
-    
+
     @Override
     public boolean create(Cliente ob) {
         try {
@@ -50,6 +53,20 @@ public class ClienteDAO implements clienteInterface {
     public boolean delete(int id) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public int count() {
+        try {
+            ps = connect.prepareStatement("SELECT COUNT(*) FROM Cliente");
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

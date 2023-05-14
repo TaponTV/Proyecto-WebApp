@@ -5,6 +5,8 @@ import java.util.List;
 
 import DataObjects.interfaces.veterinarioInterface;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Veterinario;
 
 public class VeterinarioDAO implements veterinarioInterface {
@@ -73,6 +75,20 @@ public class VeterinarioDAO implements veterinarioInterface {
             ConnectionDB.closeDB(ps);
         }
         return null;
+    }
+
+    @Override
+    public int count() {
+        try {
+            ps = connect.prepareStatement("SELECT COUNT(*) FROM Veterinario");
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

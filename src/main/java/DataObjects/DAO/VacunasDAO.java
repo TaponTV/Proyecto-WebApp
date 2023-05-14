@@ -32,5 +32,10 @@ public class VacunasDAO implements GenericInterface{
     public boolean delete(int id) {
         return false;
     }
+
+    @Override
+    public int count() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

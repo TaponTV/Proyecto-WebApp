@@ -25,6 +25,7 @@ C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\UsuarioContro
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DAO\ConsultaDAO.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DAO\UsuarioDAO.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\interfaces\usuarioInterface.java
+C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\admin\AdminController.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DBConnection\ConnectionDB.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\models\Consulta.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\interfaces\calificacionInterface.java
