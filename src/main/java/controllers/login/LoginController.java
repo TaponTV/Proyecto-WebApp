@@ -7,15 +7,16 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import models.Usuario;
 
-@WebServlet(name = "LoginController", /*urlPatterns = {"/LoginController"},*/ value = {"/login", "/logout"})
+@WebServlet(name = "LoginController", /*urlPatterns = {"/LoginController"} */ value = {"/login", "/logout"})
 public class LoginController extends HttpServlet {
 
-    private Usuario user = new Usuario();
+    private Usuario user = null;
+    private UsuarioDAO DataUser = new UsuarioDAO();
     private String tmp = "";
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        rs.sendRedirect("./index.jsp");
+        rq.getRequestDispatcher("/CheckController").forward(rq, rs);
     }
 
     @Override
@@ -24,35 +25,22 @@ public class LoginController extends HttpServlet {
             case "/login":
                 String userEmail = rq.getParameter("userEmail");
                 String userPswrd = rq.getParameter("userPswrd");
-                int isExist = new UsuarioDAO().validate(userEmail, userPswrd); //isExist containt idUser
+                int isExist = DataUser.validate(userEmail, userPswrd); //isExist containt idUser
                 if (isExist != 0) {
-                    int rol = new UsuarioDAO().currentUser(isExist);
-                    rq.getSession().setAttribute("rolUser", rol);
-                    rq.getSession().setAttribute("CurrentUser", isExist);
-                    switch (rol) {
-                        case 1:
-                            tmp = "./views/users/admin/menu.jsp";
-                            break;
-                        case 2:
-                            tmp = "./views/users/vet/menu.jsp";
-                            break;
-                        case 3:
-                            tmp = "./views/users/client/menu.jsp";
-                            break;
-                    }
-                    rs.sendRedirect(tmp);
-                    //rq.getRequestDispatcher(tmp).forward(rq, rs);
+                    user = DataUser.showUser(isExist);
+                    rq.getSession().setAttribute("NotFoundUser", null);
+                    rq.getSession().setAttribute("CurrentUser", user);
                 } else {
-                    rq.setAttribute("notFoundUser", 1);
-                    rq.getRequestDispatcher("./views/login/login.jsp").include(rq, rs);
-                    //rs.sendRedirect("./views/login/login.jsp");
+                    rq.getSession().setAttribute("NotFoundUser", 1);
                 }
+                rs.sendRedirect(rq.getContextPath() + "/CheckController");
+
                 break;
             case "/logout":
                 rq.getSession().invalidate();
                 rs.sendRedirect("./index.jsp");
                 break;
-                
+
         }
 
     }

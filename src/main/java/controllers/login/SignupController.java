@@ -4,13 +4,14 @@
  */
 package controllers.login;
 
+import DataObjects.DAO.ClienteDAO;
 import DataObjects.DAO.GenerosDAO;
 import DataObjects.DAO.UsuarioDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import models.Cliente;
 import models.Usuario;
 
 /**
@@ -21,8 +22,10 @@ import models.Usuario;
 public class SignupController extends HttpServlet {
 
     private int idRol = 3, idGenero;
-    private UsuarioDAO client = new UsuarioDAO();
+    private ClienteDAO client = new ClienteDAO();
+    private UsuarioDAO user = new UsuarioDAO();
     private GenerosDAO gender = new GenerosDAO();
+    private Usuario tmp;
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
@@ -31,7 +34,7 @@ public class SignupController extends HttpServlet {
             idRol = 2;
         }
         idGenero = gender.check(rq.getParameter("genero"));
-        Usuario user = new Usuario(
+        tmp = new Usuario(
                 rq.getParameter("Nombre"),
                 rq.getParameter("apPaterno"),
                 rq.getParameter("apMaterno"),
@@ -47,24 +50,24 @@ public class SignupController extends HttpServlet {
                 rq.getParameter("pswrd"),
                 idRol
         );
-        if (client.create(user)) {
-            user.setIdUser(client.validate(user.getEmail(), user.getPswrd()));
-            rq.getSession().setAttribute("CurrentUser", user);
-            rq.getSession().setAttribute("rolUser", user.getIdRol());
+        if (user.create(tmp)) {
+            tmp.setIdUser(user.validate(tmp.getEmail(), tmp.getPswrd()));
+            rq.getSession().setAttribute("CurrentUser", tmp);
             switch (idRol) {
                 case 2:
                     rq.getRequestDispatcher("/VetSignupController").forward(rq, rs);
                     break;
                 case 3:
-                    rq.getRequestDispatcher("./views/users/client/menu.jsp").forward(rq, rs);
+                    client.create(new Cliente(tmp.getIdUser()));
+                    rs.sendRedirect(rq.getContextPath() + "/CheckController");
                     break;
             }
         }
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+            rq.getRequestDispatcher("/CheckController").forward(rq, rs);
     }
 
 }

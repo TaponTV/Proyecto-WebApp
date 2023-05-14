@@ -1,9 +1,4 @@
-<%-- 
-    Document   : login
-    Created on : 7 may 2023, 23:00:35
-    Author     : eduar
---%>
-
+<%@page import="models.Usuario"%>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,43 +28,10 @@
                     <div class="bx bx-menu" id="menu-icon"></div>
                 </header>-->
         <%
-            if (request.getAttribute("notFoundUser") != null) {
-                int param = Integer.parseInt(request.getAttribute("notFoundUser").toString());
-                if (param == 1) {
-        %>
-        <script>
-            alert("Credenciales incorrectas");
-            location.replace('./views/login/login.jsp');
-        </script>
-        <%
-                }
-            }
-            if (request.getSession().getAttribute("rolUser") != null) {
-                switch (Integer.parseInt(request.getSession().getAttribute("rolUser").toString())) {
-                    case 1:
-        %>
-        <script>
-            location.replace("../users/admin/menu.jsp");
-        </script>          
-        <%
-                break;
-            case 2:
-        %>
-        <script>
-            location.replace("../users/vet/menu.jsp");
-        </script>          
-        <%
-                break;
-            case 3:
-        %>
-        <script>
-            location.replace("../users/client/menu.jsp");
-        </script>          
-        <%
-                        break;
-                }
-            }
-        %>
+            //if CurrentUser exists, then check the rol
+            if (request.getSession().getAttribute("CurrentUser") != null) 
+                request.getRequestDispatcher("/CheckController").forward(request, response);
+        %>    
         <div class="container">
             <input type="checkbox" id="hidden-btn" />
             <form action="<%= request.getContextPath()%>/SignupController" method="post" class="signup">
@@ -96,7 +58,7 @@
                 </select>
                 <button type="submit">Registrarse</button>
             </form>
-            <form method="post" action="<%= request.getContextPath()%>/login" class="login">
+            <form action="<%= request.getContextPath()%>/login" method="post" class="login">
                 <label for="hidden-btn">Iniciar Sesión</label>
                 <input type="text" placeholder="Email" name="userEmail">
                 <input type="password" placeholder="Contraseña" name="userPswrd">

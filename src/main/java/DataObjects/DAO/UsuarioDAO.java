@@ -96,16 +96,17 @@ public class UsuarioDAO implements usuarioInterface {
                 String apMaterno = rs.getString("apMaterno");
                 int idGenero = rs.getInt("idGenero");
                 int edad = rs.getInt("edad");
-                String pais = rs.getString("direccion.pais");
-                String estado = rs.getString("direccion.estado");
-                String ciudad = rs.getString("direccion.ciudad");
-                String calle = rs.getString("direccion.calle");
+                String pais = rs.getString("direccion");
+                String estado = rs.getString("direccion");
+                String ciudad = rs.getString("direccion");
+                String calle = rs.getString("direccion");
                 String celular = rs.getString("celular");
                 String telefono = rs.getString("telefono");
                 String email = rs.getString("email");
                 String pswrd = rs.getString("pswrd");
                 int idRol = rs.getInt("idRol");
                 obj = new Usuario(idUser, nombre, apPaterno, apMaterno, idGenero, edad, pais, estado, ciudad, calle, celular, telefono, email, pswrd, idRol);
+                return obj;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

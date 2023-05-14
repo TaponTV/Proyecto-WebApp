@@ -1,15 +1,10 @@
-<%-- 
-    Document   : login
-    Created on : 7 may 2023, 23:00:35
-    Author     : eduar
---%>
-
-<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@page import="models.Usuario"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
     <head>
-        <title>PetColoria - Login</title>
+        <title>PetColoria - SignUp</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -44,8 +39,8 @@
         <%
                 }
             }
-            if (request.getSession().getAttribute("rolUser") != null) {
-                switch (Integer.parseInt(request.getSession().getAttribute("rolUser").toString())) {
+            if (request.getSession().getAttribute("CurrentUser") != null) {
+                switch (((Usuario) request.getSession().getAttribute("CurrentUser")).getIdRol()) {
                     case 1:
         %>
         <script>
@@ -69,6 +64,7 @@
                         break;
                 }
             }
+
         %>
         <div class="container">
             <input type="checkbox" id="hidden-btn" />
@@ -108,3 +104,4 @@
 
 
 </html>
+
