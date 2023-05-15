@@ -35,6 +35,7 @@ models\Receta.class
 DataObjects\interfaces\solicitudInterface.class
 DataObjects\DAO\SolicitudDAO.class
 DataObjects\DAO\ConsultaDAO.class
+controllers\admin\AdminController.class
 DataObjects\interfaces\GenericInterface.class
 models\Cliente.class
 DataObjects\interfaces\especieInterface.class

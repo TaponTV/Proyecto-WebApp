@@ -40,7 +40,7 @@ public class CheckController extends HttpServlet {
             }
             rs.sendRedirect(tmp);
         } else {
-            rs.sendRedirect(rq.getContextPath() + "/views/login/login.jsp");
+            rs.sendRedirect(rq.getContextPath() + "/index.jsp");
         }
 
     }

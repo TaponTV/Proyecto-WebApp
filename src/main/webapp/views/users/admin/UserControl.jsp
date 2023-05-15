@@ -1,11 +1,6 @@
-<%-- 
-    Document   : menu
-    Created on : 9 may 2023, 19:59:44
-    Author     : eduar
---%>
-
 <%@page import="models.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@page import = "java.io.*¨, java.util.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,11 +13,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <title>Dashboard</title>
+        <title>Dashboard - Control de Usuarios</title>
     </head>
     <body>
         <%
-            //if CurrentUser exists, then check the rol
             String name = "", email = "";
             if (request.getSession(false) == null || request.getSession().getAttribute("CurrentUser") == null) {
                 request.getRequestDispatcher("/CheckController").forward(request, response);
@@ -37,7 +31,6 @@
                     response.sendRedirect(request.getContextPath() + "/index.jsp");
                 }
             }
-
         %>
         <div class="sidebar">
             <div class="sidebar-brand">
@@ -65,7 +58,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<%= request.getContextPath()%>/getdata" class="slide">
+                            <a href="<%= request.getContextPath()%>/AdminController" class="slide">
                                 <span class="las la-chart-pie"></span>
                                 Estadísticas 
                             </a>
@@ -152,97 +145,35 @@
                         </form>
                     </div>
                 </div>
-                <div class="cards">   
-                                
-                    <a href="<%= request.getContextPath()%>/setDataContent" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Usuarios</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataUser")%></h2>
-                            </div>
-                            <div class="card-chart c1">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                            
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Veterinarios</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataVet")%></h2>
-                            </div>
-                            <div class="card-chart c2">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Clientes</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataClient")%></h2>
-                            </div>
-                            <div class="card-chart c3">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Conexiones</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataConnection")%></h2>
-                            </div>
-                            <div class="card-chart c4">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Mascotas</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataPet")%></h2>
-                            </div>
-                            <div class="card-chart c5">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Solicitudes</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataBell")%></h2>
-                            </div>
-                            <div class="card-chart c6">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td> ID Usuario </td>
+                            <td> Nombre </td>
+                            <td> Apellidos </td>
+                            <td> Pais Origen </td>
+                            <td> Residencia </td>
+                            <td> Correo </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            List<Usuario> list = (List<Usuario>) request.getSession().getAttribute("listUsers");
+                            for (Usuario user : list) {
+                        %>
+                        <tr>
+                            <td> <%= user.getIdUser()%> </td>
+                            <td> <%= user.getNombre()%> </td>
+                            <td> <%= user.getApPaterno() + " " + user.getApMaterno()%></td>
+                            <td> <%= user.getPais()%> </td>
+                            <td> <%= user.getEstado()%> </td>
+                            <td> <%= user.getEmail()%> </td>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
             </main>
         </div>
 
     </body>
 </html>
-<!-- Design Code by Code Resource -->

@@ -45,12 +45,12 @@ public class UsuarioDAO implements usuarioInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
-            //ConnectionDB.closeDB(connect);
         }
     }
 
+    @Override
     public List<Usuario> read() {
         List<Usuario> list = new ArrayList<Usuario>();
         try {
@@ -63,10 +63,10 @@ public class UsuarioDAO implements usuarioInterface {
                 String apMaterno = rs.getString("apMaterno");
                 int idGenero = rs.getInt("idGenero");
                 int edad = rs.getInt("edad");
-                String pais = rs.getString("direccion.pais");
-                String estado = rs.getString("direccion.estado");
-                String ciudad = rs.getString("direccion.ciudad");
-                String calle = rs.getString("direccion.calle");
+                String pais = rs.getString("direccion");
+                String estado = rs.getString("direccion");
+                String ciudad = rs.getString("direccion");
+                String calle = rs.getString("direccion");
                 String celular = rs.getString("celular");
                 String telefono = rs.getString("telefono");
                 String email = rs.getString("email");
@@ -75,14 +75,14 @@ public class UsuarioDAO implements usuarioInterface {
                 obj = new Usuario(idUser, nombre, apPaterno, apMaterno, idGenero, edad, pais, estado, ciudad, calle, celular, telefono, email, pswrd, idRol);
                 list.add(obj);
             }
+            return list;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
-        }finally{
+        } finally {
+            ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
-            //ConnectionDB.closeDB(connect);
         }
-        return list;
     }
 
     public Usuario showUser(int _idUser) {
@@ -112,7 +112,8 @@ public class UsuarioDAO implements usuarioInterface {
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
-        }finally{
+        } finally {
+            ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
             //ConnectionDB.closeDB(connect);
         }
@@ -145,7 +146,7 @@ public class UsuarioDAO implements usuarioInterface {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
             //ConnectionDB.closeDB(connect);
         }
@@ -164,7 +165,7 @@ public class UsuarioDAO implements usuarioInterface {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
             //ConnectionDB.closeDB(connect);
         }
@@ -181,7 +182,7 @@ public class UsuarioDAO implements usuarioInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
