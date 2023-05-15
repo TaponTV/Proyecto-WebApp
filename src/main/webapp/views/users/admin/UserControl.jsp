@@ -1,5 +1,5 @@
 <%@page import="models.Usuario"%>
-<%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*¨, java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -131,7 +131,7 @@
                         <small> Monitoreo General de las estadisticas de la página</small>
                     </div>
                     <div class="header-actions">
-                        <form action="<%= request.getContextPath()%>/getdata" method="post">
+                        <form action="<%= request.getContextPath()%>/GetData?action=2" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
                                 Actualizar Métricas 
@@ -157,19 +157,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            List<Usuario> list = (List<Usuario>) request.getSession().getAttribute("listUsers");
-                            for (Usuario user : list) {
-                        %>
-                        <tr>
-                            <td> <%= user.getIdUser()%> </td>
-                            <td> <%= user.getNombre()%> </td>
-                            <td> <%= user.getApPaterno() + " " + user.getApMaterno()%></td>
-                            <td> <%= user.getPais()%> </td>
-                            <td> <%= user.getEstado()%> </td>
-                            <td> <%= user.getEmail()%> </td>
-                        </tr>
-                        <% }%>
+                        
                     </tbody>
                 </table>
             </main>

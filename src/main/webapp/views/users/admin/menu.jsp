@@ -1,9 +1,3 @@
-<%-- 
-    Document   : menu
-    Created on : 9 may 2023, 19:59:44
-    Author     : eduar
---%>
-
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -65,7 +59,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<%= request.getContextPath()%>/getdata" class="slide">
+                            <a href="<%= request.getContextPath()%>/GetData?action=1" class="slide">
                                 <span class="las la-chart-pie"></span>
                                 Estadísticas 
                             </a>
@@ -138,7 +132,7 @@
                         <small> Monitoreo General de las estadisticas de la página</small>
                     </div>
                     <div class="header-actions">
-                        <form action="<%= request.getContextPath()%>/getdata" method="post">
+                        <form action="<%= request.getContextPath()%>/GetData" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
                                 Actualizar Métricas 
@@ -154,7 +148,7 @@
                 </div>
                 <div class="cards">   
                                 
-                    <a href="<%= request.getContextPath()%>/setDataContent" class="card-single">
+                    <a href="<%= request.getContextPath()%>/GetData?action=2" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
                                 <div class="card-head">

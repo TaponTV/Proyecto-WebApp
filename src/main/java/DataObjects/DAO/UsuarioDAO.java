@@ -22,6 +22,7 @@ public class UsuarioDAO implements usuarioInterface {
         connect = ConnectionDB.getConnection();
     }
 
+    @Override
     public boolean create(Usuario ob) {
         try {
 
@@ -85,6 +86,7 @@ public class UsuarioDAO implements usuarioInterface {
         }
     }
 
+    @Override
     public Usuario showUser(int _idUser) {
         try {
             ps = connect.prepareStatement("SELECT * FROM Usuario WHERE idUser = ?");
@@ -120,12 +122,14 @@ public class UsuarioDAO implements usuarioInterface {
         return obj;
     }
 
+    @Override
     public boolean update(Usuario ob) {
         return false;
         // TODO Auto-generated method stub
 
     }
 
+    @Override
     public boolean delete(int id) {
         return false;
         // TODO Auto-generated method stub
