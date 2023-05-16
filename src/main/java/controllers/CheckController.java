@@ -38,11 +38,10 @@ public class CheckController extends HttpServlet {
                     tmp = rq.getContextPath() + "/views/users/client/menu.jsp";
                     break;
             }
-            rs.sendRedirect(tmp);
+            rs.sendRedirect(tmp); 
         } else {
             rs.sendRedirect(rq.getContextPath() + "/index.jsp");
         }
 
     }
-
 }

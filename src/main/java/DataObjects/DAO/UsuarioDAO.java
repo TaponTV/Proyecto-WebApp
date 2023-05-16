@@ -13,7 +13,7 @@ public class UsuarioDAO implements usuarioInterface {
     private Connection connect = null;
     private ResultSet rs = null;
     private PreparedStatement ps = null;
-    private Usuario obj = null;
+    private Usuario obj = new Usuario();
     public static final String insertSQL = "INSERT INTO "
             + "Usuario (nombre, apPaterno, apMaterno, idGenero, edad, direccion, celular, telefono, email, pswrd, idRol)"
             + "VALUES (?,?,?,?,?,row(?,?,?,?),?,?,?,?,?)";
@@ -55,25 +55,23 @@ public class UsuarioDAO implements usuarioInterface {
     public List<Usuario> read() {
         List<Usuario> list = new ArrayList<Usuario>();
         try {
-            ps = connect.prepareStatement("SELECT * FROM Usuario");
+            ps = connect.prepareStatement("SELECT idUser,nombre,apPaterno,apMaterno,edad,(direccion).pais AS pais,(direccion).estado AS estado,email,roldesc AS tipoUsuario "
+                    + "FROM Usuario\n"
+                    + "JOIN rol\n"
+                    + "ON rol.idrol = usuario.idrol\n"
+                    + "WHERE usuario.idRol <> 1");
             rs = ps.executeQuery();
             while (rs.next()) {
                 int idUser = rs.getInt("idUser");
                 String nombre = rs.getString("nombre");
                 String apPaterno = rs.getString("apPaterno");
                 String apMaterno = rs.getString("apMaterno");
-                int idGenero = rs.getInt("idGenero");
                 int edad = rs.getInt("edad");
-                String pais = rs.getString("direccion");
-                String estado = rs.getString("direccion");
-                String ciudad = rs.getString("direccion");
-                String calle = rs.getString("direccion");
-                String celular = rs.getString("celular");
-                String telefono = rs.getString("telefono");
+                String pais = rs.getString("pais");
+                String estado = rs.getString("estado");
                 String email = rs.getString("email");
-                String pswrd = rs.getString("pswrd");
-                int idRol = rs.getInt("idRol");
-                obj = new Usuario(idUser, nombre, apPaterno, apMaterno, idGenero, edad, pais, estado, ciudad, calle, celular, telefono, email, pswrd, idRol);
+                String rol = rs.getString("tipoUsuario");
+                obj = new Usuario(idUser, nombre, apPaterno, apMaterno, edad, pais, estado, email, rol);
                 list.add(obj);
             }
             return list;
@@ -89,7 +87,25 @@ public class UsuarioDAO implements usuarioInterface {
     @Override
     public Usuario showUser(int _idUser) {
         try {
-            ps = connect.prepareStatement("SELECT * FROM Usuario WHERE idUser = ?");
+            ps = connect.prepareStatement("SELECT "
+                    + "idUser,"
+                    + "nombre,"
+                    + "apPaterno,"
+                    + "apMaterno,"
+                    + "edad,"
+                    + "(direccion).pais AS pais,"
+                    + "(direccion).estado AS estado,"
+                    + "(direccion).ciudad AS ciudad,"
+                    + "(direccion).calle AS calle,"
+                    + "celular,"
+                    + "telefono,"
+                    + "email,"
+                    + "usuario.idRol,"
+                    + "roldesc AS tipoUsuario "
+                    + "FROM Usuario\n"
+                    + "JOIN rol\n"
+                    + "ON rol.idrol = usuario.idrol\n"
+                    + "WHERE idUser = ?");
             ps.setInt(1, _idUser);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -97,18 +113,17 @@ public class UsuarioDAO implements usuarioInterface {
                 String nombre = rs.getString("nombre");
                 String apPaterno = rs.getString("apPaterno");
                 String apMaterno = rs.getString("apMaterno");
-                int idGenero = rs.getInt("idGenero");
                 int edad = rs.getInt("edad");
-                String pais = rs.getString("direccion");
-                String estado = rs.getString("direccion");
-                String ciudad = rs.getString("direccion");
-                String calle = rs.getString("direccion");
+                String pais = rs.getString("pais");
+                String estado = rs.getString("estado");
+                String ciudad = rs.getString("ciudad");
+                String calle = rs.getString("calle");
                 String celular = rs.getString("celular");
                 String telefono = rs.getString("telefono");
                 String email = rs.getString("email");
-                String pswrd = rs.getString("pswrd");
-                int idRol = rs.getInt("idRol");
-                obj = new Usuario(idUser, nombre, apPaterno, apMaterno, idGenero, edad, pais, estado, ciudad, calle, celular, telefono, email, pswrd, idRol);
+                String rol = rs.getString("tipousuario");
+                int idRol = rs.getInt("idrol");
+                obj = new Usuario(idUser, nombre, apPaterno, apMaterno, edad, pais, estado, ciudad, calle, celular, telefono, email, rol, idRol);
                 return obj;
             }
         } catch (SQLException ex) {
@@ -117,7 +132,6 @@ public class UsuarioDAO implements usuarioInterface {
         } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
-            //ConnectionDB.closeDB(connect);
         }
         return obj;
     }

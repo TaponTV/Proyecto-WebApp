@@ -1,6 +1,7 @@
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
-<%@page import = "java.io.*¨, java.util.*" %>
+<%@page import = "java.io.*"%>
+<%@page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <title>Dashboard - Control de Usuarios</title>
+        <title>Dashboard - Usuarios</title>
     </head>
     <body>
         <%
@@ -22,7 +23,7 @@
                 request.getRequestDispatcher("/CheckController").forward(request, response);
             } else {
                 Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
-                if (currentUser != null) {
+                if (currentUser != null && currentUser.getIdRol()==1) {
                     name = ((Usuario) request.getSession().getAttribute("CurrentUser")).getNombre() + " "
                             + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApPaterno()
                             + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApMaterno();
@@ -58,7 +59,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<%= request.getContextPath()%>/AdminController" class="slide">
+                            <a href="<%= request.getContextPath()%>/GetData?action=1" class="slide">
                                 <span class="las la-chart-pie"></span>
                                 Estadísticas 
                             </a>
@@ -127,14 +128,14 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Estadisticas de Datos</h1>
-                        <small> Monitoreo General de las estadisticas de la página</small>
+                        <h1>Listado de Usuarios Registrados</h1>
+                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
                     </div>
                     <div class="header-actions">
                         <form action="<%= request.getContextPath()%>/GetData?action=2" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
-                                Actualizar Métricas 
+                                Regresar
                             </button>
                         </form>
                         <form action="<%= request.getContextPath()%>/logout" method="post">
@@ -145,21 +146,36 @@
                         </form>
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td> ID Usuario </td>
-                            <td> Nombre </td>
-                            <td> Apellidos </td>
-                            <td> Pais Origen </td>
-                            <td> Residencia </td>
-                            <td> Correo </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
+                <% Usuario user = (Usuario) request.getSession().getAttribute("UserInfo");
+                    if (user != null) {%>
+                    <label> Nombre </label>
+                    <input type="text" value="<%= user.getNombre()%>"><br>
+                    <label> Apellido Paterno </label>
+                    <input type="text" value="<%= user.getApPaterno()%>"><br>
+                    <label> Apellido Materno </label>
+                    <input type="text" value="<%= user.getApMaterno()%>"><br>
+                    <label> Edad </label>
+                    <input type="text" value="<%= user.getEdad()%>"><br>
+                    <label> País </label>
+                    <input type="text" value="<%= user.getPais()%>"><br>
+                    <label> Estado </label>
+                    <input type="text" value="<%= user.getEstado()%>"><br>
+                    <label> Ciudad </label>
+                    <input type="text" value="<%= user.getCiudad()%>"><br>
+                    <label> Celular </label>
+                    <input type="text" value="<%= user.getCelular()%>"><br>
+                    <label> Telefono </label>
+                    <input type="text" value="<%= user.getTelefono()%>"><br>
+                    <label> Email </label>
+                    <input type="text" value="<%= user.getEmail()%>"><br>
+                    <label> Tipo de Usuario </label>
+                    <input type="text" value="<%= user.getRol()%>"><br>
+
+                </td>
+                </tr>
+                <%
+                    }%>
+                </tbody>
             </main>
         </div>
 

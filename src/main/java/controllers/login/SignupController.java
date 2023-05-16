@@ -60,13 +60,13 @@ public class SignupController extends HttpServlet {
         );
         if (DataUser.create(user)) {
             tmsp = fmt.format(new Timestamp(new Date().getTime()));
+            rq.getSession().setAttribute("CurrentTimeConnection", tmsp);
             user.setIdUser(DataUser.validate(user.getEmail(), user.getPswrd()));
             rq.getSession().setAttribute("CurrentUser", user);
             switch (idRol) {
                 case 2:
                     rq.getSession().setAttribute("vetID", null);
-                    rs.sendRedirect(rq.getContextPath()+"/views/login/VetForm.jsp");
-                    //rq.getRequestDispatcher("/VetSignupController").forward(rq, rs);
+                    rs.sendRedirect(rq.getContextPath() + "/views/login/VetForm.jsp");
                     break;
                 case 3:
                     DataConnection.create(new Conexion(user.getIdUser(), tmsp, tmsp));
@@ -79,7 +79,7 @@ public class SignupController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-            rq.getRequestDispatcher("/CheckController").forward(rq, rs);
+        rq.getRequestDispatcher("/CheckController").forward(rq, rs);
     }
 
 }

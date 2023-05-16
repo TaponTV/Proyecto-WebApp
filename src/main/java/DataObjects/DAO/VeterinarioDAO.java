@@ -5,8 +5,10 @@ import java.util.List;
 
 import DataObjects.interfaces.veterinarioInterface;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Usuario;
 import models.Veterinario;
 
 public class VeterinarioDAO implements veterinarioInterface {
@@ -16,14 +18,14 @@ public class VeterinarioDAO implements veterinarioInterface {
     private PreparedStatement ps = null;
     private Veterinario obj = null;
     private final String insertSQL = "INSERT INTO Veterinario (idVeterinario,cedula,idUser,especialidad,universidad,fechaTitulacion) VALUES (?,?,?,?,?,?)";
-    
-    public VeterinarioDAO(){
+
+    public VeterinarioDAO() {
         connect = ConnectionDB.getConnection();
     }
 
     @Override
     public boolean create(Veterinario ob) {
-        try{
+        try {
             ps = connect.prepareStatement(insertSQL);
             ps.setString(1, ob.getIdVeterinario());
             ps.setString(2, ob.getCedula());
@@ -33,7 +35,7 @@ public class VeterinarioDAO implements veterinarioInterface {
             ps.setDate(6, Date.valueOf(ob.getFechaTitulacion()));
             ps.execute();
             return true;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         } finally {
@@ -43,7 +45,46 @@ public class VeterinarioDAO implements veterinarioInterface {
 
     @Override
     public List<Veterinario> read() {
-        // TODO Auto-generated method stub
+
+        return null;
+    }
+
+    public List<Veterinario> listVet() {
+        List<Veterinario> list = new ArrayList<Veterinario>();
+        try {
+            ps = connect.prepareStatement("SELECT \n"
+                    + "	Usuario.idUser, \n"
+                    + "	Usuario.nombre,\n"
+                    + "	Usuario.apPaterno,\n"
+                    + "	Usuario.apMaterno,\n"
+                    + "	Veterinario.cedula,\n"
+                    + "	Veterinario.especialidad,\n"
+                    + "	Veterinario.fechatitulacion,\n"
+                    + "	Veterinario.universidad\n"
+                    + "FROM Usuario\n"
+                    + "JOIN Veterinario\n"
+                    + "ON Veterinario.idUser = Usuario.idUser");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int idUser = rs.getInt("idUser");
+                String nombre = rs.getString("nombre");
+                String apPaterno = rs.getString("apPaterno");
+                String apMaterno = rs.getString("apMaterno");
+                String cedula = rs.getString("cedula");
+                String especialidad = rs.getString("especialidad");
+                String fechatitulacion = rs.getString("fechatitulacion");
+                
+                String universidad = rs.getString("universidad");
+                obj = new Veterinario(idUser, nombre, apPaterno, apMaterno, cedula, especialidad, fechatitulacion, universidad);
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
         return null;
     }
 

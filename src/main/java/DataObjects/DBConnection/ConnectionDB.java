@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConnectionDB {
 
     private static String user = "postgres";
-    private static String pswd = "root123";
+    private static String pswd = "root";
     private static String db = "petcoloria_webapp";
     private static String server = "jdbc:postgresql://localhost:5432/" + db;
     private static String driver = "org.postgresql.Driver";

@@ -3,7 +3,7 @@ package models;
 import java.io.*;
 import java.sql.Date;
 
-public class Veterinario implements Serializable {
+public class Veterinario extends Usuario implements Serializable{
 
     /**
      *
@@ -24,6 +24,25 @@ public class Veterinario implements Serializable {
         this.idVeterinario = cedula;
         this.cedula = cedula;
         this.idUser = idUser;
+        this.especialidad = especialidad;
+        this.universidad = universidad;
+        this.fechaTitulacion = fechaTitulacion;
+    }
+
+    public Veterinario(int idUser, String nombre, String apPaterno, String apMaterno, String cedula, String especialidad, String fechatitulacion, String universidad) {
+        this.setIdUser(idUser);
+        this.setNombre(nombre);
+        this.setApPaterno(apPaterno);
+        this.setApMaterno(apMaterno);
+        this.cedula = cedula;
+        this.especialidad = especialidad;
+        this.universidad = universidad;
+        this.fechaTitulacion = fechatitulacion;
+    }
+
+    public Veterinario(String cedula, String especialidad, String universidad, String fechaTitulacion, int idUser, String nombre, String apPaterno, String apMaterno, int idGenero, int edad, String pais, String estado, String ciudad, String calle, String celular, String telefono, String email, String pswrd, int idRol) {
+        super(idUser, nombre, apPaterno, apMaterno, idGenero, edad, pais, estado, ciudad, calle, celular, telefono, email, pswrd, idRol);
+        this.cedula = cedula;
         this.especialidad = especialidad;
         this.universidad = universidad;
         this.fechaTitulacion = fechaTitulacion;

@@ -1,5 +1,8 @@
+<%@page import="models.Veterinario"%>
 <%@page import="models.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@page import = "java.io.*"%>
+<%@page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +15,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <title>Dashboard</title>
+        <title>Dashboard - Veterinarios</title>
     </head>
     <body>
         <%
@@ -21,7 +24,7 @@
                 request.getRequestDispatcher("/CheckController").forward(request, response);
             } else {
                 Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
-                if (currentUser != null && currentUser.getIdRol()==1) {
+                if (currentUser != null && currentUser.getIdRol() == 1) {
                     name = ((Usuario) request.getSession().getAttribute("CurrentUser")).getNombre() + " "
                             + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApPaterno()
                             + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApMaterno();
@@ -51,7 +54,7 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="profile.jsp" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-user-circle"></span>
                                 Perfil
                             </a>
@@ -69,37 +72,37 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="<%= request.getContextPath()%>/GetData?action=3" class="slide">
+                            <a href="DataListVet.jsp" class="slide">
                                 <span class="las la-stethoscope"></span>
                                 Veterinarios
                             </a>
                         </li>
                         <li>
-                            <a href="4" class="slide">
+                            <a href="DataListClient.jsp" class="slide">
                                 <span class="las la-users"></span>
                                 Clientes
                             </a>
                         </li>
                         <li>
-                            <a href="5" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-file-alt"></span>
                                 Informe de Solicitudes
                             </a>
                         </li>
                         <li>
-                            <a href="6" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-comments"></span>
                                 Comentarios
                             </a>
                         </li>
                         <li>
-                            <a href="7" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-envelope-open"></span>
                                 Peticiones
                             </a>
                         </li>
                         <li>
-                            <a href="8" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-question"></span>
                                 Ayuda
                             </a>
@@ -126,14 +129,14 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Estadisticas de Datos</h1>
-                        <small> Monitoreo General de las estadisticas de la página</small>
+                        <h1>Listado de Veterinarios Registrados</h1>
+                        <small> Este es un listado que muestra un resumen de los veterinarios registrados</small>
                     </div>
                     <div class="header-actions">
-                        <form action="<%= request.getContextPath()%>/GetData" method="post">
+                        <form action="<%= request.getContextPath()%>/GetData?action=2" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
-                                Actualizar Métricas 
+                                Regresar
                             </button>
                         </form>
                         <form action="<%= request.getContextPath()%>/logout" method="post">
@@ -144,97 +147,43 @@
                         </form>
                     </div>
                 </div>
-                <div class="cards">   
-                                
-                    <a href="<%= request.getContextPath()%>/GetData?action=2" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Usuarios</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataUser")%></h2>
-                            </div>
-                            <div class="card-chart c1">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                            
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Veterinarios</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataVet")%></h2>
-                            </div>
-                            <div class="card-chart c2">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Clientes</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataClient")%></h2>
-                            </div>
-                            <div class="card-chart c3">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Conexiones</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataConnection")%></h2>
-                            </div>
-                            <div class="card-chart c4">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Mascotas</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataPet")%></h2>
-                            </div>
-                            <div class="card-chart c5">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="card-single">
-                        <div class="card-flex">
-                            <div class="card-info">
-                                <div class="card-head">
-                                    <span>Solicitudes</span>
-                                    <small>Numero de registros</small>
-                                </div>
-                                <h2><%= request.getSession().getAttribute("DataBell")%></h2>
-                            </div>
-                            <div class="card-chart c6">
-                                <span class="las la-chart-line"></span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td> ID Usuario </td>
+                            <td> Nombre </td>
+                            <td> Apellidos </td>
+                            <td> Pais Origen </td>
+                            <td> Residencia </td>
+                            <td> Correo </td>
+                            <td>    </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% List<Veterinario> listUsers = (List<Veterinario>) request.getSession().getAttribute("listUsers");
+                            if (listUsers != null) {
+                                for (Veterinario user : listUsers) {%>
+                        <tr>
+                            <td><%= user.getIdUser()%></td>
+                            <td><%= user.getNombre()%></td>
+                            <td><%= user.getApPaterno()%> <%= user.getApMaterno()%></td>
+                            <td><%= user.getCedula() %></td>
+                            <td><%= user.getEspecialidad()%></td>
+                            <td><%= user.getFechaTitulacion()%></td>
+                            <td><%= user.getUniversidad()%></td>
+                            <td>
+                                <form action="<%= request.getContextPath()%>/GetData?action=3" method="post">
+                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
+                                    <input type="submit" value="Ver más">
+                                </form>
+                            </td>
+                        </tr>
+                        <% }
+                            }%>
+                    </tbody>
+                </table>
             </main>
         </div>
 
     </body>
 </html>
-<!-- Design Code by Code Resource -->

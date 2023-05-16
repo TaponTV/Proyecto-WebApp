@@ -11,8 +11,9 @@ import DataObjects.DAO.*;
 import java.util.ArrayList;
 import java.util.List;
 import models.Usuario;
+import models.Veterinario;
 
-@WebServlet(name = "AdminController", value = {"/GetData"})
+@WebServlet(name = "AdminController", value = {"/GetData", "/RidData"})
 public class AdminController extends HttpServlet {
 
     private final ConexionDAO DataConnection = new ConexionDAO();
@@ -21,16 +22,35 @@ public class AdminController extends HttpServlet {
     private final SolicitudDAO DataBell = new SolicitudDAO();
     private final UsuarioDAO DataUser = new UsuarioDAO();
     private final VeterinarioDAO DataVet = new VeterinarioDAO();
-    private List<Usuario> list = new ArrayList<>();
+    private Usuario CurrentUser = new Usuario();
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        CurrentUser = (Usuario) rq.getSession().getAttribute("CurrentUser");
+        if (CurrentUser.getIdRol() != 1) {
+            rs.sendRedirect(rq.getContextPath() + "/CheckController");
+        }
+
         switch (rq.getServletPath()) {
             case "/GetData":
                 String param = rq.getParameter("action");
-                if(param!=null)
-                    GetListUserContent(rq, rs);
-                GetResumeContent(rq, rs);
+                if (param == null) {
+                    GetResumeContent(rq, rs);
+                } else {
+                    switch (param) {
+                        case "2":
+                            //lista de usuarios
+                            GetListUserContent(rq, rs);
+                            break;
+                        case "3":
+                            //Informacion de un usuario
+                            GetUserInfo(rq, rs);
+                            break;
+                    }
+                }
+                break;
+            case "RidData":
+                //Para eliminar datos
                 break;
         }
     }
@@ -40,14 +60,34 @@ public class AdminController extends HttpServlet {
         switch (rq.getServletPath()) {
             case "/GetData":
                 String param = rq.getParameter("action");
-                if (param.equals("1")) {
-                    GetResumeContent(rq, rs);
-                } else if (param.equals("2")) {
-                    GetListUserContent(rq, rs);
+                switch (param) {
+                    case "1":
+                        //Resumen de estadisticas de la pagina
+                        GetResumeContent(rq, rs);
+                        break;
+                    case "2":
+                        //lista de usuarios
+                        GetListUserContent(rq, rs);
+                        break;
+                    case "3":
+                        //Listado de veterinarios
+                        GetListVetContent(rq, rs);
+                        break;
+                    case "4":
+                        //Listado de clientes
+                        break;
+                    case "5":
+                        //Listado de solicitudes
+                        break;
+                    case "6":
+                        //Listado de comentarios
+                        break;
+                    case "7":
+                        //Listado de peticiones
+                        break;
                 }
                 break;
         }
-
     }
 
     protected void GetResumeContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
@@ -61,10 +101,23 @@ public class AdminController extends HttpServlet {
     }
 
     protected void GetListUserContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        List<Usuario> list = new ArrayList<>();
         list = DataUser.read();
-        System.out.println(list);
         rq.getSession().setAttribute("listUsers", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/UserControl.JS");
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListUser.jsp");
+    }
+
+    protected void GetUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        int InfoID = Integer.parseInt(rq.getParameter("UserInfoID").toString());
+        rq.getSession().setAttribute("UserInfo", DataUser.showUser(InfoID));
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/user.jsp");
+    }
+
+    private void GetListVetContent(HttpServletRequest rq, HttpServletResponse rs)throws ServletException, IOException {
+        List<Veterinario> list = new ArrayList<>();
+        list = DataVet.listVet();
+        rq.getSession().setAttribute("listUsers", list);
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListVet.jsp");
     }
 
 }
