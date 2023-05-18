@@ -1,5 +1,4 @@
-<%@page import="java.util.List"%>
-<%@page import="models.Veterinario"%>
+<%@page import="models.Consulta"%>
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
@@ -16,7 +15,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <title>Dashboard - Veterinarios</title>
+        <title>Dashboard - Conexiones</title>
     </head>
     <body>
         <%
@@ -55,7 +54,7 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="#" class="slide">
+                            <a href="profile.jsp" class="slide">
                                 <span class="las la-user-circle"></span>
                                 Perfil
                             </a>
@@ -73,13 +72,13 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="DataListVet.jsp" class="slide">
+                            <a href="<%= request.getContextPath()%>/GetData?action=3" class="slide">
                                 <span class="las la-stethoscope"></span>
                                 Veterinarios
                             </a>
                         </li>
                         <li>
-                            <a href="DataListClient.jsp" class="slide">
+                            <a href="#" class="slide">
                                 <span class="las la-users"></span>
                                 Clientes
                             </a>
@@ -130,16 +129,31 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Listado de Veterinarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los veterinarios registrados</small>
+                        <h1>Listado de Usuarios Registrados</h1>
+                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
                     </div>
                     <div class="header-actions">
+                        <%
+                            if (Integer.parseInt(request.getParameter("option")) == 1) {
+                        %>
                         <form action="<%= request.getContextPath()%>/GetData?action=2&option=1" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
-                                Actualizar Métricas
+                                Regresar
                             </button>
                         </form>
+                        <%
+                        } else {
+                        %>
+                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=2" method="post">
+                            <button type="submit">
+                                <span class="las la-spinner"></span>
+                                Regresar
+                            </button>
+                        </form>
+                        <%
+                            }
+                        %>
                         <form action="<%= request.getContextPath()%>/logout" method="post">
                             <button type="submit" value ="Cerrar Sesion">
                                 <span class="las la-sign-out-alt"></span>
@@ -151,62 +165,31 @@
                 <table>
                     <thead>
                         <tr>
-                            <td> ID Usuario </td>
-                            <td> Nombre </td>
-                            <td> Apellidos </td>
-                            <td> Pais Origen </td>
-                            <td> Residencia </td>
-                            <td> Correo </td>
-                            <td>    </td>
+                            <td> ID Consulta </td>
+                            <td> Cliente </td>
+                            <td> Mascota </td>
+                            <td> Especie </td>
+                            <td> Fecha Consulta </td>
+                            <td> Operaciones </td>
                         </tr>
                     </thead>
                     <tbody>
-                        <% List<Veterinario> listUsers = (List<Veterinario>) request.getSession().getAttribute("listUsers");
-
-                            if (listUsers != null) {
-                                for (Veterinario user : listUsers) {%>
+                        <% List<Consulta> data = (List<Consulta>) request.getSession().getAttribute("DataMeet");
+                            if (data != null) {
+                                for (Consulta datac : data) {
+                        %>
                         <tr>
-                            <td><%= user.getIdUser()%></td>
-                            <td><%= user.getNombre()%></td>
-                            <td><%= user.getApPaterno()%> <%= user.getApMaterno()%></td>
-                            <td><%= user.getCedula()%></td>
-                            <td><%= user.getEspecialidad()%></td>
-                            <td><%= user.getFechaTitulacion()%></td>
-                            <td><%= user.getUniversidad()%></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=4&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Conexiones">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=5&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Citas">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Solicitudes">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar información completa">
-                                </form>
-                            </td>
+                            <td><%= datac.getIdConsulta()%></td>
+                            <td><%= datac.getNombreC()%></td>
+                            <td><%= datac.getNombre()%></td>
+                            <td><%= datac.getEspecie()%></td>
+                            <td><%= datac.getFechaConsulta()%></td>
+                            <td> BOTONES DE COMANDO (CANCELAR, POSPONER, MOSTRAR DETALLES)</td>
                         </tr>
                         <%
                                 }
                             }
+
                         %>
                     </tbody>
                 </table>

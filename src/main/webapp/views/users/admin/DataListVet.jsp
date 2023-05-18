@@ -183,9 +183,9 @@
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=1" method="post">
+                                <form action="<%= request.getContextPath()%>/GetData?action=5&option=1" method="post">
                                     <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
+                                    <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Citas">
                                 </form>
                             </td>

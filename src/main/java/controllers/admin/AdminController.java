@@ -11,6 +11,7 @@ import DataObjects.DAO.*;
 import java.util.ArrayList;
 import java.util.List;
 import models.Conexion;
+import models.Consulta;
 import models.Usuario;
 import models.Veterinario;
 
@@ -26,6 +27,7 @@ public class AdminController extends HttpServlet {
     private final SolicitudDAO DataBell = new SolicitudDAO();
     private final UsuarioDAO DataUser = new UsuarioDAO();
     private final VeterinarioDAO DataVet = new VeterinarioDAO();
+    private final ConsultaDAO DataMeet = new ConsultaDAO();
     private int option;
     private Usuario CurrentUser = new Usuario();
 
@@ -58,6 +60,9 @@ public class AdminController extends HttpServlet {
                             break;
                         case "4":
                             GetConnectionUserInfo(rq, rs);
+                            break;
+                        case "5":
+                            GetMeetContent(rq, rs);
                             break;
                     }
                 }
@@ -142,6 +147,13 @@ public class AdminController extends HttpServlet {
         else
             rs.sendRedirect(rq.getContextPath()+ "/views/users/admin/userInfo/dataconnection.jsp?option=2");
         
+    }
+
+    private void GetMeetContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+       String InfoID = rq.getParameter("UserInfoID");
+       List<Consulta> list = DataMeet.ListOne(InfoID);
+       rq.getSession().setAttribute("DataMeet", list);
+       rs.sendRedirect(rq.getContextPath()+ "/views/users/admin/userInfo/dataMeet.jsp?option=1");
     }
 
 }
