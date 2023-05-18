@@ -4,6 +4,7 @@ import DataObjects.DBConnection.ConnectionDB;
 import java.util.List;
 import DataObjects.interfaces.conexionInterface;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Conexion;
@@ -14,6 +15,7 @@ public class ConexionDAO implements conexionInterface {
     private ResultSet rs = null;
     private PreparedStatement ps = null;
     private Conexion obj = null;
+    private List<Conexion> list;
     public static final String insertSQL = "INSERT INTO Conexion (idUser, fechaconexion, fechadesconexion) VALUES (?,?,?)";
     public static final String updateSQL = "UPDATE Conexion SET fechadesconexion = ? WHERE idConexion = ?";
 
@@ -40,7 +42,7 @@ public class ConexionDAO implements conexionInterface {
 
     @Override
     public List<Conexion> read() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
@@ -96,6 +98,29 @@ public class ConexionDAO implements conexionInterface {
             Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public List<Conexion> ListOne(int idUser) {
+        try {
+            list = new ArrayList<>();
+            ps = connect.prepareStatement("SELECT fechaconexion, fechadesconexion FROM conexion WHERE idUser = ?");
+            ps.setInt(1, idUser);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String fechaconexion = rs.getString("fechaconexion");
+                String fechadesconexion = rs.getString("fechadesconexion");
+                obj = new Conexion(idUser, fechaconexion, fechadesconexion);
+                list.add(obj);
+            }
+
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
     }
 
 }
