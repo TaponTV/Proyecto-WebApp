@@ -15,115 +15,11 @@
         <title>Dashboard</title>
     </head>
     <body>
-        <%
-            String name = "", email = "";
-            if (request.getSession(false) == null || request.getSession().getAttribute("CurrentUser") == null) {
-                request.getRequestDispatcher("/CheckController").forward(request, response);
-            } else {
-                Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
-                if (currentUser != null && currentUser.getIdRol()==1) {
-                    name = ((Usuario) request.getSession().getAttribute("CurrentUser")).getNombre() + " "
-                            + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApPaterno()
-                            + ((Usuario) request.getSession().getAttribute("CurrentUser")).getApMaterno();
-                    email = ((Usuario) request.getSession().getAttribute("CurrentUser")).getEmail();
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/index.jsp");
-                }
-            }
-        %>
-        <div class="sidebar">
-            <div class="sidebar-brand">
-                <div class="brand-flex">
-                    <img src="<%= request.getContextPath()%>/assets/img/logo.png" width="40px" alt="">
-                </div>
-            </div>
-            <div class="sidebar-main">
-                <div class="sidebar-user">
-                    <img src="<%= request.getContextPath()%>/assets/img/logo1.jpg" width="40px" alt="">
-                    <div>
-                        <h3><%= name%></h3>
-                        <span><%= email%></span>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <div class="menu-head">
-                        <span><b>DashBoard</b></span>
-                    </div>
-                    <ul>
-                        <li>
-                            <a href="profile.jsp" class="slide">
-                                <span class="las la-user-circle"></span>
-                                Perfil
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<%= request.getContextPath()%>/GetData?action=1" class="slide">
-                                <span class="las la-chart-pie"></span>
-                                Estadísticas 
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div class="menu-head">
-                        <span><b>Operaciones</b></span>
-                    </div>
-                    <ul>
-                        <li>
-                            <a href="<%= request.getContextPath()%>/GetData?action=3" class="slide">
-                                <span class="las la-stethoscope"></span>
-                                Veterinarios
-                            </a>
-                        </li>
-                        <li>
-                            <a href="4" class="slide">
-                                <span class="las la-users"></span>
-                                Clientes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="5" class="slide">
-                                <span class="las la-file-alt"></span>
-                                Informe de Solicitudes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="6" class="slide">
-                                <span class="las la-comments"></span>
-                                Comentarios
-                            </a>
-                        </li>
-                        <li>
-                            <a href="7" class="slide">
-                                <span class="las la-envelope-open"></span>
-                                Peticiones
-                            </a>
-                        </li>
-                        <li>
-                            <a href="8" class="slide">
-                                <span class="las la-question"></span>
-                                Ayuda
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
+        <jsp:include page="content/sidebar.jsp"/>
         <div class="main-content">
-            <header>
-                <div class="menu-toggle">
-                    <label>
-                        <span class="las la-bars"></span>
-                    </label>
-                </div>
-                <span class="bars"></span>
-                <div class="header-icons">
-                    <span class="las la-search"></span>
-                    <span class="las la-bookmark"></span>
-                    <span class="las la-sms"></span>
-                </div>
-            </header>
+            <jsp:include page="content/header.jsp"/>
             <main>
+                
                 <div class="page-header">
                     <div>
                         <h1>Estadisticas de Datos</h1>
@@ -145,7 +41,7 @@
                     </div>
                 </div>
                 <div class="cards">   
-                                
+
                     <a href="<%= request.getContextPath()%>/GetData?action=2" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -160,7 +56,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                     <a href="<%= request.getContextPath()%>/GetData?action=3" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -175,6 +71,7 @@
                             </div>
                         </div>
                     </a>
+                            
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -189,6 +86,7 @@
                             </div>
                         </div>
                     </a>
+                            
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -203,6 +101,7 @@
                             </div>
                         </div>
                     </a>
+                            
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -217,6 +116,7 @@
                             </div>
                         </div>
                     </a>
+                            
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -231,6 +131,7 @@
                             </div>
                         </div>
                     </a>
+                            
                 </div>
             </main>
         </div>

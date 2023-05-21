@@ -48,17 +48,21 @@ public class LoginController extends HttpServlet {
                 rs.sendRedirect(rq.getContextPath() + "/CheckController");
                 break;
             case "/logout":
-                tmsp = fmt.format(new Timestamp(new Date().getTime()));
-                DataConnection.update(
-                        new Conexion(
-                                DataConnection.getRowID(user.getIdUser(), rq.getSession().getAttribute("CurrentTimeConnection").toString()),
-                                user.getIdUser(),
-                                rq.getSession().getAttribute("CurrentTimeConnection").toString(),
-                                tmsp
-                        )
-                );
-                rq.getSession().invalidate();
-                rs.sendRedirect("./index.jsp");
+                if (rq.getSession(false) == null || rq.getSession().getAttribute("CurrentUser") == null) {
+                    rq.getRequestDispatcher("/CheckController").forward(rq, rs);
+                } else {
+                    tmsp = fmt.format(new Timestamp(new Date().getTime()));
+                    DataConnection.update(
+                            new Conexion(
+                                    DataConnection.getRowID(user.getIdUser(), rq.getSession().getAttribute("CurrentTimeConnection").toString()),
+                                    user.getIdUser(),
+                                    rq.getSession().getAttribute("CurrentTimeConnection").toString(),
+                                    tmsp
+                            )
+                    );
+                    rq.getSession().invalidate();
+                    rs.sendRedirect("./index.jsp");
+                }
                 break;
 
         }

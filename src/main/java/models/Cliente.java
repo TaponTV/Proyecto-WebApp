@@ -2,7 +2,7 @@ package models;
 
 import java.io.*;
 
-public class Cliente implements Serializable {
+public class Cliente extends Usuario implements Serializable {
 
 	/**
 	 * 

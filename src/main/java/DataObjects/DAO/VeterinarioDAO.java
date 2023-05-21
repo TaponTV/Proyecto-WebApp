@@ -17,7 +17,7 @@ public class VeterinarioDAO implements veterinarioInterface {
     private ResultSet rs = null;
     private PreparedStatement ps = null;
     private Veterinario obj = null;
-    private final String insertSQL = "INSERT INTO Veterinario (idVeterinario,cedula,idUser,especialidad,universidad,fechaTitulacion) VALUES (?,?,?,?,?,?)";
+    private List<Veterinario> list;
 
     public VeterinarioDAO() {
         connect = ConnectionDB.getConnection();
@@ -26,7 +26,7 @@ public class VeterinarioDAO implements veterinarioInterface {
     @Override
     public boolean create(Veterinario ob) {
         try {
-            ps = connect.prepareStatement(insertSQL);
+            ps = connect.prepareStatement("INSERT INTO Veterinario (idVeterinario,cedula,idUser,especialidad,universidad,fechaTitulacion) VALUES (?,?,?,?,?,?)");
             ps.setString(1, ob.getIdVeterinario());
             ps.setString(2, ob.getCedula());
             ps.setInt(3, ob.getIdUser());
@@ -45,13 +45,8 @@ public class VeterinarioDAO implements veterinarioInterface {
 
     @Override
     public List<Veterinario> read() {
-
-        return null;
-    }
-
-    public List<Veterinario> listVet() {
-        List<Veterinario> list = new ArrayList<Veterinario>();
         try {
+            list = new ArrayList<Veterinario>();
             ps = connect.prepareStatement("SELECT \n"
                     + "	Usuario.idUser, \n"
                     + "	Usuario.nombre,\n"
@@ -73,7 +68,7 @@ public class VeterinarioDAO implements veterinarioInterface {
                 String cedula = rs.getString("cedula");
                 String especialidad = rs.getString("especialidad");
                 String fechatitulacion = rs.getString("fechatitulacion");
-                
+
                 String universidad = rs.getString("universidad");
                 obj = new Veterinario(idUser, nombre, apPaterno, apMaterno, cedula, especialidad, fechatitulacion, universidad);
                 list.add(obj);

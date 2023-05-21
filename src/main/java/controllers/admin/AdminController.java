@@ -8,12 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DataObjects.DAO.*;
-import java.util.ArrayList;
 import java.util.List;
-import models.Conexion;
-import models.Consulta;
-import models.Usuario;
-import models.Veterinario;
+import models.*;
 
 @WebServlet(name = "AdminController", value = {"/GetData", "/RidData"})
 public class AdminController extends HttpServlet {
@@ -47,12 +43,18 @@ public class AdminController extends HttpServlet {
                     switch (param) {
                         case "2":
                             //Este bloque es utilizado para realizar los request que generan la lista de un modelo en especifico (SELECT QUERY)
-                            if(option==0)
+                            if (option == 0) {
                                 GetListUserContent(rq, rs);
-                            if(option==1)
+                            }
+                            if (option == 1) {
                                 GetListVetContent(rq, rs);
-                            if(option==2);
-                                //Lista Clientes
+                            }
+                            if (option == 2) {
+                                GetListClientContent(rq, rs);
+                            }
+                            if(option == 3){
+                                GetListBells(rq, rs);
+                            }
                             break;
                         case "3":
                             //Informacion de un usuario
@@ -63,6 +65,9 @@ public class AdminController extends HttpServlet {
                             break;
                         case "5":
                             GetMeetContent(rq, rs);
+                            break;
+                        case "6":
+                            GetBellInfo(rq, rs);
                             break;
                     }
                 }
@@ -93,9 +98,11 @@ public class AdminController extends HttpServlet {
                         break;
                     case "4":
                         //Listado de clientes
+                        GetListClientContent(rq, rs);
                         break;
                     case "5":
                         //Listado de solicitudes
+                        GetListBells(rq, rs);
                         break;
                     case "6":
                         //Listado de comentarios
@@ -117,43 +124,63 @@ public class AdminController extends HttpServlet {
         rq.getSession().setAttribute("DataBell", DataBell.count());
         rs.sendRedirect(rq.getContextPath() + "/views/users/admin/menu.jsp");
     }
+    
+    protected void GetUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
+        rq.getSession().setAttribute("UserInfo", DataUser.showUser(InfoID));
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/user.jsp?option=" + option);
+    }
+    
 
     protected void GetListUserContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        List<Usuario> list = new ArrayList<>();
-        list = DataUser.read();
+        List<Usuario> list = DataUser.read();
         rq.getSession().setAttribute("listUsers", list);
         rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListUser.jsp");
     }
 
-    protected void GetUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
-        rq.getSession().setAttribute("UserInfo", DataUser.showUser(InfoID));
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/user.jsp?option="+option);
-    }
-
-    private void GetListVetContent(HttpServletRequest rq, HttpServletResponse rs)throws ServletException, IOException {
-        List<Veterinario> list = new ArrayList<>();
-        list = DataVet.listVet();
+    protected void GetListVetContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        List<Veterinario> list = DataVet.read();
         rq.getSession().setAttribute("listUsers", list);
         rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListVet.jsp");
     }
 
-    private void GetConnectionUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+    protected void GetListClientContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+        List<Cliente> list = DataClient.read();
+        rq.getSession().setAttribute("listUsers", list);
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListClient.jsp");
+    }
+    
+    protected void GetListBells(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+        List<Solicitud> list = DataBell.read();
+        rq.getSession().setAttribute("listBell", list);
+        rs.sendRedirect(rq.getContextPath()+"/views/users/admin/DataListSolicitudes.jsp");
+    }
+
+    protected void GetConnectionUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
         int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
         List<Conexion> list = DataConnection.ListOne(InfoID);
         rq.getSession().setAttribute("UserDataConnection", list);
-        if(option==1)
-            rs.sendRedirect(rq.getContextPath()+ "/views/users/admin/userInfo/dataconnection.jsp?option=1");
-        else
-            rs.sendRedirect(rq.getContextPath()+ "/views/users/admin/userInfo/dataconnection.jsp?option=2");
-        
+        if (option == 1) {
+            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option=1");
+        } else {
+            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option=2");
+        }
     }
 
-    private void GetMeetContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
-       String InfoID = rq.getParameter("UserInfoID");
-       List<Consulta> list = DataMeet.ListOne(InfoID);
-       rq.getSession().setAttribute("DataMeet", list);
-       rs.sendRedirect(rq.getContextPath()+ "/views/users/admin/userInfo/dataMeet.jsp?option=1");
+    protected void GetMeetContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+        String InfoID = rq.getParameter("UserInfoID");
+        List<Consulta> list = DataMeet.ListOne(InfoID);
+        rq.getSession().setAttribute("DataMeet", list);
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataMeet.jsp?option=1");
     }
+
+    protected void GetBellInfo(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
+        String InfoID = rq.getParameter("UserInfoID");
+        List<Solicitud> list = DataBell.ListDataVet(InfoID);
+        rq.getSession().setAttribute("DataBell", list);
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataBell.jsp?option=1");
+    }
+
+    
 
 }
