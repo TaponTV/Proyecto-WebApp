@@ -18,44 +18,16 @@
         <title>Dashboard - Conexiones</title>
     </head>
     <body>
-        <jsp:include page="../content/sidebar.jsp"/>
+        <jsp:include page="../../content/sidebar.jsp"/>
         <div class="main-content">
-            <jsp:include page="../content/header.jsp"/>
+            <jsp:include page="../../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
                         <h1>Listado de Usuarios Registrados</h1>
                         <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
                     </div>
-                    <div class="header-actions">
-                        <%
-                            if (Integer.parseInt(request.getParameter("option")) == 1) {
-                        %>
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=1" method="post">
-                            <button type="submit">
-                                <span class="las la-spinner"></span>
-                                Regresar
-                            </button>
-                        </form>
-                        <%
-                        } else {
-                        %>
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=2" method="post">
-                            <button type="submit">
-                                <span class="las la-spinner"></span>
-                                Regresar
-                            </button>
-                        </form>
-                        <%
-                            }
-                        %>
-                        <form action="<%= request.getContextPath()%>/logout" method="post">
-                            <button type="submit" value ="Cerrar Sesion">
-                                <span class="las la-sign-out-alt"></span>
-                                Cerrar Sesión
-                            </button>
-                        </form>
-                    </div>
+                    <jsp:include page="headeractionsVet.jsp"/>
                 </div>
                 <table>
                     <thead>

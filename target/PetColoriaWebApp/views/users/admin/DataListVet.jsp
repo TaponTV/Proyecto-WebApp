@@ -71,28 +71,25 @@
                             <td><%= user.getFechaTitulacion()%></td>
                             <td><%= user.getUniversidad()%></td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=4&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
+                                <form action="<%= request.getContextPath()%>/ConnectionListController?typeuser=1" method="post">
                                     <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Conexiones">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=5&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
+                                <form action="<%= request.getContextPath()%>/MeetsVetAdmin" method="post">
                                     <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Citas">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=6&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
+                                <form action="<%= request.getContextPath()%>/BellsVetAdmin" method="post">
                                     <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Solicitudes">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=1" method="post">
+                                <form action="<%= request.getContextPath()%>/ShowData?typeUser=1" method="post">
                                     <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
                                     <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Ver más">

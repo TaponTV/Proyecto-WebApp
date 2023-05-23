@@ -1,5 +1,3 @@
-<%@page import="models.Veterinario"%>
-<%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
 <%@page import = "java.util.*" %>
@@ -20,87 +18,23 @@
     <body>
         <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-             <jsp:include page="../content/header.jsp"/>
-            <main>
-                <div class="page-header">
-                    <div>
-                        <h1>Listado de Usuarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
-                    </div>
-                    <div class="header-actions">
-                        <%
-                            if (Integer.parseInt(request.getParameter("option")) == 1) {
-                        %>
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=1" method="post">
-                            <button type="submit">
-                                <span class="las la-spinner"></span>
-                                Regresar
-                            </button>
-                        </form>
-                        <%
-                        } else{
-                        %>
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=2" method="post">
-                            <button type="submit">
-                                <span class="las la-spinner"></span>
-                                Regresar
-                            </button>
-                        </form>
-                        <%
-                        }
-                        %>
-                        <form action="<%= request.getContextPath()%>/logout" method="post">
-                            <button type="submit" value ="Cerrar Sesion">
-                                <span class="las la-sign-out-alt"></span>
-                                Cerrar Sesión
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <% Usuario user = (Usuario) request.getSession().getAttribute("UserInfo");
-                    if (user != null) {%>
-                <label> Nombre </label>
-                <input type="text" value="<%= user.getNombre()%>"><br>
-                <label> Apellido Paterno </label>
-                <input type="text" value="<%= user.getApPaterno()%>"><br>
-                <label> Apellido Materno </label>
-                <input type="text" value="<%= user.getApMaterno()%>"><br>
-                <label> Edad </label>
-                <input type="text" value="<%= user.getEdad()%>"><br>
-                <label> País </label>
-                <input type="text" value="<%= user.getPais()%>"><br>
-                <label> Estado </label>
-                <input type="text" value="<%= user.getEstado()%>"><br>
-                <label> Ciudad </label>
-                <input type="text" value="<%= user.getCiudad()%>"><br>
-                <label> Celular </label>
-                <input type="text" value="<%= user.getCelular()%>"><br>
-                <label> Telefono </label>
-                <input type="text" value="<%= user.getTelefono()%>"><br>
-                <label> Email </label>
-                <input type="text" value="<%= user.getEmail()%>"><br>
-                <label> Tipo de Usuario </label>
-                <input type="text" value="<%= user.getRol()%>"><br>
-                <%
-                    }
-                    if (Integer.parseInt(request.getParameter("option")) == 1) {
-                        Veterinario vet = (Veterinario) request.getSession().getAttribute("data" + user.getIdUser());
-                        if (vet != null) {
-                %>
-                <label> Cedula </label>
-                <input type="text" value="<%= vet.getCedula()%>"><br>
-                <label> Especialidad </label>
-                <input type="text" value="<%= vet.getEspecialidad()%>"><br>
-                <label> Fecha de Titulación</label>
-                <input type="text" value="<%= vet.getFechaTitulacion()%>"><br>
-                <label> Universidad </label>
-                <input type="text" value="<%= vet.getUniversidad()%>"><br>
-                <%
-                        }
-                    }
-                %>
-                </tbody>
-            </main>
+            <jsp:include page="../content/header.jsp"/>
+            <%
+                int typeUser = Integer.parseInt(request.getParameter("typeUser"));
+                switch (typeUser) {
+                    case 1:
+            %>
+            <jsp:include page="vet/UserVetData.jsp"/>
+            <%
+                    break;
+                case 2:
+            %>
+            <jsp:include page="client/UserClientData.jsp"/>
+            <%
+                        break;
+                }
+            %>
+
         </div>
 
     </body>

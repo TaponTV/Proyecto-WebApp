@@ -78,13 +78,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="slide">
+                <a href="<%= request.getContextPath()%>/GetData?action=6" class="slide">
                     <span class="las la-comments"></span>
                     Comentarios
                 </a>
             </li>
             <li>
-                <a href="#" class="slide">
+                <a href="<%= request.getContextPath()%>/GetData?action=7" class="slide">
                     <span class="las la-envelope-open"></span>
                     Peticiones
                 </a>

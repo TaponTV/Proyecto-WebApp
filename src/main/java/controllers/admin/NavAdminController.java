@@ -11,12 +11,9 @@ import DataObjects.DAO.*;
 import java.util.List;
 import models.*;
 
-@WebServlet(name = "AdminController", value = {"/GetData", "/RidData"})
-public class AdminController extends HttpServlet {
+@WebServlet(name = "NavAdminController", value = {"/GetData"})
+public class NavAdminController extends HttpServlet {
 
-    //Option 0 sera utilizado para determinar a todos los usuarios
-    //Option 1 sera utilizado para determinar a solo los veterinarios
-    //Option 2 sera utilizado para determinar a solo los clientes
     private final ConexionDAO DataConnection = new ConexionDAO();
     private final ClienteDAO DataClient = new ClienteDAO();
     private final MascotaDAO DataPet = new MascotaDAO();
@@ -34,6 +31,7 @@ public class AdminController extends HttpServlet {
         if (CurrentUser == null && CurrentUser.getIdRol() != 1) {
             rs.sendRedirect(rq.getContextPath() + "/CheckController");
         }
+        
         switch (rq.getServletPath()) {
             case "/GetData":
                 String param = rq.getParameter("action");
@@ -56,24 +54,8 @@ public class AdminController extends HttpServlet {
                                 GetListBells(rq, rs);
                             }
                             break;
-                        case "3":
-                            //Informacion de un usuario
-                            GetUserInfo(rq, rs);
-                            break;
-                        case "4":
-                            GetConnectionUserInfo(rq, rs);
-                            break;
-                        case "5":
-                            GetMeetContent(rq, rs);
-                            break;
-                        case "6":
-                            GetBellInfo(rq, rs);
-                            break;
                     }
                 }
-                break;
-            case "RidData":
-                //Para eliminar datos
                 break;
         }
     }
@@ -106,9 +88,11 @@ public class AdminController extends HttpServlet {
                         break;
                     case "6":
                         //Listado de comentarios
+                        GetListComments(rq, rs);
                         break;
                     case "7":
                         //Listado de peticiones
+                        GetListAdminBells(rq, rs);
                         break;
                 }
                 break;
@@ -124,13 +108,6 @@ public class AdminController extends HttpServlet {
         rq.getSession().setAttribute("DataBell", DataBell.count());
         rs.sendRedirect(rq.getContextPath() + "/views/users/admin/menu.jsp");
     }
-    
-    protected void GetUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
-        rq.getSession().setAttribute("UserInfo", DataUser.showUser(InfoID));
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/user.jsp?option=" + option);
-    }
-    
 
     protected void GetListUserContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
         List<Usuario> list = DataUser.read();
@@ -156,29 +133,12 @@ public class AdminController extends HttpServlet {
         rs.sendRedirect(rq.getContextPath()+"/views/users/admin/DataListSolicitudes.jsp");
     }
 
-    protected void GetConnectionUserInfo(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
-        int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
-        List<Conexion> list = DataConnection.ListOne(InfoID);
-        rq.getSession().setAttribute("UserDataConnection", list);
-        if (option == 1) {
-            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option=1");
-        } else {
-            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option=2");
-        }
+    private void GetListComments(HttpServletRequest rq, HttpServletResponse rs) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    protected void GetMeetContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
-        String InfoID = rq.getParameter("UserInfoID");
-        List<Consulta> list = DataMeet.ListOne(InfoID);
-        rq.getSession().setAttribute("DataMeet", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataMeet.jsp?option=1");
-    }
-
-    protected void GetBellInfo(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
-        String InfoID = rq.getParameter("UserInfoID");
-        List<Solicitud> list = DataBell.ListDataVet(InfoID);
-        rq.getSession().setAttribute("DataBell", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataBell.jsp?option=1");
+    private void GetListAdminBells(HttpServletRequest rq, HttpServletResponse rs) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     
