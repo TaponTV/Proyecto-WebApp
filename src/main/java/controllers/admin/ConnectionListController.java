@@ -22,7 +22,7 @@ public class ConnectionListController extends HttpServlet {
             int InfoID = Integer.parseInt(rq.getParameter("UserInfoID"));
             List<Conexion> list = DataConnection.ListOne(InfoID);
             rq.getSession().setAttribute("UserDataConnection", list);
-            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option="+typeUser);
+            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/dataconnection.jsp?option="+typeUser+"&id="+InfoID);
         } catch (Exception e) {
 
         }

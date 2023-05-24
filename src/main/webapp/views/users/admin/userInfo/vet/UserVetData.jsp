@@ -50,6 +50,18 @@
         <input type="text" value="<%= user.getIdUser()%>" name="UID" hidden>
         <button type="submit">Aplicar Cambios</button>
     </form>
+    <form action="<%= request.getContextPath()%>/ConnectionListController?typeuser=1" method="post">
+        <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
+        <input type="submit" value="Mostrar Conexiones">
+    </form>
+    <form action="<%= request.getContextPath()%>/MeetsVetAdmin" method="post">
+        <input type="text" value="<%= vet.getCedula()%>" name="UserInfoID" hidden>
+        <input type="submit" value="Mostrar Citas">
+    </form>
+    <form action="<%= request.getContextPath()%>/BellsVetAdmin" method="post">
+        <input type="text" value="<%= vet.getCedula()%>" name="UserInfoID" hidden>
+        <input type="submit" value="Mostrar Solicitudes">
+    </form>
     <%
         }
     %>

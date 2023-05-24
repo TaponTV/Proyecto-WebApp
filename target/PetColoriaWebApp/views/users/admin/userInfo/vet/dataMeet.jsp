@@ -1,5 +1,4 @@
 <%@page import="models.Consulta"%>
-<%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
 <%@page import = "java.util.*" %>
@@ -24,8 +23,8 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Listado de Usuarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
+                        <h1>Consultas Registradas</h1>
+                            <small> Registro de solicitudes Veterinario ID: <%= request.getParameter("id")%></small>
                     </div>
                     <jsp:include page="headeractionsVet.jsp"/>
                 </div>
@@ -51,7 +50,12 @@
                             <td><%= datac.getNombre()%></td>
                             <td><%= datac.getEspecie()%></td>
                             <td><%= datac.getFechaConsulta()%></td>
-                            <td> BOTONES DE COMANDO (CANCELAR, POSPONER, MOSTRAR DETALLES)</td>
+                            <td>
+                                <form method="post" action="<%= request.getContextPath()%>/DataMeetVet">
+                                    <input type="text" value="<%= datac.getIdConsulta()%>" name="MeetID" hidden>
+                                    <button type="submit">Mostrar Detalle</button>
+                                </form>
+                            </td>
                         </tr>
                         <%
                                 }

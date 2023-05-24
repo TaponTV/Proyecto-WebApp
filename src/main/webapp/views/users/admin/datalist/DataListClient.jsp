@@ -1,5 +1,5 @@
+<%@page import="models.Cliente"%>
 <%@page import="java.util.List"%>
-<%@page import="models.Veterinario"%>
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
@@ -19,18 +19,17 @@
         <title>Dashboard - Veterinarios</title>
     </head>
     <body>
-        <jsp:include page="content/sidebar.jsp"/>
+        <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-            <jsp:include page="content/header.jsp"/>
-
+            <jsp:include page="../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Listado de Veterinarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los veterinarios registrados</small>
+                        <h1>Listado de Clientes Registrados</h1>
+                        <small> Este es un listado que muestra un resumen de los cliente registrados</small>
                     </div>
                     <div class="header-actions">
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=1" method="post">
+                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=2" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
                                 Actualizar Métricas
@@ -50,49 +49,47 @@
                             <td> ID Usuario </td>
                             <td> Nombre </td>
                             <td> Apellidos </td>
-                            <td> Pais Origen </td>
-                            <td> Residencia </td>
-                            <td> Correo </td>
-                            <td> Universidad </td>
-                            <td colspan="4"> Operaciones   </td>
+                            <td> Edad </td>
+                            <td colspan="4"> Operaciones </td>
                         </tr>
+                        
                     </thead>
                     <tbody>
-                        <% List<Veterinario> listUsers = (List<Veterinario>) request.getSession().getAttribute("listUsers");
+                        <% List<Cliente> listUsers = (List<Cliente>) request.getSession().getAttribute("listUsers");
 
                             if (listUsers != null) {
-                                for (Veterinario user : listUsers) {%>
+                                for (Cliente user : listUsers) {%>
                         <tr>
                             <td><%= user.getIdUser()%></td>
                             <td><%= user.getNombre()%></td>
                             <td><%= user.getApPaterno()%> <%= user.getApMaterno()%></td>
-                            <td><%= user.getCedula()%></td>
-                            <td><%= user.getEspecialidad()%></td>
-                            <td><%= user.getFechaTitulacion()%></td>
-                            <td><%= user.getUniversidad()%></td>
+                            <td><%= user.getEdad()%></td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/ConnectionListController?typeuser=1" method="post">
+                                <form action="<%= request.getContextPath()%>/GetData?action=4&option=2" method="post">
+                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
                                     <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Conexiones">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/MeetsVetAdmin" method="post">
-                                    <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
+                                <form action="<%= request.getContextPath()%>/GetData?action=5&option=2" method="post">
+                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
+                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Citas">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/BellsVetAdmin" method="post">
-                                    <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
+                                <form action="<%= request.getContextPath()%>/GetData?action=6&option=2" method="post">
+                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
+                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Solicitudes">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/ShowData?typeUser=1" method="post">
+                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=2" method="post">
                                     <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
                                     <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Ver más">
+                                    <input type="submit" value="Mostrar información completa">
                                 </form>
                             </td>
                         </tr>
@@ -103,8 +100,6 @@
                     </tbody>
                 </table>
             </main>
-
-
         </div>
 
     </body>

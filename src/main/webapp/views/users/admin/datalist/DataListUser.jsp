@@ -1,5 +1,4 @@
-<%@page import="models.Solicitud"%>
-<%@page import="java.util.List"%>
+<%@page import="models.Veterinario"%>
 <%@page import="models.Usuario"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
@@ -16,24 +15,23 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <title>Dashboard - Veterinarios</title>
+        <title>Dashboard - Lista de Usuarios</title>
     </head>
     <body>
-        <jsp:include page="content/sidebar.jsp"/>
+        <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-            <jsp:include page="content/header.jsp"/>
-
+             <jsp:include page="../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Solicitudes en la página</h1>
-                        <small> Lista de solicitudes registradas dentro de la aplicación</small>
+                        <h1>Listado de Usuarios Registrados</h1>
+                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
                     </div>
                     <div class="header-actions">
-                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=3" method="post">
+                        <form action="<%= request.getContextPath()%>/GetData?action=2&option=0" method="post">
                             <button type="submit">
                                 <span class="las la-spinner"></span>
-                                Actualizar Métricas
+                                Actualizar Métricas 
                             </button>
                         </form>
                         <form action="<%= request.getContextPath()%>/logout" method="post">
@@ -47,42 +45,35 @@
                 <table>
                     <thead>
                         <tr>
-                            <td> ID Solicitud </td>
-                            <td> Cliente Solicitante </td>
-                            <td> Veterinario </td>
-                            <td> Fecha </td>
-                            <td> Status </td>
-                            <td colspan="4"> Operaciones   </td>
+                            <td> ID Usuario </td>
+                            <td> Nombre </td>
+                            <td> Apellidos </td>
+                            <td> Pais Origen </td>
+                            <td> Residencia </td>
+                            <td> Correo </td>
+                            <td>    </td>
                         </tr>
                     </thead>
                     <tbody>
-                        <% List<Solicitud> listBell = (List<Solicitud>) request.getSession().getAttribute("listBell");
-
-                            if (listBell != null) {
-                                for (Solicitud bells : listBell) {%>
+                        <% List<Usuario> listUsers = (List<Usuario>) request.getSession().getAttribute("listUsers");
+                            if (listUsers != null) {
+                                for (Usuario user : listUsers) {%>
                         <tr>
-                            <td><%= bells.getIdSolicitud()%></td>
-                            <td><%= bells.getNombre()%></td>
-                            <td><%= bells.getvNombre()%></td>
-                            <td><%= bells.getFecha()%></td>
-                            <td><%= bells.getStatus() %></td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=7&option=1" method="post">
-                                    <% request.getSession().setAttribute("data" + bells.getIdSolicitud(), bells);%>
-                                    <input type="text" value="<%= bells.getIdSolicitud()%>" name="BellInfoID" hidden>
-                                    <input type="submit" value="Ver más">
-                                </form>
-                            </td>
+                            <td><%= user.getIdUser()%></td>
+                            <td><%= user.getNombre()%></td>
+                            <td><%= user.getApPaterno()%> <%= user.getApMaterno()%></td>
+                            <td><%= user.getEdad()%></td>
+                            <td><%= user.getPais()%></td>
+                            <td><%= user.getEstado()%></td>
+                            <td><%= user.getEmail()%></td>
+                            <td><%= user.getRol()%></td>
+                            
                         </tr>
-                        <%
-                                }
-                            }
-                        %>
+                        <% }
+                            }%>
                     </tbody>
                 </table>
             </main>
-
-
         </div>
 
     </body>

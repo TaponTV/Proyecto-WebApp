@@ -24,8 +24,8 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Listado de Usuarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
+                        <h1>Solicitudes registradas </h1>
+                        <small> Registro de solicitudes Usuario ID: <%= request.getParameter("id") %></small>
                     </div>
                     <jsp:include page="headeractionsVet.jsp"/>
                 </div>
@@ -49,8 +49,9 @@
                             <td><%= datac.getFecha()%></td>
                             <td><%= datac.getStatus()%></td>
                             <td>
-                                <form action="" method="post">
-                                    <button> Mostrar Detalles </button>
+                                <form method="post" action="<%= request.getContextPath()%>/DataBellVet">
+                                    <input type="text" value="<%= datac.getIdSolicitud()%>" name="BellID" hidden>
+                                    <button type="submit">Mostrar Detalle</button>
                                 </form>
                             </td>
                         </tr>

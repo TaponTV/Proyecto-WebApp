@@ -24,8 +24,8 @@
             <main>
                 <div class="page-header">
                     <div>
-                        <h1>Listado de Usuarios Registrados</h1>
-                        <small> Este es un listado que muestra un resumen de los usuarios registrados</small>
+                        <h1>Registro de conexiones</h1>
+                        <small> Conexiones Usuario ID: <%= request.getParameter("id") %></small>
                     </div>
                     <div class="header-actions">
                         <%

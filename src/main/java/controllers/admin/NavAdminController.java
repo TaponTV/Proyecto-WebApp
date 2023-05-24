@@ -112,25 +112,25 @@ public class NavAdminController extends HttpServlet {
     protected void GetListUserContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
         List<Usuario> list = DataUser.read();
         rq.getSession().setAttribute("listUsers", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListUser.jsp");
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/datalist/DataListUser.jsp");
     }
 
     protected void GetListVetContent(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
         List<Veterinario> list = DataVet.read();
         rq.getSession().setAttribute("listUsers", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListVet.jsp");
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/datalist/DataListVet.jsp");
     }
 
     protected void GetListClientContent(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
         List<Cliente> list = DataClient.read();
         rq.getSession().setAttribute("listUsers", list);
-        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/DataListClient.jsp");
+        rs.sendRedirect(rq.getContextPath() + "/views/users/admin/datalist/DataListClient.jsp");
     }
     
     protected void GetListBells(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
         List<Solicitud> list = DataBell.read();
         rq.getSession().setAttribute("listBell", list);
-        rs.sendRedirect(rq.getContextPath()+"/views/users/admin/DataListSolicitudes.jsp");
+        rs.sendRedirect(rq.getContextPath()+"/views/users/admin/datalist/DataListSolicitudes.jsp");
     }
 
     private void GetListComments(HttpServletRequest rq, HttpServletResponse rs) {
