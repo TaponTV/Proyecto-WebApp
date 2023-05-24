@@ -65,31 +65,10 @@
                             <td><%= user.getApPaterno()%> <%= user.getApMaterno()%></td>
                             <td><%= user.getEdad()%></td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=4&option=2" method="post">
+                                <form action="<%= request.getContextPath()%>/ShowData?typeUser=2" method="post">
                                     <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
                                     <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Conexiones">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=5&option=2" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Citas">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=6&option=2" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar Solicitudes">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="<%= request.getContextPath()%>/GetData?action=3&option=2" method="post">
-                                    <% request.getSession().setAttribute("data" + user.getIdUser(), user);%>
-                                    <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
-                                    <input type="submit" value="Mostrar información completa">
+                                    <input type="submit" value="Mostrar Información">
                                 </form>
                             </td>
                         </tr>

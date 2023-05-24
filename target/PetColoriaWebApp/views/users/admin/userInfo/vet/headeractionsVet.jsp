@@ -2,7 +2,7 @@
     <form action="<%= request.getContextPath()%>/GetData?action=2&option=1" method="post">
         <button type="submit">
             <span class="las la-spinner"></span>
-            Regresar
+            Actualizar
         </button>
     </form>
     <form action="<%= request.getContextPath()%>/logout" method="post">

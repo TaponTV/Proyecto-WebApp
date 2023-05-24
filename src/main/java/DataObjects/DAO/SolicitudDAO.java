@@ -126,8 +126,14 @@ public class SolicitudDAO implements solicitudInterface {
         return 0;
     }
 
-    public List<Solicitud> ListDataVet(String InfoID) {
+    public List<Solicitud> ListOne(String InfoID, int option) {
         try {
+            String condition = "";
+            if (option == 1) {
+                condition = "WHERE solicitud.idveterinario = ?";
+            } else if (option == 2) {
+                condition = "WHERE solicitud.idcliente = ?";
+            }
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT solicitud.idSolicitud, usuario.nombre, solicitud.fecha, estado.estado FROM solicitud\n"
                     + "JOIN cliente\n"
@@ -136,8 +142,12 @@ public class SolicitudDAO implements solicitudInterface {
                     + "ON usuario.idUser = cliente.idUser\n"
                     + "JOIN estado\n"
                     + "ON estado.idestado = solicitud.idestado\n"
-                    + "WHERE solicitud.idveterinario = ?");
-            ps.setString(1, InfoID);
+                    + condition);
+            if (option == 1) {
+                 ps.setString(1, InfoID);
+            } else if (option == 2) {
+                 ps.setInt(1, Integer.parseInt(InfoID));
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 obj = new Solicitud();

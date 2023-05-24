@@ -54,7 +54,7 @@
         <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
         <input type="submit" value="Mostrar Conexiones">
     </form>
-    <form action="<%= request.getContextPath()%>/MeetsVetAdmin" method="post">
+    <form action="<%= request.getContextPath()%>/ShowMeetController?typeUser=1" method="post">
         <input type="text" value="<%= vet.getCedula()%>" name="UserInfoID" hidden>
         <input type="submit" value="Mostrar Citas">
     </form>

@@ -72,12 +72,6 @@
                 </a>
             </li>
             <li>
-                <a href="<%= request.getContextPath()%>/GetData?action=5" class="slide">
-                    <span class="las la-file-alt"></span>
-                    Informe de Solicitudes
-                </a>
-            </li>
-            <li>
                 <a href="<%= request.getContextPath()%>/GetData?action=6" class="slide">
                     <span class="las la-comments"></span>
                     Comentarios

@@ -42,6 +42,7 @@ public class ClienteDAO implements clienteInterface {
         try {
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT \n"
+                    + " Cliente.idCliente, "
                     + "	Usuario.idUser, \n"
                     + "	Usuario.nombre,\n"
                     + "	Usuario.apPaterno,\n"
@@ -57,6 +58,7 @@ public class ClienteDAO implements clienteInterface {
                 obj.setNombre(rs.getString("nombre"));
                 obj.setApPaterno(rs.getString("apPaterno"));
                 obj.setApMaterno(rs.getString("apMaterno"));
+                obj.setIdCliente(rs.getInt("idcliente"));
                 obj.setEdad(rs.getInt("edad"));
                 list.add(obj);
             }

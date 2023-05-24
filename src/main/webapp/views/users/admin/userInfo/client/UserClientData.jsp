@@ -1,3 +1,4 @@
+<%@page import="models.Cliente"%>
 <%@page import="models.Usuario"%>
 <main>
     <div class="page-header">
@@ -22,6 +23,7 @@
     </div>
     <%
         Usuario user = (Usuario) request.getSession().getAttribute("UserInfo");
+        Cliente client = (Cliente) request.getSession().getAttribute("data" + user.getIdUser());
         if (user != null) {%>
     <label> Nombre </label>
     <input type="text" value="<%= user.getNombre()%>"><br>
@@ -45,8 +47,41 @@
     <input type="text" value="<%= user.getEmail()%>"><br>
     <label> Tipo de Usuario </label>
     <input type="text" value="<%= user.getRol()%>"><br>
+
+    <form method="post" action="/RipDataUser">
+        <input type="text" value="<%= user.getIdUser()%>" name="UID" hidden>
+        <button type="submit">Eliminar Usuario</button>
+    </form>
+    <form method="post" action="/ModifyDataUser">
+        <input type="text" value="<%= user.getIdUser()%>" name="UID" hidden>
+        <button type="submit">Aplicar Cambios</button>
+    </form>
+    <form action="<%= request.getContextPath()%>/ConnectionListController?typeuser=2" method="post">
+        <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>
+        <input type="submit" value="Mostrar Conexiones">
+    </form>
+
+    <form action="<%= request.getContextPath()%>/ShowMeetController?typeUser=2" method="post">
+        <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
+        <input type="submit" value="Mostrar Citas">
+    </form>
+
+    <form action="<%= request.getContextPath()%>/ShowBellController?typeUser=2" method="post">
+        <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
+        <input type="submit" value="Mostrar Solicitudes">
+    </form>
+
+    <form action="<%= request.getContextPath()%>/ShowCommentController" method="post">
+        <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
+        <input type="submit" value="Mostrar Comentarios">
+    </form>
+
+    <form action="<%= request.getContextPath()%>/ShowPetController" method="post">
+        <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
+        <input type="submit" value="Mascotas Registradas">
+    </form>
     <%
         }
     %>
-    </tbody>
+</tbody>
 </main>

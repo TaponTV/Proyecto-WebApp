@@ -17,16 +17,15 @@
         <title>Dashboard - Conexiones</title>
     </head>
     <body>
-        <jsp:include page="../../content/sidebar.jsp"/>
+        <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-            <jsp:include page="../../content/header.jsp"/>
+            <jsp:include page="../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
                         <h1>Consultas Registradas</h1>
-                            <small> Registro de solicitudes Veterinario ID: <%= request.getParameter("id")%></small>
+                            <small> Registro de solicitudes ID Usuario: <%= request.getParameter("id")%></small>
                     </div>
-                    <jsp:include page="headeractionsVet.jsp"/>
                 </div>
                 <table>
                     <thead>
@@ -40,7 +39,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% List<Consulta> data = (List<Consulta>) request.getSession().getAttribute("DataMeet");
+                        <% 
+                            List<Consulta> data = (List<Consulta>) request.getSession().getAttribute("DataMeet");
                             if (data != null) {
                                 for (Consulta datac : data) {
                         %>
@@ -51,7 +51,7 @@
                             <td><%= datac.getEspecie()%></td>
                             <td><%= datac.getFechaConsulta()%></td>
                             <td>
-                                <form method="post" action="<%= request.getContextPath()%>/DataMeetVet">
+                                <form method="post" action="<%= request.getContextPath()%>/DataMeetController">
                                     <input type="text" value="<%= datac.getIdConsulta()%>" name="MeetID" hidden>
                                     <button type="submit">Mostrar Detalle</button>
                                 </form>

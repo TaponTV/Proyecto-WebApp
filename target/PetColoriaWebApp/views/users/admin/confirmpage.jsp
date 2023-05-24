@@ -13,25 +13,20 @@
     </head>
     <body>
         <%
-            /* 
-                1 - ModifyMeetVet
-                2 - RipMeetVet
-                3 - ModifyBellVet
-             */
             String path = "";
             int action = Integer.parseInt(request.getParameter("action"));
             switch (action) {
                 case 1:
-                    path = request.getContextPath() + "/ModifyMeetVet";
+                    path = request.getContextPath() + "/ModifyMeetController";
                     break;
                 case 2:
-                    path = request.getContextPath() + "/RipMeetVet";
+                    path = request.getContextPath() + "/RipMeetController";
                     break;
                 case 3:
-                    path = request.getContextPath() + "/ModifyBellVet";
+                    path = request.getContextPath() + "/ModifyBellController";
                     break;
                 case 4:
-                    path = request.getContextPath() + "/RipBellVet";
+                    path = request.getContextPath() + "/RipBellController";
                     break;
             }
         %>

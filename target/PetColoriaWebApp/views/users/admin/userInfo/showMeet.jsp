@@ -1,4 +1,4 @@
-<%@page import="models.Solicitud"%>
+<%@page import="models.Consulta"%>
 <%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@page import = "java.io.*"%>
 <%@page import = "java.util.*" %>
@@ -16,35 +16,31 @@
         <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <title>Dashboard - Conexiones</title>
     </head>
-    <% Solicitud data = (Solicitud) request.getSession().getAttribute("Bell"); %>
+    <% Consulta data = (Consulta) request.getSession().getAttribute("Meet"); %>
     <body>
-        <jsp:include page="../../content/sidebar.jsp"/>
+        <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-            <jsp:include page="../../content/header.jsp"/>
+            <jsp:include page="../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
                         <h1>Detalles</h1>
                     </div>
                 </div>
-                <%
+                <% 
                     if (data != null) {
                 %>
-                <form method="post" action="<%= request.getContextPath()%>/ConfirmController?action=modifybell">
+                <form method="post" action="<%= request.getContextPath()%>/ConfirmController?action=modifymeet">
+                    ConsultaID: <input type="text" value="<%= data.getIdConsulta()%>" name="MeetID"><br>
                     SolicitudID: <input type="text" value="<%= data.getIdSolicitud()%>" name="BellID"><br>
-                    ClienteID: <input type="text" value="<%= data.getIdCliente()%>" name="ClientID"><br>
-                    VeterinarioID: <input type="text" value="<%= data.getIdVeterinario()%>" name="VetID"><br>
-                    MascotaID: <input type="text" value="<%= data.getIdMascota()%>" name="PetID"><br>
-                    PrioridadID: <input type="text" value="<%= data.getIdPrioridad()%>" name="PriorityID"><br>
-                    StatusID: <input type="text" value="<%= data.getIdEstado()%>" name="StatusID"><br>
-                    Fecha: <input type="text" value="<%= data.getFecha()%>" name="Date"><br>
-                    Descripcion: <input type="text" value="<%= data.getDescripcion()%>" name="Details"><br>
-                    <button type="submit">Modificar Solicitud</button><br>
+                    Fecha Consulta: <input type="text" value="<%= data.getFechaConsulta()%>" name="DateMeet"><br>
+                    Detalle: <input type="text" value="<%= data.getDetalle()%>" name="DetailMeet"><br>
+                    <button type="submit">Modificar Consulta</button><br>
                 </form>
-                <form method="post" action="<%= request.getContextPath()%>/ConfirmController?action=ripbell">
-                    <% request.getSession().setAttribute("Bell", data);%>
-                    <input type="text" value="<%= data.getIdSolicitud()%>" name="BellID" hidden>
-                    <button type="submit">Eliminar Solicitud</button>
+                <form method="post" action="<%= request.getContextPath()%>/ConfirmController?action=ripmeet">
+                    <% request.getSession().setAttribute("Meet", data); %>
+                    <input type="text" value="<%= data.getIdConsulta()%>" name="MeetID" hidden>
+                    <button type="submit">Eliminar Consulta</button>
                 </form>
                 <%
                     }

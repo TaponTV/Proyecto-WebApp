@@ -27,7 +27,6 @@
                         <h1>Solicitudes registradas </h1>
                         <small> Registro de solicitudes Usuario ID: <%= request.getParameter("id") %></small>
                     </div>
-                    <jsp:include page="headeractionsVet.jsp"/>
                 </div>
                 <table>
                     <thead>
@@ -49,7 +48,7 @@
                             <td><%= datac.getFecha()%></td>
                             <td><%= datac.getStatus()%></td>
                             <td>
-                                <form method="post" action="<%= request.getContextPath()%>/DataBellVet">
+                                <form method="post" action="<%= request.getContextPath()%>/DataMeetController">
                                     <input type="text" value="<%= datac.getIdSolicitud()%>" name="BellID" hidden>
                                     <button type="submit">Mostrar Detalle</button>
                                 </form>

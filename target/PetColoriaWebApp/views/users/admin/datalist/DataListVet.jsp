@@ -77,13 +77,13 @@
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/MeetsVetAdmin" method="post">
+                                <form action="<%= request.getContextPath()%>/ShowMeetController?typeUser=1" method="post">
                                     <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Citas">
                                 </form>
                             </td>
                             <td>
-                                <form action="<%= request.getContextPath()%>/BellsVetAdmin" method="post">
+                                <form action="<%= request.getContextPath()%>/ShowBellController?typeUser=1" method="post">
                                     <input type="text" value="<%= user.getCedula()%>" name="UserInfoID" hidden>
                                     <input type="submit" value="Mostrar Solicitudes">
                                 </form>

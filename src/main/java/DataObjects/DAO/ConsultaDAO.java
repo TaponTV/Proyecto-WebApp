@@ -52,14 +52,14 @@ public class ConsultaDAO implements consultaInterface {
     }
 
     public boolean delete(int id) {
-        try{
+        try {
             ps = connect.prepareStatement("DELETE FROM consulta WHERE idConsulta = ? ");
             ps.setInt(1, id);
-            return ps.executeUpdate()>0;
-        }catch(SQLException ex){
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
             ConnectionDB.closeDB(rs);
         }
@@ -70,8 +70,14 @@ public class ConsultaDAO implements consultaInterface {
         return 0;
     }
 
-    public List<Consulta> ListOne(String idVet) {
+    public List<Consulta> ListOne(String InfoID, int option) {
         try {
+            String condition = "";
+            if (option == 1) {
+                condition = "WHERE solicitud.idveterinario = ?";
+            } else if (option == 2) {
+                condition = "WHERE solicitud.idcliente = ?";
+            }
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT idConsulta, usuario.nombre, mascota.nombre as mascota, especie.especie, fechaconsulta FROM consulta\n"
                     + "JOIN solicitud\n"
@@ -84,10 +90,14 @@ public class ConsultaDAO implements consultaInterface {
                     + "ON mascota.idmascota = solicitud.idmascota\n"
                     + "JOIN especie\n"
                     + "ON especie.idespecie = mascota.idespecie\n"
-                    + "WHERE solicitud.idveterinario = ?");
-            ps.setString(1,idVet);
+                    + condition);
+            if (option == 1) {
+                 ps.setString(1, InfoID);
+            } else if (option == 2) {
+                 ps.setInt(1, Integer.parseInt(InfoID));
+            }
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int idConsulta = rs.getInt("idConsulta");
                 String nombreC = rs.getString("nombre");
                 String nombreM = rs.getString("mascota");
@@ -97,29 +107,29 @@ public class ConsultaDAO implements consultaInterface {
                 list.add(obj);
             }
             return list;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
     }
 
     public Consulta show(int MeetID) {
-        try{
+        try {
             ps = connect.prepareStatement("SELECT * FROM Consulta WHERE idconsulta = ? ");
             ps.setInt(1, MeetID);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 obj.setIdConsulta(rs.getInt("idconsulta"));
                 obj.setIdSolicitud(rs.getInt("idsolicitud"));
                 obj.setFechaConsulta(rs.getString("fechaconsulta"));
                 obj.setDetalle(rs.getString("detalle"));
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
+        } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
