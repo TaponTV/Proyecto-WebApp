@@ -1,49 +1,49 @@
 @charset "UTF-8";
 *{
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-	list-style: none;
-	text-decoration: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
 }
 body{
-	background: green;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    background: green;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .logo{
-	margin-top: 0px;
-	width: 120px;
-        height: 100px;
-	font-size: 30px;
-	font-weight: 700;
-	color: white;
+    margin-top: 0px;
+    width: 120px;
+    height: 100px;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
 }
 .navigation-list{
-	display: flex;
+    display: flex;
 }
 .navigation-list a{
-	color: white;
-	margin-left: 60px;
-	font-size: 15px;
-	font-weight: 600;
-	border-bottom: 2px solid transparent;
-	transition: all .55s ease;
+    color: white;
+    margin-left: 60px;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all .55s ease;
 }
 
 .navigation-list a:hover{
-	font-size: 16px;
-	border-bottom: 2px solid white;
+    font-size: 16px;
+    border-bottom: 2px solid white;
 }
 #menu-icon{
-	color: white;
-	font-size: 35px;
-	z-index: 10001;
-	cursor: pointer;
-	display: none;
+    color: white;
+    font-size: 35px;
+    z-index: 10001;
+    cursor: pointer;
+    display: none;
 }
 .container{
     width: 500px;
@@ -60,7 +60,7 @@ body{
 
 #hidden-btn{
     display: none;
-    
+
 }
 
 .signup{
@@ -95,7 +95,7 @@ body{
 .container select{
     width: 80%;
     height: 40px;
-    outline: none; 
+    outline: none;
     border: none;
     border-radius: 5px;
     background-color: #fff;

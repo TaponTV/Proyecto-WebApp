@@ -135,7 +135,7 @@ public class SolicitudDAO implements solicitudInterface {
                 condition = "WHERE solicitud.idcliente = ?";
             }
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT solicitud.idSolicitud, usuario.nombre, solicitud.fecha, estado.estado FROM solicitud\n"
+            ps = connect.prepareStatement("SELECT solicitud.idSolicitud, usuario.nombre, solicitud.fecha, estado.estado, solicitud.descripcion FROM solicitud\n"
                     + "JOIN cliente\n"
                     + "ON cliente.idcliente = solicitud.idcliente\n"
                     + "JOIN usuario\n"
@@ -155,6 +155,7 @@ public class SolicitudDAO implements solicitudInterface {
                 obj.setNombre(rs.getString("nombre"));
                 obj.setFecha(rs.getString("fecha"));
                 obj.setStatus(rs.getString("estado"));
+                obj.setDescripcion(rs.getString("descripcion"));
                 list.add(obj);
             }
         } catch (SQLException ex) {

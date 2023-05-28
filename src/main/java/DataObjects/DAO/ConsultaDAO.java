@@ -24,16 +24,19 @@ public class ConsultaDAO implements consultaInterface {
         connect = ConnectionDB.getConnection();
     }
 
+    @Override
     public boolean create(Consulta ob) {
         // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
     public List<Consulta> read() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Override
     public boolean update(Consulta ob) {
         try {
             ps = connect.prepareStatement("UPDATE consulta SET idSolicitud = ?, fechaConsulta = ?, detalle = ? WHERE idConsulta = ?");
@@ -51,6 +54,7 @@ public class ConsultaDAO implements consultaInterface {
         }
     }
 
+    @Override
     public boolean delete(int id) {
         try {
             ps = connect.prepareStatement("DELETE FROM consulta WHERE idConsulta = ? ");
@@ -61,7 +65,6 @@ public class ConsultaDAO implements consultaInterface {
             return false;
         } finally {
             ConnectionDB.closeDB(ps);
-            ConnectionDB.closeDB(rs);
         }
     }
 
@@ -92,9 +95,9 @@ public class ConsultaDAO implements consultaInterface {
                     + "ON especie.idespecie = mascota.idespecie\n"
                     + condition);
             if (option == 1) {
-                 ps.setString(1, InfoID);
+                ps.setString(1, InfoID);
             } else if (option == 2) {
-                 ps.setInt(1, Integer.parseInt(InfoID));
+                ps.setInt(1, Integer.parseInt(InfoID));
             }
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -122,6 +125,7 @@ public class ConsultaDAO implements consultaInterface {
             ps.setInt(1, MeetID);
             rs = ps.executeQuery();
             if (rs.next()) {
+                obj = new Consulta();
                 obj.setIdConsulta(rs.getInt("idconsulta"));
                 obj.setIdSolicitud(rs.getInt("idsolicitud"));
                 obj.setFechaConsulta(rs.getString("fechaconsulta"));

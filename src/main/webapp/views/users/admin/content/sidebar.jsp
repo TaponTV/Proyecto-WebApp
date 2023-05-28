@@ -1,11 +1,10 @@
-
 <%@page import="java.io.IOException"%>
 <%@page import="models.Usuario"%>
 <%
     String name = "", email = "";
     if (response.isCommitted()) {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }else if (request.getSession(false) == null || request.getSession().getAttribute("CurrentUser") == null) {
+    } else if (request.getSession(false) == null || request.getSession().getAttribute("CurrentUser") == null) {
         request.getRequestDispatcher("/CheckController").forward(request, response);
     } else {
         Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
@@ -17,8 +16,6 @@
             return;
         }
     }
-
-
 %>
 <div class="sidebar">
     <div class="sidebar-brand">

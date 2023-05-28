@@ -12,7 +12,7 @@ import javax.servlet.http.*;
 import models.Conexion;
 import models.Usuario;
 
-@WebServlet(name = "LoginController", /*urlPatterns = {"/LoginController"} */ value = {"/login", "/logout"})
+@WebServlet(name = "LoginController",  value = {"/login", "/logout"})
 public class LoginController extends HttpServlet {
 
     private Usuario user = null;
@@ -24,17 +24,20 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        rq.getRequestDispatcher("/CheckController").forward(rq, rs);
+        sendPath(rq, rs);
     }
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        sendPath(rq, rs);
+    }
 
+    private void sendPath(HttpServletRequest rq, HttpServletResponse rs) throws IOException, ServletException {
         switch (rq.getServletPath()) {
             case "/login":
                 String userEmail = rq.getParameter("userEmail");
                 String userPswrd = rq.getParameter("userPswrd");
-                int isExist = DataUser.validate(userEmail, userPswrd); //isExist containt idUser
+                int isExist = DataUser.validate(userEmail, userPswrd);
                 if (isExist != 0) {
                     tmsp = fmt.format(new Timestamp(new Date().getTime()));
                     user = DataUser.showUser(isExist);
@@ -61,12 +64,14 @@ public class LoginController extends HttpServlet {
                             )
                     );
                     rq.getSession().invalidate();
-                    rs.sendRedirect("./index.jsp");
+                    rs.sendRedirect(rq.getContextPath() + "/index.jsp");
                 }
+                break;
+            default:
+                rs.sendRedirect(rq.getContextPath() + "/index.jsp");
                 break;
 
         }
-
     }
 
 }

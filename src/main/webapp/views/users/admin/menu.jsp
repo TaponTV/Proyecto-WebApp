@@ -18,8 +18,9 @@
         <jsp:include page="content/sidebar.jsp"/>
         <div class="main-content">
             <jsp:include page="content/header.jsp"/>
+            
             <main>
-                
+
                 <div class="page-header">
                     <div>
                         <h1>Estadisticas de Datos</h1>
@@ -40,8 +41,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="cards">   
 
+                <div class="cards">   
+                    
                     <a href="<%= request.getContextPath()%>/GetData?action=2" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -71,7 +73,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -86,7 +88,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -101,7 +103,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -116,7 +118,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                     <a href="#" class="card-single">
                         <div class="card-flex">
                             <div class="card-info">
@@ -131,7 +133,7 @@
                             </div>
                         </div>
                     </a>
-                            
+
                 </div>
             </main>
         </div>

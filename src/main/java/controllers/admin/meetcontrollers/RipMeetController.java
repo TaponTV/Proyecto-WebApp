@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Consulta;
+import models.Usuario;
 
 @WebServlet(name = "RipMeetController", urlPatterns = {"/RipMeetController"})
 public class RipMeetController extends HttpServlet {
-    
+
     private ConsultaDAO DataMeet = new ConsultaDAO();
-    private Consulta Meet = new Consulta();
     private int MeetID = 0;
 
     @Override
@@ -23,17 +23,27 @@ public class RipMeetController extends HttpServlet {
 
     private void RipMeet(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
         MeetID = Integer.parseInt(rq.getSession().getAttribute("MeetID").toString());
+        int rol = ((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdRol();
+        rq.getSession().setAttribute("idMeet", MeetID);
         rq.getSession().removeAttribute("MeetID");
         if (rq.getParameter("option").equals("yes")) {
             boolean isUpdate = DataMeet.delete(MeetID);
             if (isUpdate) {
-                rq.getSession().removeAttribute("Meet");
-                rs.sendRedirect(rq.getContextPath()+"/GetData?action=1");
+                if (rol == 2) {
+                    rs.sendRedirect(rq.getContextPath() + "/DiaryController");
+                } else {
+                    rs.sendRedirect(rq.getContextPath() + "/GetData?action=1");
+                }
+
             }
             //Añadir un mensaje algún día
         } else {
-            rq.getSession().setAttribute("Meet", rq.getSession().getAttribute("Meet"));
-            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/showMeet.jsp");
+            if (rol == 2) {
+                rs.sendRedirect(rq.getContextPath() + "/MeetVetController");
+            } else {
+                rq.getSession().setAttribute("Meet", rq.getSession().getAttribute("Meet"));
+                rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/showMeet.jsp");
+            }
         }
     }
 

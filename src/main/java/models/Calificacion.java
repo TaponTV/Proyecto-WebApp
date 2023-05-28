@@ -5,6 +5,7 @@ import java.io.*;
 public class Calificacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private int idCalificacion;
     private String idVeterinario;
     private int idCliente;
     private int idPrivacidad;
@@ -15,7 +16,8 @@ public class Calificacion implements Serializable {
 
     }
 
-    public Calificacion(String idVeterinario, int idCliente, int idPrivacidad, int calificacion, String comentario) {
+    public Calificacion(int idCalificacion, String idVeterinario, int idCliente, int idPrivacidad, int calificacion, String comentario) {
+        this.idCalificacion = idCalificacion;
         this.idVeterinario = idVeterinario;
         this.idCliente = idCliente;
         this.idPrivacidad = idPrivacidad;
@@ -61,6 +63,14 @@ public class Calificacion implements Serializable {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public int getIdCalificacion() {
+        return idCalificacion;
+    }
+
+    public void setIdCalificacion(int idCalificacion) {
+        this.idCalificacion = idCalificacion;
     }
 
     @Override

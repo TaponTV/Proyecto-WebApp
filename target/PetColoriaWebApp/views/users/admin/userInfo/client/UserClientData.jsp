@@ -71,7 +71,7 @@
         <input type="submit" value="Mostrar Solicitudes">
     </form>
 
-    <form action="<%= request.getContextPath()%>/ShowCommentController" method="post">
+    <form action="<%= request.getContextPath()%>/ShowCommentController?issue=2" method="post">
         <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
         <input type="submit" value="Mostrar Comentarios">
     </form>
