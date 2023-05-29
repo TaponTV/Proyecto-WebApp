@@ -52,6 +52,7 @@ public class VeterinarioDAO implements veterinarioInterface {
                     + "	Usuario.nombre,\n"
                     + "	Usuario.apPaterno,\n"
                     + "	Usuario.apMaterno,\n"
+                    + " Usuario.telefono,"
                     + "	Veterinario.cedula,\n"
                     + "	Veterinario.especialidad,\n"
                     + "	Veterinario.fechatitulacion,\n"
@@ -68,9 +69,10 @@ public class VeterinarioDAO implements veterinarioInterface {
                 String cedula = rs.getString("cedula");
                 String especialidad = rs.getString("especialidad");
                 String fechatitulacion = rs.getString("fechatitulacion");
-
+                String telefono = rs.getString("telefono");
                 String universidad = rs.getString("universidad");
                 obj = new Veterinario(idUser, nombre, apPaterno, apMaterno, cedula, especialidad, fechatitulacion, universidad);
+                obj.setTelefono(telefono);
                 list.add(obj);
             }
             return list;

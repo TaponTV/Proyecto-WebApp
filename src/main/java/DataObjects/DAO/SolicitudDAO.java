@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,8 +28,22 @@ public class SolicitudDAO implements solicitudInterface {
 
     @Override
     public boolean create(Solicitud ob) {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+            ps = connect.prepareStatement("INSERT INTO solicitud (idcliente, idveterinario,idmascota,idprioridad,idestado,fecha,descripcion) VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1, ob.getIdCliente());
+            ps.setString(2, ob.getIdVeterinario());
+            ps.setInt(3, ob.getIdMascota());
+            ps.setInt(4, ob.getIdPrioridad());
+            ps.setInt(5, ob.getIdEstado());
+            ps.setDate(6, Date.valueOf(ob.getFecha()));
+            ps.setString(7, ob.getDescripcion());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     @Override
@@ -144,9 +157,9 @@ public class SolicitudDAO implements solicitudInterface {
                     + "ON estado.idestado = solicitud.idestado\n"
                     + condition);
             if (option == 1) {
-                 ps.setString(1, InfoID);
+                ps.setString(1, InfoID);
             } else if (option == 2) {
-                 ps.setInt(1, Integer.parseInt(InfoID));
+                ps.setInt(1, Integer.parseInt(InfoID));
             }
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -191,6 +204,24 @@ public class SolicitudDAO implements solicitudInterface {
             ConnectionDB.closeDB(ps);
         }
         return obj;
+    }
+
+    public boolean exist(int idpet) {
+        try {
+            ps = connect.prepareStatement("SELECT * FROM solicitud WHERE idmascota = ? and idestado = 1");
+            ps.setInt(1, idpet);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+        return false;
     }
 
 }

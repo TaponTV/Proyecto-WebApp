@@ -35,7 +35,7 @@ public class CheckController extends HttpServlet {
                     }
                     break;
                 case 3:
-                    tmp = rq.getContextPath() + "/views/users/client/menu.jsp";
+                    tmp = rq.getContextPath() + "/listPets";
                     break;
             }
             rs.sendRedirect(tmp);

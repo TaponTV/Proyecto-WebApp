@@ -18,9 +18,9 @@
         <title>Dashboard - Conexiones</title>
     </head>
     <body>
-        <jsp:include page="../../content/sidebar.jsp"/>
+        <jsp:include page="../content/sidebar.jsp"/>
         <div class="main-content">
-             <jsp:include page="../../content/header.jsp"/>
+             <jsp:include page="../content/header.jsp"/>
             <main>
                 <div class="page-header">
                     <div>
@@ -48,7 +48,7 @@
                             <td><%= datac.getFecha()%></td>
                             <td><%= datac.getStatus()%></td>
                             <td>
-                                <form method="post" action="<%= request.getContextPath()%>/DataMeetController">
+                                <form method="post" action="<%= request.getContextPath()%>/DataBellController">
                                     <input type="text" value="<%= datac.getIdSolicitud()%>" name="BellID" hidden>
                                     <button type="submit">Mostrar Detalle</button>
                                 </form>

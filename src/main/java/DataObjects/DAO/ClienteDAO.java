@@ -58,7 +58,7 @@ public class ClienteDAO implements clienteInterface {
                 obj.setNombre(rs.getString("nombre"));
                 obj.setApPaterno(rs.getString("apPaterno"));
                 obj.setApMaterno(rs.getString("apMaterno"));
-                obj.setIdCliente(rs.getInt("idcliente"));
+                obj.setIdCliente();
                 obj.setEdad(rs.getInt("edad"));
                 list.add(obj);
             }
@@ -94,6 +94,24 @@ public class ClienteDAO implements clienteInterface {
 
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int idClient(int idUser) {
+        try {
+            ps = connect.prepareStatement("SELECT idcliente FROM cliente WHERE idUser = ?");
+            ps.setInt(1, idUser);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("idcliente");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
         }
         return 0;
     }

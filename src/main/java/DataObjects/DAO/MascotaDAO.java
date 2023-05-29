@@ -5,6 +5,7 @@ import java.util.List;
 
 import DataObjects.interfaces.mascotaInterface;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,25 +21,39 @@ public class MascotaDAO implements mascotaInterface {
     private PreparedStatement ps = null;
     private List<Mascota> list;
     private Mascota obj;
-    
-    public MascotaDAO(){
+
+    public MascotaDAO() {
         connect = ConnectionDB.getConnection();
     }
-    
+
     @Override
     public boolean create(Mascota ob) {
-        // TODO Auto-generated method stub
-        return false;
+        try {
+            ps = connect.prepareStatement("INSERT INTO mascota (idcliente, nombre, edad, fechanac, raza, idespecie) VALUES (?,?,?,?,?,?)");
+            ps.setInt(1, ob.getIdCliente());
+            ps.setString(2, ob.getNombre());
+            ps.setInt(3, ob.getEdad());
+            ps.setDate(4, Date.valueOf(ob.getFechaNac()));
+            ps.setString(5, ob.getRaza());
+            ps.setInt(6, ob.getIdEspecie());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     @Override
     public List<Mascota> read(int ClientID) {
-        try{
+        try {
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT * FROM mascota WHERE idcliente = ?");
             ps.setInt(1, ClientID);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 obj = new Mascota();
                 obj.setIdMascota(rs.getInt("idmascota"));
                 obj.setIdCliente(rs.getInt("idcliente"));
@@ -49,10 +64,10 @@ public class MascotaDAO implements mascotaInterface {
                 obj.setIdEspecie(rs.getInt("idespecie"));
                 list.add(obj);
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
             ConnectionDB.closeDB(rs);
         }
@@ -73,14 +88,14 @@ public class MascotaDAO implements mascotaInterface {
 
     @Override
     public boolean delete(int PetID) {
-        try{
+        try {
             ps = connect.prepareStatement("DELETE FROM mascota WHERE idmascota = ?");
             ps.setInt(1, PetID);
-            return ps.executeUpdate()>0;
-        }catch(SQLException ex){
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
         }
     }
@@ -94,7 +109,7 @@ public class MascotaDAO implements mascotaInterface {
             return rs.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
