@@ -1,4 +1,4 @@
-# Proyecto-WebApp
+# Proyecto-WebApp Beta 1.0
 
 
 Name project: "PetColoria"
@@ -7,12 +7,11 @@ The project aims to create a web application that allows the search for veterina
 Project specifications:
 - User registration as client and doctor (2 type of user)
 - Filtered search (Direction, Specie, type of animal, etc)
-- Pet dictionary (vaccines and general information)
+- Pet dictionary (general information)
 - Appointment manager
 
-
 The project is currently in the development phase.
-
+Many thought functions are not added in this version, due to limitations regarding the use of frameworks and timing details.
 
 
 #### This project is created by @TaponTV
