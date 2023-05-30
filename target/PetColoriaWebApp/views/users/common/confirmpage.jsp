@@ -27,6 +27,8 @@
                     break;
                 case 6:
                     path = request.getContextPath()+"/vet/updateMeet";
+                case 7:
+                    path = request.getContextPath()+"RipBellController?page=client";
             }
         %>
         <div>
