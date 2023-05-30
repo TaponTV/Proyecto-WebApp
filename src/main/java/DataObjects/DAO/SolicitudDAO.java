@@ -50,7 +50,7 @@ public class SolicitudDAO implements solicitudInterface {
     public List<Solicitud> read() {
         try {
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT solicitud.idsolicitud, c.nombre, v.nombre AS nombreV, solicitud.fecha, estado.estado \n"
+            ps = connect.prepareStatement("SELECT solicitud.idsolicitud, c.nombre AS cliente, v.nombre AS nombreV, solicitud.fecha, estado.estado \n"
                     + "FROM usuario c\n"
                     + "JOIN cliente ON c.idUser = cliente.idUser\n"
                     + "JOIN solicitud ON cliente.idCliente = solicitud.idCliente\n"
@@ -148,13 +148,13 @@ public class SolicitudDAO implements solicitudInterface {
                 condition = "WHERE solicitud.idcliente = ?";
             }
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT solicitud.idSolicitud, usuario.nombre, solicitud.fecha, estado.estado, solicitud.descripcion FROM solicitud\n"
-                    + "JOIN cliente\n"
-                    + "ON cliente.idcliente = solicitud.idcliente\n"
-                    + "JOIN usuario\n"
-                    + "ON usuario.idUser = cliente.idUser\n"
-                    + "JOIN estado\n"
-                    + "ON estado.idestado = solicitud.idestado\n"
+            ps = connect.prepareStatement("SELECT solicitud.idsolicitud, c.nombre AS cliente, v.nombre AS veterinario, solicitud.fecha, estado.estado, solicitud.descripcion, solicitud.idestado \n"
+                    + "FROM usuario c\n"
+                    + "JOIN cliente ON c.idUser = cliente.idUser\n"
+                    + "JOIN solicitud ON cliente.idCliente = solicitud.idCliente\n"
+                    + "JOIN veterinario ON solicitud.idVeterinario = veterinario.idVeterinario\n"
+                    + "JOIN usuario v ON veterinario.idUser = v.idUser\n"
+                    + "JOIN estado ON solicitud.idEstado = estado.idestado "
                     + condition);
             if (option == 1) {
                 ps.setString(1, InfoID);
@@ -165,10 +165,12 @@ public class SolicitudDAO implements solicitudInterface {
             while (rs.next()) {
                 obj = new Solicitud();
                 obj.setIdSolicitud(rs.getInt("idSolicitud"));
-                obj.setNombre(rs.getString("nombre"));
+                obj.setNombre(rs.getString("cliente"));
+                obj.setvNombre(rs.getString("veterinario"));
                 obj.setFecha(rs.getString("fecha"));
                 obj.setStatus(rs.getString("estado"));
                 obj.setDescripcion(rs.getString("descripcion"));
+                obj.setIdEstado(rs.getInt("idestado"));
                 list.add(obj);
             }
         } catch (SQLException ex) {
