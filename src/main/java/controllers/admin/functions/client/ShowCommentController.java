@@ -1,7 +1,6 @@
 package controllers.admin.functions.client;
 
 import DataObjects.DAO.CalificacionDAO;
-import DataObjects.DAO.ComentarioDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import models.Calificacion;
 @WebServlet(name = "ShowCommentController", urlPatterns = {"/ShowCommentController"})
 public class ShowCommentController extends HttpServlet {
 
-    private ComentarioDAO DataCommentPage = new ComentarioDAO();
     private CalificacionDAO DataScoreComment = new CalificacionDAO();
     private List<Calificacion> list;
 
