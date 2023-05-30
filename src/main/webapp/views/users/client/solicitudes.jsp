@@ -42,13 +42,13 @@
                 %>
                 <tr>
                     <td><%= datac.getIdSolicitud()%></td>
-                    <td><%= datac.getNombre()%></td>
+                    <td><%= datac.getvNombre()%></td>
                     <td><%= datac.getFecha()%></td>
                     <td><%= datac.getDescripcion()%></td>
                     <td><%= datac.getStatus()%></td>
                     <td>
                         <%
-                            if (datac.getStatus().equals("Pendiente")) {
+                            if (datac.getIdEstado()==1) {
                         %>
                         <a href="<%=request.getContextPath()%>/ConfirmController?action=ripbell&BellID=<%= datac.getIdSolicitud()%>"><button>Cancelar Solicitud</button></a>
                         <%
