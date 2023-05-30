@@ -4,7 +4,6 @@
  */
 package controllers.client;
 
-import DataObjects.DAO.UsuarioDAO;
 import DataObjects.DAO.VeterinarioDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Usuario;
 import models.Veterinario;
 
 /**
@@ -26,8 +26,9 @@ public class BusquedaServlet extends HttpServlet {
     private VeterinarioDAO data = new VeterinarioDAO();
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        Usuario CurrentUser = (Usuario)rq.getSession().getAttribute("CurrentUser");
         List<Veterinario> list = new ArrayList<>();
-        list = data.read();
+        list = data.read(CurrentUser.getCiudad());
         rq.getSession().setAttribute("veterinarios", list);
         rs.sendRedirect(rq.getContextPath()+"/views/users/client/veterinarios.jsp");
     }
