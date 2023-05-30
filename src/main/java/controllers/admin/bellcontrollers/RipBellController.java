@@ -24,16 +24,25 @@ public class RipBellController extends HttpServlet {
     private void RipBellVet(HttpServletRequest rq, HttpServletResponse rs) throws IOException {
         BellID = Integer.parseInt(rq.getSession().getAttribute("BellID").toString());
         rq.getSession().removeAttribute("BellID");
+        String page = rq.getParameter("page");
         if (rq.getParameter("option").equals("yes")) {
             boolean isUpdate = DataBell.delete(BellID);
             if (isUpdate) {
-                rq.getSession().removeAttribute("Bell");
-                rs.sendRedirect(rq.getContextPath() + "/GetData?action=3");
+                if (page != null && page.equals("client")) {
+                    rs.sendRedirect(rq.getContextPath() + "/SolicitudCliente");
+                } else {
+                    rq.getSession().removeAttribute("Bell");
+                    rs.sendRedirect(rq.getContextPath() + "/GetData?action=3");
+                }
             }
             //Añadir un mensaje algún día
         } else {
-            rq.getSession().setAttribute("Bell", rq.getSession().getAttribute("Bell"));
-            rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/vet/showBell.jsp");
+            if (page != null && page.equals("client")) {
+                rs.sendRedirect(rq.getContextPath() + "/SolicitudCliente");
+            } else {
+                rq.getSession().setAttribute("Bell", rq.getSession().getAttribute("Bell"));
+                rs.sendRedirect(rq.getContextPath() + "/views/users/admin/userInfo/vet/showBell.jsp");
+            }
         }
     }
 

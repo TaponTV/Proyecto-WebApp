@@ -32,8 +32,13 @@ public class ConfirmController extends HttpServlet {
                     break;
                 case "ripbell":
                     int BellID = Integer.parseInt(rq.getParameter("BellID"));
+                    String page = rq.getParameter("page");
                     rq.getSession().setAttribute("BellID", BellID);
-                    rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=4");
+                    if (page != null && page.equals("client")) {
+                        rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=7");
+                    } else {
+                        rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=4");
+                    }
                     break;
                 case "deletepet":
                     int PetID = Integer.parseInt(rq.getParameter("InfoID"));
@@ -49,8 +54,8 @@ public class ConfirmController extends HttpServlet {
                     obj.setFechaConsulta(rq.getParameter("dateMeet"));
                     obj.setDetalle(rq.getParameter("detailMeet"));
                     rq.getSession().setAttribute("newObj", obj);
-                    rs.sendRedirect(rq.getContextPath()+"/views/users/common/confirmpage.jsp?action=6");
-                    
+                    rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=6");
+
                     break;
 
             }
@@ -61,6 +66,7 @@ public class ConfirmController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        doPost(rq, rs);
     }
 
     protected void CreateObjectMeet(HttpServletRequest rq, HttpServletResponse rs) {

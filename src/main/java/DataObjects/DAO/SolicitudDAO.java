@@ -118,7 +118,6 @@ public class SolicitudDAO implements solicitudInterface {
             return false;
         } finally {
             ConnectionDB.closeDB(ps);
-            ConnectionDB.closeDB(rs);
         }
     }
 
