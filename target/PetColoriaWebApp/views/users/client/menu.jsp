@@ -45,7 +45,7 @@
         <form action="<%= request.getContextPath()%>/views/users/client/agregarmascota.jsp" method="post">
             <input type="submit" value ="Agregar Mascota">
         </form>
-        <form action="<%= request.getContextPath()%>/ShowPetController" method="post">
+        <form action="<%= request.getContextPath()%>/views/users/client/mascotas.jsp" method="post">
             <input type="submit" value ="Mostrar mascotas">
         </form>
         <form action="<%= request.getContextPath()%>/logout" method="post">
