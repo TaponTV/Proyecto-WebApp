@@ -18,8 +18,8 @@ public class CalificacionDAO implements calificacionInterface {
     private PreparedStatement ps = null;
     private Calificacion obj;
     private List<Calificacion> list;
-    
-    public CalificacionDAO(){
+
+    public CalificacionDAO() {
         connect = ConnectionDB.getConnection();
     }
 
@@ -61,12 +61,12 @@ public class CalificacionDAO implements calificacionInterface {
      * @return list type Calificacion
      */
     public List<Calificacion> ListOne(int ClientID) {
-        try{
+        try {
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT * FROM Calificacion WHERE idcliente = ?");
             ps.setInt(1, ClientID);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 obj = new Calificacion();
                 obj.setIdCalificacion(rs.getInt("idcalificacion"));
                 obj.setIdVeterinario(rs.getString("idveterinario"));
@@ -76,10 +76,10 @@ public class CalificacionDAO implements calificacionInterface {
                 obj.setComentario(rs.getString("comentario"));
                 list.add(obj);
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
             ConnectionDB.closeDB(rs);
         }
