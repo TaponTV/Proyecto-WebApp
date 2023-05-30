@@ -28,7 +28,6 @@ DataObjects\interfaces\veterinarioInterface.class
 DataObjects\DBConnection\mainPruebas.class
 DataObjects\DAO\ConexionDAO.class
 models\Conexion.class
-models\Vacunas.class
 models\Veterinario.class
 models\Solicitud.class
 DataObjects\DAO\RecetaDAO.class

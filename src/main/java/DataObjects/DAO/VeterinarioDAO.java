@@ -18,6 +18,19 @@ public class VeterinarioDAO implements veterinarioInterface {
     private PreparedStatement ps = null;
     private Veterinario obj = null;
     private List<Veterinario> list;
+    private String queryRead = "SELECT \n"
+            + "	Usuario.idUser, \n"
+            + "	Usuario.nombre,\n"
+            + "	Usuario.apPaterno,\n"
+            + "	Usuario.apMaterno,\n"
+            + "           Usuario.telefono,"
+            + "	Veterinario.cedula,\n"
+            + "	Veterinario.especialidad,\n"
+            + "	Veterinario.fechatitulacion,\n"
+            + "	Veterinario.universidad\n"
+            + "FROM Usuario\n"
+            + "JOIN Veterinario\n"
+            + "ON Veterinario.idUser = Usuario.idUser";
 
     public VeterinarioDAO() {
         connect = ConnectionDB.getConnection();
@@ -46,35 +59,15 @@ public class VeterinarioDAO implements veterinarioInterface {
     @Override
     public List<Veterinario> read() {
         try {
+            obj = new Veterinario();
             list = new ArrayList<Veterinario>();
-            ps = connect.prepareStatement("SELECT \n"
-                    + "	Usuario.idUser, \n"
-                    + "	Usuario.nombre,\n"
-                    + "	Usuario.apPaterno,\n"
-                    + "	Usuario.apMaterno,\n"
-                    + " Usuario.telefono,"
-                    + "	Veterinario.cedula,\n"
-                    + "	Veterinario.especialidad,\n"
-                    + "	Veterinario.fechatitulacion,\n"
-                    + "	Veterinario.universidad\n"
-                    + "FROM Usuario\n"
-                    + "JOIN Veterinario\n"
-                    + "ON Veterinario.idUser = Usuario.idUser");
+            ps = connect.prepareStatement(queryRead);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int idUser = rs.getInt("idUser");
-                String nombre = rs.getString("nombre");
-                String apPaterno = rs.getString("apPaterno");
-                String apMaterno = rs.getString("apMaterno");
-                String cedula = rs.getString("cedula");
-                String especialidad = rs.getString("especialidad");
-                String fechatitulacion = rs.getString("fechatitulacion");
-                String telefono = rs.getString("telefono");
-                String universidad = rs.getString("universidad");
-                obj = new Veterinario(idUser, nombre, apPaterno, apMaterno, cedula, especialidad, fechatitulacion, universidad);
-                obj.setTelefono(telefono);
+                createObj(rs);
                 list.add(obj);
             }
+            obj = null;
             return list;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -83,6 +76,41 @@ public class VeterinarioDAO implements veterinarioInterface {
             ConnectionDB.closeDB(ps);
         }
         return null;
+    }
+
+    @Override
+    public List<Veterinario> read(String ciudad) {
+        try {
+            list = new ArrayList<Veterinario>();
+            ps = connect.prepareStatement(queryRead + " WHERE (direccion).ciudad = ?");
+            ps.setString(1, ciudad);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                createObj(rs);
+                list.add(obj);
+            }
+            obj = null;
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+        return null;
+    }
+
+    public void createObj(ResultSet rs) throws SQLException {
+        obj = new Veterinario();
+        obj.setIdUser(rs.getInt("idUser"));
+        obj.setNombre(rs.getString("nombre"));
+        obj.setApPaterno(rs.getString("apPaterno"));
+        obj.setApMaterno(rs.getString("apMaterno"));
+        obj.setCedula(rs.getString("cedula"));
+        obj.setEspecialidad(rs.getString("especialidad"));
+        obj.setFechaTitulacion(rs.getString("fechatitulacion"));
+        obj.setTelefono(rs.getString("telefono"));
+        obj.setUniversidad(rs.getString("universidad"));
     }
 
     @Override
