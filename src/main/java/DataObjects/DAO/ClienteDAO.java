@@ -98,6 +98,7 @@ public class ClienteDAO implements clienteInterface {
         return 0;
     }
 
+    @Override
     public int idClient(int idUser) {
         try {
             ps = connect.prepareStatement("SELECT idcliente FROM cliente WHERE idUser = ?");
@@ -114,6 +115,26 @@ public class ClienteDAO implements clienteInterface {
             ConnectionDB.closeDB(ps);
         }
         return 0;
+    }
+
+    @Override
+    public String nameClient(int idClient) {
+        try{
+            String name = null;
+            ps = connect.prepareStatement("SELECT nombre, apPaterno FROM Usuario JOIN cliente ON cliente.iduser = usuario.iduser WHERE idcliente = ?");
+            ps.setInt(1, idClient);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                name = rs.getString("nombre")+" "+rs.getString("apPaterno");
+            }
+            return name;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }finally{
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
     }
 
 }
