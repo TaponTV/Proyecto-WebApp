@@ -31,7 +31,6 @@ models\Conexion.class
 models\Veterinario.class
 models\Solicitud.class
 DataObjects\DAO\RecetaDAO.class
-DataObjects\DAO\VacunasDAO.class
 DataObjects\interfaces\consultaInterface.class
 DataObjects\interfaces\usuarioInterface.class
 DataObjects\interfaces\recetaInterface.class
