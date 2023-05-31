@@ -49,6 +49,7 @@
                     <td><%= datac.getTelefono()%></td>
                     <td>
                         <a href="<%=request.getContextPath()%>/views/users/client/registrarsolicitud.jsp?id=<%= datac.getCedula()%>"><button>Registrar Solicitud</button></a>
+                        <a href="<%=request.getContextPath()%>/Comentarios?id=<%= datac.getCedula()%>"><button>Ver Comentarios</button></a>
                     </td>
                 </tr>
                 <%
