@@ -24,7 +24,6 @@
             client.setIdUser(user.getIdUser());
             client.setIdCliente();
             int idcliente = client.getIdCliente();
-
         %>
         <h1>Registrar Solicitud</h1>
         <form action="<%= request.getContextPath()%>/BusquedaServlet" method="post">
