@@ -60,22 +60,17 @@ public class CalificacionDAO implements calificacionInterface {
      * @param ClientID type Int
      * @return list type Calificacion
      */
-    public List<Calificacion> ListOne(int ClientID) {
+    public List<Calificacion> ListOne(int idCliente) {
         try {
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT * FROM Calificacion WHERE idcliente = ?");
-            ps.setInt(1, ClientID);
+            ps.setInt(1, idCliente);
             rs = ps.executeQuery();
             while (rs.next()) {
-                obj = new Calificacion();
-                obj.setIdCalificacion(rs.getInt("idcalificacion"));
-                obj.setIdVeterinario(rs.getString("idveterinario"));
-                obj.setIdCliente(rs.getInt("idcliente"));
-                obj.setIdPrivacidad(rs.getInt("idprivacidad"));
-                obj.setCalificacion(rs.getInt("calificacion"));
-                obj.setComentario(rs.getString("comentario"));
+                createObj(rs);
                 list.add(obj);
             }
+            return list;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
@@ -83,7 +78,38 @@ public class CalificacionDAO implements calificacionInterface {
             ConnectionDB.closeDB(ps);
             ConnectionDB.closeDB(rs);
         }
-        return list;
+    }
+
+    @Override
+    public List<Calificacion> ListOne(String idVeterinario) {
+        try {
+            list = new ArrayList<>();
+            ps = connect.prepareStatement("SELECT * FROM Calificacion WHERE idVeterinario = ?");
+            ps.setString(1, idVeterinario);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                createObj(rs);
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+    }
+
+    private void createObj(ResultSet rs) throws SQLException {
+        obj = new Calificacion();
+        obj.setIdCalificacion(rs.getInt("idcalificacion"));
+        obj.setIdVeterinario(rs.getString("idveterinario"));
+        obj.setIdCliente(rs.getInt("idcliente"));
+        obj.setIdPrivacidad(rs.getInt("idprivacidad"));
+        obj.setCalificacion(rs.getInt("calificacion"));
+        obj.setComentario(rs.getString("comentario"));
+
     }
 
 }

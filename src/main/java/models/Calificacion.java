@@ -17,7 +17,7 @@ public class Calificacion implements Serializable {
     }
 
     public Calificacion(int idCalificacion, String idVeterinario, int idCliente, int idPrivacidad, int calificacion, String comentario) {
-        this.idCalificacion = idCalificacion;
+        this.idCalificacion = idCalificacion; 
         this.idVeterinario = idVeterinario;
         this.idCliente = idCliente;
         this.idPrivacidad = idPrivacidad;
