@@ -38,7 +38,8 @@
             <tbody>
                 <% List<Solicitud> data = (List<Solicitud>) request.getSession().getAttribute("solicitudes");
                     if (data != null) {
-                        for (Solicitud datac : data) {
+                        if (!data.isEmpty()) {
+                            for (Solicitud datac : data) {
                 %>
                 <tr>
                     <td><%= datac.getIdSolicitud()%></td>
@@ -48,7 +49,7 @@
                     <td><%= datac.getStatus()%></td>
                     <td>
                         <%
-                            if (datac.getIdEstado()==1) {
+                            if (datac.getIdEstado() == 1) {
                         %>
                         <a href="<%=request.getContextPath()%>/ConfirmController?action=ripbell&BellID=<%= datac.getIdSolicitud()%>"><button>Cancelar Solicitud</button></a>
                         <%
@@ -57,11 +58,16 @@
                     </td>
                 </tr>
                 <%
-                        }
                     }
-
+                } else {
                 %>
-            </tbody>
-        </table>
-    </body>
+            <p>No se han registrado solicitudes <a href = "<%= request.getContextPath()%>/BusquedaServlet" > Click para registrar</a> </p>
+            <%
+                    }
+                }
+
+            %>
+        </tbody>
+    </table>
+</body>
 </html>
