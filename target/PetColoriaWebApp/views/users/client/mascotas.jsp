@@ -27,7 +27,8 @@
                 <%
                     List<Mascota> list = (List<Mascota>) request.getSession().getAttribute("DataPet");
                     if (list != null) {
-                        for (Mascota var : list) {
+                        if (!list.isEmpty()) {
+                            for (Mascota var : list) {
                 %>
                 <tr>
                     <td><%= var.getNombre()%></td>
@@ -36,10 +37,15 @@
                     <td><%= var.getNombre()%></td>
                 </tr>
                 <%
-                        }
                     }
+                } else {
                 %>
-            </tbody>
+            <p>No se encontraron mascotas registradas<a href = "<%= request.getContextPath()%>/views/users/client/agregarmascota.jsp" > Click para registrar</a> </p>
+                    <%
+                            }
+                        }
+                    %>
+                    </tbody>
         </table>
     </body>
 </html>
