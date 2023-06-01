@@ -23,8 +23,12 @@
             }
 
         %>
-        <h1>Veterinarios registrados</h1>
+        <h1>Solicitudes realizadas</h1>
         <a href="<%=request.getContextPath()%>/views/users/client/menu.jsp"><button>Regresar</button></a>
+        <% List<Solicitud> data = (List<Solicitud>) request.getSession().getAttribute("solicitudes");
+            if (data != null) {
+                if (!data.isEmpty()) {
+        %>
         <table>
             <thead>
                 <tr>
@@ -36,10 +40,8 @@
                 </tr>
             </thead>
             <tbody>
-                <% List<Solicitud> data = (List<Solicitud>) request.getSession().getAttribute("solicitudes");
-                    if (data != null) {
-                        if (!data.isEmpty()) {
-                            for (Solicitud datac : data) {
+                <%
+                    for (Solicitud datac : data) {
                 %>
                 <tr>
                     <td><%= datac.getIdSolicitud()%></td>
