@@ -5,5 +5,6 @@ import models.Mascota;
 
 public interface mascotaInterface extends GenericInterface<Mascota> {
 
-    List<Mascota> read(int id);
+    public List<Mascota> read(int id);
+    public Mascota getData(int id);
 }

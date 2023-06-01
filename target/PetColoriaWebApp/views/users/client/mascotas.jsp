@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Mascotas Registradas</h1>
+        <h1>Mascotas</h1>
         <a href="<%=request.getContextPath()%>/views/users/client/menu.jsp"><button>Regresar</button></a>
         <table>
             <thead>
@@ -34,7 +34,8 @@
                     <td><%= var.getNombre()%></td>
                     <td><%= var.getEdad()%></td>
                     <td><%= var.getRaza()%></td>
-                    <td><%= var.getNombre()%></td>
+                    <td><a href=""><button>Historial Clinico</button></a></td>
+                    <td><a href="<%= request.getContextPath()%>/DataPet?id=<%= var.getIdMascota()%>" ><button>Ver más</button></a></td>
                 </tr>
                 <%
                     }

@@ -116,4 +116,28 @@ public class MascotaDAO implements mascotaInterface {
         return 0;
     }
 
+    @Override
+    public Mascota getData(int id) {
+        try{
+            ps = connect.prepareStatement("SELECT * FROM mascota WHERE idmascota = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                obj = new Mascota();
+                obj.setNombre(rs.getString("nombre"));
+                obj.setEdad(rs.getInt("edad"));
+                obj.setFechaNac(rs.getString("fechanac"));
+                obj.setRaza(rs.getString("raza"));
+                obj.setIdEspecie(rs.getInt("idespecie"));
+            }
+            return obj;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }finally{
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+    }
+
 }
