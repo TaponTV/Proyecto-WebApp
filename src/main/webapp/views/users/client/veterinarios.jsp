@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="java.util.Map"%>
 <%@page import="models.Veterinario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,8 +24,14 @@
             }
 
         %>
-        <h1>Veterinarios registrados</h1>
+        <h1>Veterinarios de PetColoria</h1>
         <a href="<%=request.getContextPath()%>/views/users/client/menu.jsp"><button>Regresar</button></a>
+        <%
+            List<Veterinario> data = (List<Veterinario>) request.getSession().getAttribute("veterinarios");
+            Map<String, Integer> hashScore = (Map<String, Integer>) request.getSession().getAttribute("hashScore");
+            if (data != null && hashScore != null) {
+                if (!data.isEmpty()) {
+        %>
         <table>
             <thead>
                 <tr>
@@ -33,13 +40,13 @@
                     <td>Especialidad</td>
                     <td>Universidad</td>
                     <td>telefono</td>
+                    <td>Calificación Promedio </td>
                     <td> Detalles </td>
                 </tr>
             </thead>
             <tbody>
-                <% List<Veterinario> data = (List<Veterinario>) request.getSession().getAttribute("veterinarios");
-                    if (data != null) {
-                        for (Veterinario datac : data) {
+                <%
+                    for (Veterinario datac : data) {
                 %>
                 <tr>
                     <td><%= datac.getCedula()%></td>
@@ -48,16 +55,32 @@
                     <td><%= datac.getUniversidad()%></td>
                     <td><%= datac.getTelefono()%></td>
                     <td>
+                        <%
+                            int score = hashScore.get(datac.getCedula());
+                            if (score == 0) {
+                                out.print("Sin calificación");
+                            } else {
+                                out.print(score);
+                            }
+
+                        %>
+                    </td>
+                    <td>
                         <a href="<%=request.getContextPath()%>/views/users/client/registrarsolicitud.jsp?id=<%= datac.getCedula()%>"><button>Registrar Solicitud</button></a>
                         <a href="<%=request.getContextPath()%>/Comentarios?id=<%= datac.getCedula()%>"><button>Ver Comentarios</button></a>
                     </td>
                 </tr>
                 <%
-                        }
                     }
-
+                } else {
                 %>
-            </tbody>
-        </table>
-    </body>
+            <p>No existe ningún veterinario registrado cerca de tu zona, lo sentimos :( </p>
+            <%
+                    }
+                }
+
+            %>
+        </tbody>
+    </table>
+</body>
 </html>

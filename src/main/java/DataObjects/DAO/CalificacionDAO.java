@@ -112,4 +112,22 @@ public class CalificacionDAO implements calificacionInterface {
 
     }
 
+    @Override
+    public int Score(String idVeterinario) {
+        try{
+            ps = connect.prepareStatement("SELECT AVG(calificacion) as score FROM calificacion WHERE idVeterinario = ?");
+            ps.setString(1, idVeterinario);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("score");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+        return 0;
+    }
+
 }
