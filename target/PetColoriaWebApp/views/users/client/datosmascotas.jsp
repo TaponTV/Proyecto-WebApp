@@ -15,13 +15,19 @@
     </head>
     <body>
         <%
+             String msg = "";
+            if (request.getSession().getAttribute("msg") != null) {
+                msg = request.getSession().getAttribute("msg").toString();
+                out.print(msg);
+                request.getSession().removeAttribute("msg");
+            }
             Mascota data = (Mascota) request.getSession().getAttribute("dataPet");
             Map<Integer, String> hashSpecie = (Map<Integer, String>) request.getSession().getAttribute("hashSpecie");
             if (data != null) {
         %>
         <h1>Datos: <%= data.getNombre()%></h1>
         <a href="<%= request.getContextPath()%>/views/users/client/mascotas.jsp"><button>Regresar</button></a>
-
+        
         <p>Nombre: <%= data.getNombre()%></p>
         <p>Edad: <%= data.getEdad()%></p>
         <p>Fecha Nacimiento: <%= data.getFechaNac()%></p>
@@ -30,5 +36,7 @@
         <%
             }
         %>
+        <a href="<%= request.getContextPath()%>/views/users/client/modificar.jsp"><button>Modificar Datos</button></a>
+        <a href="<%= request.getContextPath()%>/ConfirmController?action=deletepet&InfoID=<%=data.getIdMascota()%>"><button>Borrar Mascota</button></a>
     </body>
 </html>

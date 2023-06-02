@@ -21,10 +21,17 @@ public class DeletePetController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
         try {
+            String msg;
             PetID = Integer.parseInt(rq.getSession().getAttribute("PetID").toString());
             rq.getSession().removeAttribute("PetID");
             if (rq.getParameter("option").equals("yes")) {
                 boolean isUpdate = DataPet.delete(PetID);
+                if(isUpdate){
+                    msg = "<script>alert('Mascota eliminada :( ');</script>";
+                }else{
+                    msg = "<script>alert('No fue posible realizar la eliminación, intentalo más tarde');</script>";
+                }
+                rq.getSession().setAttribute("msg", msg);
             }
             rs.sendRedirect(rq.getContextPath()+"/CheckController");
         } catch (Exception ex) {

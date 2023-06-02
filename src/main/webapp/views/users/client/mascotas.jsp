@@ -15,6 +15,11 @@
     <body>
         <h1>Mascotas</h1>
         <a href="<%=request.getContextPath()%>/views/users/client/menu.jsp"><button>Regresar</button></a>
+        <%
+            List<Mascota> list = (List<Mascota>) request.getSession().getAttribute("DataPet");
+            if (list != null) {
+                if (!list.isEmpty()) {
+        %>
         <table>
             <thead>
                 <tr>
@@ -25,10 +30,7 @@
             </thead>
             <tbody>
                 <%
-                    List<Mascota> list = (List<Mascota>) request.getSession().getAttribute("DataPet");
-                    if (list != null) {
-                        if (!list.isEmpty()) {
-                            for (Mascota var : list) {
+                    for (Mascota var : list) {
                 %>
                 <tr>
                     <td><%= var.getNombre()%></td>
@@ -42,11 +44,11 @@
                 } else {
                 %>
             <p>No se encontraron mascotas registradas<a href = "<%= request.getContextPath()%>/views/users/client/agregarmascota.jsp" > Click para registrar</a> </p>
-                    <%
-                            }
-                        }
-                    %>
-                    </tbody>
-        </table>
-    </body>
+            <%
+                    }
+                }
+            %>
+        </tbody>
+    </table>
+</body>
 </html>

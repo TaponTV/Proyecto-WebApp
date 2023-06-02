@@ -82,8 +82,21 @@ public class MascotaDAO implements mascotaInterface {
 
     @Override
     public boolean update(Mascota ob) {
-        // TODO Auto-generated method stub
-        return false;
+        try{
+            ps = connect.prepareStatement("UPDATE mascota SET nombre=?, edad=?, fechanac=?, raza=?, idespecie=? WHERE idmascota = ?");
+            ps.setString(1, ob.getNombre());
+            ps.setInt(2, ob.getEdad());
+            ps.setDate(3, Date.valueOf(ob.getFechaNac()));
+            ps.setString(4, ob.getRaza());
+            ps.setInt(5, ob.getIdEspecie());
+            ps.setInt(6, ob.getIdMascota());
+            return ps.executeUpdate() > 0;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     @Override
@@ -124,6 +137,7 @@ public class MascotaDAO implements mascotaInterface {
             rs = ps.executeQuery();
             if(rs.next()){
                 obj = new Mascota();
+                obj.setIdMascota(id);
                 obj.setNombre(rs.getString("nombre"));
                 obj.setEdad(rs.getInt("edad"));
                 obj.setFechaNac(rs.getString("fechanac"));

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.Consulta;
+import models.Mascota;
 import models.Solicitud;
 
 @WebServlet(name = "ConfirmController", urlPatterns = {"/ConfirmController"})
@@ -57,6 +58,10 @@ public class ConfirmController extends HttpServlet {
                     rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=6");
 
                     break;
+                case "modifyPet":
+                    CreateObjectPet(rq, rs);
+                    rs.sendRedirect(rq.getContextPath() + "/views/users/common/confirmpage.jsp?action=8");
+                    break;
 
             }
         } catch (Exception e) {
@@ -67,6 +72,17 @@ public class ConfirmController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
         doPost(rq, rs);
+    }
+
+    protected void CreateObjectPet(HttpServletRequest rq, HttpServletResponse rs) {
+        Mascota obj = new Mascota();
+        obj.setIdMascota(Integer.parseInt(rq.getParameter("pet")));
+        obj.setNombre(rq.getParameter("namePet"));
+        obj.setEdad(Integer.parseInt(rq.getParameter("agePet")));
+        obj.setFechaNac(rq.getParameter("date"));
+        obj.setRaza(rq.getParameter("raza"));
+        obj.setEspecie(rq.getParameter("specie"));
+        rq.getSession().setAttribute("pet", obj);
     }
 
     protected void CreateObjectMeet(HttpServletRequest rq, HttpServletResponse rs) {
