@@ -50,6 +50,7 @@ C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DAO\Veterinar
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\client\RegistrarSolicitud.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DAO\ConsultaDAO.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\interfaces\usuarioInterface.java
+C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\client\ModifyPet.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DBConnection\ConnectionDB.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\models\Consulta.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\admin\meetcontrollers\RipMeetController.java

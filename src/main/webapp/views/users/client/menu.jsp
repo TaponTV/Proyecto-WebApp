@@ -15,6 +15,7 @@
     <body>
 
         <%
+
             String name = "";
             if (response.isCommitted()) {
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -23,6 +24,12 @@
             } else {
                 Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
                 if (currentUser != null && currentUser.getIdRol() == 3) {
+                    String msg = "";
+                    if (request.getSession().getAttribute("msg") != null) {
+                        msg = request.getSession().getAttribute("msg").toString();
+                        out.print(msg);
+                        request.getSession().removeAttribute("msg");
+                    }
                     name = currentUser.getNombre() + " " + currentUser.getApPaterno() + currentUser.getApMaterno();
                 } else {
                     response.sendRedirect(request.getContextPath() + "/index.jsp");

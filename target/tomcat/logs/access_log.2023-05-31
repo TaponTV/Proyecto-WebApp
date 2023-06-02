@@ -261,3 +261,14 @@
 0:0:0:0:0:0:0:1 - - [31/May/2023:22:11:40 -0600] "GET /PetColoriaWebApp/views/users/client/menu.jsp HTTP/1.1" 200 1351 http-bio-8080-exec-6 1
 0:0:0:0:0:0:0:1 - - [31/May/2023:22:11:47 -0600] "POST /PetColoriaWebApp/BusquedaServlet HTTP/1.1" 302 - http-bio-8080-exec-6 1
 0:0:0:0:0:0:0:1 - - [31/May/2023:22:11:47 -0600] "GET /PetColoriaWebApp/views/users/client/veterinarios.jsp HTTP/1.1" 200 503 http-bio-8080-exec-6 1
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:19:46 -0600] "GET /PetColoriaWebApp/views/users/client/menu.jsp HTTP/1.1" 200 1351 http-bio-8080-exec-5 2
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:10 -0600] "POST /PetColoriaWebApp/logout HTTP/1.1" 302 - http-bio-8080-exec-7 4
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:10 -0600] "GET /PetColoriaWebApp/index.jsp HTTP/1.1" 200 1312 http-bio-8080-exec-7 2
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:11 -0600] "GET /PetColoriaWebApp/views/login/login.jsp HTTP/1.1" 200 3535 http-bio-8080-exec-7 1
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "POST /PetColoriaWebApp/login HTTP/1.1" 302 - http-bio-8080-exec-7 4
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "GET /PetColoriaWebApp/CheckController HTTP/1.1" 302 - http-bio-8080-exec-7 2
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "GET /PetColoriaWebApp/views/users/vet/menu.jsp?section=1 HTTP/1.1" 200 3263 http-bio-8080-exec-7 23
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "GET /PetColoriaWebApp/assets/css/vet/sidebar.css HTTP/1.1" 304 - http-bio-8080-exec-7 3
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "GET /PetColoriaWebApp/assets/js/appVet.js HTTP/1.1" 304 - http-bio-8080-exec-7 2
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:29 -0600] "GET /PetColoriaWebApp/assets/img/logo.png HTTP/1.1" 304 - http-bio-8080-exec-7 2
+0:0:0:0:0:0:0:1 - - [31/May/2023:22:24:30 -0600] "GET /PetColoriaWebApp/views/users/vet/menu.jsp?section=1 HTTP/1.1" 200 3263 http-bio-8080-exec-7 2

@@ -23,12 +23,17 @@
                     path = request.getContextPath() + "/RipBellController";
                     break;
                 case 5:
-                    path = request.getContextPath()+"/DeletePetController";
+                    path = request.getContextPath() + "/DeletePetController";
                     break;
                 case 6:
-                    path = request.getContextPath()+"/vet/updateMeet";
+                    path = request.getContextPath() + "/vet/updateMeet";
+                    break;
                 case 7:
-                    path = request.getContextPath()+"RipBellController?page=client";
+                    path = request.getContextPath() + "/RipBellController?page=client";
+                    break;
+                case 8:
+                    path = request.getContextPath() + "/ModifyPet";
+                    break;
             }
         %>
         <div>
