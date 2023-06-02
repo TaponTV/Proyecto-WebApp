@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import models.Consulta;
+import models.Solicitud;
 
 public class ConsultaDAO implements consultaInterface {
 
@@ -82,7 +83,7 @@ public class ConsultaDAO implements consultaInterface {
                 condition = "WHERE solicitud.idcliente = ?";
             }
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT idConsulta, usuario.nombre, mascota.nombre as mascota, especie.especie, fechaconsulta FROM consulta\n"
+            ps = connect.prepareStatement("SELECT idConsulta, usuario.nombre, mascota.nombre as mascota, especie.especie, fechaconsulta, detalle, solicitud.idSolicitud FROM consulta\n"
                     + "JOIN solicitud\n"
                     + "ON solicitud.idsolicitud = consulta.idsolicitud\n"
                     + "JOIN cliente\n"
@@ -107,6 +108,8 @@ public class ConsultaDAO implements consultaInterface {
                 String nombreE = rs.getString("especie");
                 String fechaConsulta = rs.getString("fechaconsulta");
                 obj = new Consulta(idConsulta, fechaConsulta, nombreC, nombreM, nombreE);
+                obj.setIdSolicitud(rs.getInt("idSolicitud"));
+                obj.setDetalle(rs.getString("detalle"));
                 list.add(obj);
             }
             return list;
@@ -114,6 +117,38 @@ public class ConsultaDAO implements consultaInterface {
             ex.printStackTrace();
             return null;
         } finally {
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
+    }
+    
+    public List<Consulta> ListOne(int idpet){
+        Solicitud tmp;
+        try{
+            list = new ArrayList<>();
+            ps = connect.prepareStatement("SELECT idconsulta, solicitud.idveterinario, nombre, apPaterno, apMaterno, fechaconsulta, detalle FROM consulta "
+                    + "JOIN solicitud ON solicitud.idsolicitud = consulta.idsolicitud "
+                    + "JOIN veterinario ON solicitud.idveterinario = veterinario.idveterinario "
+                    + "JOIN usuario ON veterinario.iduser = usuario.iduser "
+                    + "WHERE solicitud.idmascota = ? ");
+            ps.setInt(1, idpet);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                obj = new Consulta();
+                tmp = new Solicitud();
+                obj.setIdConsulta(rs.getInt("idconsulta"));
+                obj.setFechaConsulta(rs.getString("fechaconsulta"));
+                obj.setDetalle(rs.getString("detalle"));
+                tmp.setIdVeterinario(rs.getString("idveterinario"));
+                tmp.setvNombre(rs.getString("nombre")+" "+rs.getString("apPaterno"));
+                obj.setAux(tmp);
+                list.add(obj);
+            }
+            return list;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }finally{
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
