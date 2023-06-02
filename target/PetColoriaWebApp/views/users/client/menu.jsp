@@ -43,9 +43,6 @@
         <form action="<%= request.getContextPath()%>/BusquedaServlet" method="post">
             <input type="submit" value ="Buscar Veterinario">
         </form>
-        <form action="<%= request.getContextPath()%>/ConsultaCliente" method="post">
-            <input type="submit" value ="Consultas">
-        </form>
         <form action="<%= request.getContextPath()%>/SolicitudCliente" method="post">
             <input type="submit" value ="Solicitudes pendientes">
         </form>

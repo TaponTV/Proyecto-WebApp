@@ -36,7 +36,7 @@
                     <td><%= var.getNombre()%></td>
                     <td><%= var.getEdad()%></td>
                     <td><%= var.getRaza()%></td>
-                    <td><a href=""><button>Historial Clinico</button></a></td>
+                    <td><a href="<%= request.getContextPath()%>/HistorialClinico?id=<%= var.getIdMascota()%>"><button>Historial Clinico</button></a></td>
                     <td><a href="<%= request.getContextPath()%>/DataPet?id=<%= var.getIdMascota()%>" ><button>Ver más</button></a></td>
                 </tr>
                 <%
