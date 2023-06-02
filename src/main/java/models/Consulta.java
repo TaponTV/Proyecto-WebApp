@@ -13,8 +13,18 @@ public class Consulta extends Mascota implements Serializable {
     private String fechaConsulta;
     private String detalle;
     private String nombreC;
+    private Solicitud aux = new Solicitud();
+
     public Consulta() {
 
+    }
+
+    public Solicitud getAux() {
+        return aux;
+    }
+
+    public void setAux(Solicitud aux) {
+        this.aux = aux;
     }
 
     public Consulta(int idConsulta) {
@@ -34,7 +44,7 @@ public class Consulta extends Mascota implements Serializable {
         this.detalle = detalle;
     }
 
-    public Consulta(int idConsulta, String fechaConsulta, String nombreC ,String nombre, String especie) {
+    public Consulta(int idConsulta, String fechaConsulta, String nombreC, String nombre, String especie) {
         super(nombre, especie);
         this.nombreC = nombreC;
         this.idConsulta = idConsulta;
