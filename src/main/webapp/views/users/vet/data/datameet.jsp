@@ -1,3 +1,4 @@
+<%@page import="models.Receta"%>
 <%@page import="models.Consulta"%>
 <%@page import="java.util.List"%>
 <%
@@ -16,16 +17,50 @@
     <input value="<%= data.getIdConsulta()%>" name="MeetID" hidden>
     <button type="submit">Actualizar Consulta</button>
 </form>
-<form method="post" action="<%=request.getContextPath()%>/RecetaryController">
+<form method="post" action="<%=request.getContextPath()%>/views/users/vet/menu.jsp?section=5">
     <input value="<%= data.getIdConsulta()%>" name="idMeet" hidden>
-    <button type="submit">Agregar receta</button>
+    <button type="submit">Agregar Medicamento</button>
 </form>
 <form method="post" action="<%=request.getContextPath()%>/ConfirmController?action=ripmeet">
     <input value="<%= data.getIdConsulta()%>" name="MeetID" hidden>
     <button type="submit">Cancelar Consulta</button>
 </form>
-
-
 <%
+    }
+    List<Receta> list = (List<Receta>) request.getSession().getAttribute("listRecipes");
+    if (list != null) {
+        if (!list.isEmpty()) {
+%>
+<table>
+    <thead>
+        <tr>
+            <td> Medicamento</td>
+            <td> Administración</td>
+            <td> Horario</td>
+            <td> Instrucciones </td>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+            for (Receta recipe : list) {
+        %>
+        <tr>
+            <td><%= recipe.getMedicamento()%></td>
+            <td><%= recipe.getTipoAdministracion()%></td>
+            <td><%= recipe.getHorario()%></td>
+            <td><%= recipe.getDetalles()%></td>
+        </tr>
+        <%
+            }
+        %>
+    </tbody>
+</table>
+<%
+} else {
+%>
+<p>No se encontro ninguna receta para esta consulta</p>
+<%
+        }
+
     }
 %>

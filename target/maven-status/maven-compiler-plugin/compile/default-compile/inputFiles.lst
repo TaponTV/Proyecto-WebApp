@@ -16,6 +16,7 @@ C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\VetSignupCont
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\interfaces\recetaInterface.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\models\Veterinario.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\client\AgregarMascota.java
+C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\vet\RecetaryController.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\admin\bellcontrollers\ShowBellController.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\DataObjects\DAO\UsuarioDAO.java
 C:\Users\Admin\Documents\Proyecto-WebApp\src\main\java\controllers\admin\bellcontrollers\ModifyBellController.java
