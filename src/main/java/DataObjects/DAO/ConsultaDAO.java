@@ -5,6 +5,7 @@ import java.util.List;
 
 import DataObjects.interfaces.consultaInterface;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +28,20 @@ public class ConsultaDAO implements consultaInterface {
 
     @Override
     public boolean create(Consulta ob) {
-        // TODO Auto-generated method stub
-        return false;
+        try{
+            Date date = Date.valueOf(ob.getFechaConsulta());
+            Timestamp tm = new Timestamp(date.getTime());
+            ps = connect.prepareStatement("INSERT INTO consulta(idsolicitud, fechaconsulta, detalle) VALUES (?,?,?)");
+            ps.setInt(1, ob.getIdSolicitud());
+            ps.setTimestamp(2, tm);
+            ps.setString(3, ob.getDetalle());
+            return ps.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     @Override
@@ -51,7 +64,6 @@ public class ConsultaDAO implements consultaInterface {
             return false;
         } finally {
             ConnectionDB.closeDB(ps);
-            ConnectionDB.closeDB(rs);
         }
     }
 
@@ -77,13 +89,14 @@ public class ConsultaDAO implements consultaInterface {
     public List<Consulta> ListOne(String InfoID, int option) {
         try {
             String condition = "";
+            Solicitud tmp = new Solicitud();
             if (option == 1) {
                 condition = "WHERE solicitud.idveterinario = ?";
             } else if (option == 2) {
                 condition = "WHERE solicitud.idcliente = ?";
             }
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT idConsulta, usuario.nombre, mascota.nombre as mascota, especie.especie, fechaconsulta, detalle, solicitud.idSolicitud FROM consulta\n"
+            ps = connect.prepareStatement("SELECT idConsulta, usuario.nombre, mascota.nombre as mascota, usuario.celular, especie.especie, fechaconsulta, detalle, solicitud.idSolicitud FROM consulta\n"
                     + "JOIN solicitud\n"
                     + "ON solicitud.idsolicitud = consulta.idsolicitud\n"
                     + "JOIN cliente\n"
@@ -108,6 +121,8 @@ public class ConsultaDAO implements consultaInterface {
                 String nombreE = rs.getString("especie");
                 String fechaConsulta = rs.getString("fechaconsulta");
                 obj = new Consulta(idConsulta, fechaConsulta, nombreC, nombreM, nombreE);
+                tmp.setCelular(rs.getString("celular"));
+                obj.setAux(tmp);
                 obj.setIdSolicitud(rs.getInt("idSolicitud"));
                 obj.setDetalle(rs.getString("detalle"));
                 list.add(obj);

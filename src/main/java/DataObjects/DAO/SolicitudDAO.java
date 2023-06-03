@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -147,7 +148,7 @@ public class SolicitudDAO implements solicitudInterface {
                 condition = "WHERE solicitud.idcliente = ?";
             }
             list = new ArrayList<>();
-            ps = connect.prepareStatement("SELECT solicitud.idsolicitud, c.nombre AS cliente, v.nombre AS veterinario, solicitud.fecha, estado.estado, solicitud.descripcion, solicitud.idestado \n"
+            ps = connect.prepareStatement("SELECT solicitud.idsolicitud, c.nombre AS cliente, c.celular as celcliente, v.nombre AS veterinario, solicitud.fecha, estado.estado, solicitud.descripcion, solicitud.idestado \n"
                     + "FROM usuario c\n"
                     + "JOIN cliente ON c.idUser = cliente.idUser\n"
                     + "JOIN solicitud ON cliente.idCliente = solicitud.idCliente\n"
@@ -166,6 +167,7 @@ public class SolicitudDAO implements solicitudInterface {
                 obj.setIdSolicitud(rs.getInt("idSolicitud"));
                 obj.setNombre(rs.getString("cliente"));
                 obj.setvNombre(rs.getString("veterinario"));
+                obj.setCelular(rs.getString("celcliente"));
                 obj.setFecha(rs.getString("fecha"));
                 obj.setStatus(rs.getString("estado"));
                 obj.setDescripcion(rs.getString("descripcion"));
@@ -223,6 +225,21 @@ public class SolicitudDAO implements solicitudInterface {
             ConnectionDB.closeDB(ps);
         }
         return false;
+    }
+
+    @Override
+    public boolean update(int id, int status) {
+        try{
+            ps = connect.prepareStatement("UPDATE solicitud SET idestado =? WHERE idsolicitud = ?");
+            ps.setInt(1, status);
+            ps.setInt(2, id);
+            return ps.executeUpdate()>0;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            ConnectionDB.closeDB(ps);
+        }
     }
 
 }
