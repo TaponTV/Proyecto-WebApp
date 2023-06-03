@@ -20,6 +20,14 @@
         <jsp:include page="content/sidebar.jsp"/>
         <jsp:include page="content/navbar.jsp"/>
 
+        <%
+            String msg = "";
+            if (request.getSession().getAttribute("msg") != null) {
+                msg = request.getSession().getAttribute("msg").toString();
+                out.print(msg);
+                request.getSession().removeAttribute("msg");
+            }
+        %>
         <section id="content">
             <main>
                 <%
@@ -38,6 +46,11 @@
                     case 3:
                 %>
                 <jsp:include page="data/datameet.jsp"/>
+                <%
+                        break;
+                    case 4:
+                %>
+                <jsp:include page="data/solicitudes.jsp"/>
                 <%
                             break;
                     }
