@@ -14,9 +14,6 @@
             </ul>
         </li>
 
-        <li class="divider" data-text="Ayuda"></li>
-        <li><a href="#"><i class='bx bxs-chart icon' ></i> Comentarios</a></li>
-
     </ul>
 
     <!--Futuro -->

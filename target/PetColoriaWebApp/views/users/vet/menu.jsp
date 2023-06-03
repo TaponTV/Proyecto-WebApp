@@ -52,6 +52,11 @@
                 %>
                 <jsp:include page="data/solicitudes.jsp"/>
                 <%
+                        break;
+                    case 5:
+                %>
+                <jsp:include page="data/addmedicine.jsp"/>
+                <%
                             break;
                     }
                 %>
