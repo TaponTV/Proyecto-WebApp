@@ -40,12 +40,6 @@
         </div>
         <ul>
             <li>
-                <a href="#" class="slide">
-                    <span class="las la-user-circle"></span>
-                    Perfil
-                </a>
-            </li>
-            <li>
                 <a href="<%= request.getContextPath()%>/GetData?action=1" class="slide">
                     <span class="las la-chart-pie"></span>
                     Estadísticas 
@@ -66,24 +60,6 @@
                 <a href="<%= request.getContextPath()%>/GetData?action=4" class="slide">
                     <span class="las la-users"></span>
                     Clientes
-                </a>
-            </li>
-            <li>
-                <a href="<%= request.getContextPath()%>/GetData?action=6" class="slide">
-                    <span class="las la-comments"></span>
-                    Comentarios
-                </a>
-            </li>
-            <li>
-                <a href="<%= request.getContextPath()%>/GetData?action=7" class="slide">
-                    <span class="las la-envelope-open"></span>
-                    Peticiones
-                </a>
-            </li>
-            <li>
-                <a href="#" class="slide">
-                    <span class="las la-question"></span>
-                    Ayuda
                 </a>
             </li>
         </ul>

@@ -50,10 +50,10 @@
                                 if (!recipes.isEmpty()) {
                                     for (Receta tmp : recipes) {
                         %>
-                        <p>Medicamento: <%= tmp.getMedicamento()%></p>
-                        <p>Administración: <%= tmp.getTipoAdministracion()%></p>
-                        <p>Horario: <%= tmp.getHorario()%></p>
-                        <p>Indicaciones: <%= tmp.getDetalles()%></p>
+                        <p>Medicamento: <%= tmp.getMedicamento()%><br>
+                        Administración: <%= tmp.getTipoAdministracion()%><br>
+                        Horario: <%= tmp.getHorario()%><br>
+                        Indicaciones: <%= tmp.getDetalles()%></p>
                         <%
                             }
                         } else {

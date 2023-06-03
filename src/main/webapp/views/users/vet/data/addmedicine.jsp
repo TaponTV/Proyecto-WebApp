@@ -1,3 +1,4 @@
+<h1>Agregar Medicina a receta</h1>
 <form method="post" action="<%=request.getContextPath()%>/RecetaryController">
     <%
         int idmeet = 0;

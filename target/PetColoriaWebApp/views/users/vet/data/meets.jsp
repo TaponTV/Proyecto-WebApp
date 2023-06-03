@@ -1,5 +1,6 @@
 <%@page import="models.Consulta"%>
 <%@page import="java.util.List"%>
+<h1>Consultas</h1>
 <table>
     <thead>
         <tr>

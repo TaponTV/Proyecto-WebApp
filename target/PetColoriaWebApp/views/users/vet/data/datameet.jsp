@@ -5,6 +5,7 @@
     Consulta data = (Consulta) request.getSession().getAttribute("CurrentMeet");
     if (data != null) {
 %>
+<h1>Datos de consulta</h1>
 <p>ID Consulta: <%= data.getIdConsulta()%></p>
 <p>Cliente: <%= data.getNombreC()%></p>
 <p>Mascota: <%= data.getNombre()%></p>

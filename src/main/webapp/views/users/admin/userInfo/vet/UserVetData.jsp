@@ -58,7 +58,7 @@
         <input type="text" value="<%= vet.getCedula()%>" name="UserInfoID" hidden>
         <input type="submit" value="Mostrar Citas">
     </form>
-    <form action="<%= request.getContextPath()%>/BellsVetAdmin" method="post">
+    <form action="<%= request.getContextPath()%>/ShowBellController?typeUser=1" method="post">
         <input type="text" value="<%= vet.getCedula()%>" name="UserInfoID" hidden>
         <input type="submit" value="Mostrar Solicitudes">
     </form>

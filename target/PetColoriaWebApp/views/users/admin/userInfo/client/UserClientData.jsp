@@ -71,11 +71,6 @@
         <input type="submit" value="Mostrar Solicitudes">
     </form>
 
-    <form action="<%= request.getContextPath()%>/ShowCommentController?issue=2" method="post">
-        <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
-        <input type="submit" value="Mostrar Comentarios">
-    </form>
-
     <form action="<%= request.getContextPath()%>/ShowPetController" method="post">
         <input type="text" value="<%= client.getIdCliente()%>" name="ClientID" hidden>
         <input type="submit" value="Mascotas Registradas">

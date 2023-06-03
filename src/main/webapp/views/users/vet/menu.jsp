@@ -30,36 +30,38 @@
         %>
         <section id="content">
             <main>
-                <%
-                    int section = Integer.parseInt(request.getParameter("section"));
-                    switch (section) {
-                        case 1:
-                %>
-                <jsp:include page="data/dashboard.jsp"/>
-                <%
-                        break;
-                    case 2:
-                %>
-                <jsp:include page="data/meets.jsp"/>
-                <%
-                        break;
-                    case 3:
-                %>
-                <jsp:include page="data/datameet.jsp"/>
-                <%
-                        break;
-                    case 4:
-                %>
-                <jsp:include page="data/solicitudes.jsp"/>
-                <%
-                        break;
-                    case 5:
-                %>
-                <jsp:include page="data/addmedicine.jsp"/>
-                <%
+                <section class="table__body">
+                    <%
+                        int section = Integer.parseInt(request.getParameter("section"));
+                        switch (section) {
+                            case 1:
+                    %>
+                    <jsp:include page="data/dashboard.jsp"/>
+                    <%
                             break;
-                    }
-                %>
+                        case 2:
+                    %>
+                    <jsp:include page="data/meets.jsp"/>
+                    <%
+                            break;
+                        case 3:
+                    %>
+                    <jsp:include page="data/datameet.jsp"/>
+                    <%
+                            break;
+                        case 4:
+                    %>
+                    <jsp:include page="data/solicitudes.jsp"/>
+                    <%
+                            break;
+                        case 5:
+                    %>
+                    <jsp:include page="data/addmedicine.jsp"/>
+                    <%
+                                break;
+                        }
+                    %>
+                </section>
             </main>
 
 
