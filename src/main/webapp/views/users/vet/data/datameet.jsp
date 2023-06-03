@@ -12,7 +12,7 @@
     <p>Fecha Consulta</p>
     <input type="text" name="dateMeet" value="<%=data.getFechaConsulta()%>">
     <p>Detalle</p>
-    <input type="text" name="detailMeet" value="<%=data.getDetalle()%>">
+    <input type="text" name="detailMeet" value="<%=data.getDetalle()%>"><br>
     <input value="<%= data.getIdConsulta()%>" name="MeetID" hidden>
     <button type="submit">Actualizar Consulta</button>
 </form>

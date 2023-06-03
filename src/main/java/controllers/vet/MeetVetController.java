@@ -34,4 +34,9 @@ public class MeetVetController extends HttpServlet {
         rs.sendRedirect(rq.getContextPath() + "/views/users/vet/menu.jsp?section=3");
     }
 
+    @Override
+    protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+        doGet(rq, rs);
+    }
+
 }
