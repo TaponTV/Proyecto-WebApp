@@ -10,8 +10,7 @@
             <a href="#"><i class='bx bxs-inbox icon' ></i> Operaciones <i class='bx bx-chevron-right icon-right' ></i></a>
             <ul class="side-dropdown">
                 <li><a href="<%=request.getContextPath()%>/DiaryController">Agenda</a></li>
-                <li><a href="<%=request.getContextPath()%>/BellVetController">Solicitudes</a></li>
-                <li><a href="<%=request.getContextPath()%>/RecetasController">Recetario</a></li>
+                <li><a href="<%=request.getContextPath()%>/solicitudes">Solicitudes</a></li>
             </ul>
         </li>
 
