@@ -24,8 +24,20 @@ public class RecetaDAO implements recetaInterface {
     }
     
     public boolean create(Receta ob) {
-        // TODO Auto-generated method stub
-        return false;
+        try{
+            ps = connect.prepareStatement("INSERT INTO receta (idconsulta, medicamento, tipoadministracion, horario, detalles) VALUES (?,?,?,?,?)");
+            ps.setInt(1, ob.getIdConsulta());
+            ps.setString(2, ob.getMedicamento());
+            ps.setString(3, ob.getTipoAdministracion());
+            ps.setString(4, ob.getHorario());
+            ps.setString(5, ob.getDetalles());
+            return ps.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     public List<Receta> read(int idConsulta) {
