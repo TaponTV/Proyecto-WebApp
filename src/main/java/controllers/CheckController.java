@@ -29,7 +29,7 @@ public class CheckController extends HttpServlet {
                     String ID = DataVet.getRowID(((Usuario) rq.getSession().getAttribute("CurrentUser")).getIdUser());
                     if (ID != null) {
                         rq.getSession().setAttribute("vetID", ID);
-                        tmp = rq.getContextPath() + "/views/users/vet/menu.jsp?section=1";
+                        tmp = rq.getContextPath() + "/InformationVet";
                     } else {
                         tmp = rq.getContextPath() + "/views/login/VetForm.jsp";
                     }
