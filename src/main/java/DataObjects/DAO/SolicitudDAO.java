@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -229,15 +228,32 @@ public class SolicitudDAO implements solicitudInterface {
 
     @Override
     public boolean update(int id, int status) {
-        try{
+        try {
             ps = connect.prepareStatement("UPDATE solicitud SET idestado =? WHERE idsolicitud = ?");
             ps.setInt(1, status);
             ps.setInt(2, id);
-            return ps.executeUpdate()>0;
-        }catch(SQLException e){
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
+            ConnectionDB.closeDB(ps);
+        }
+    }
+
+    @Override
+    public int count(String idvet) {
+        try {
+            ps = connect.prepareStatement("SELECT count(*) FROM solicitud WHERE solicitud.idveterinario=?");
+            ps.setString(1, idvet);
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
     }

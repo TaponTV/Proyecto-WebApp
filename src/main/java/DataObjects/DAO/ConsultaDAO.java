@@ -28,7 +28,7 @@ public class ConsultaDAO implements consultaInterface {
 
     @Override
     public boolean create(Consulta ob) {
-        try{
+        try {
             Date date = Date.valueOf(ob.getFechaConsulta());
             Timestamp tm = new Timestamp(date.getTime());
             ps = connect.prepareStatement("INSERT INTO consulta(idsolicitud, fechaconsulta, detalle) VALUES (?,?,?)");
@@ -36,10 +36,10 @@ public class ConsultaDAO implements consultaInterface {
             ps.setTimestamp(2, tm);
             ps.setString(3, ob.getDetalle());
             return ps.execute();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(ps);
         }
     }
@@ -84,6 +84,23 @@ public class ConsultaDAO implements consultaInterface {
     @Override
     public int count() {
         return 0;
+    }
+
+    @Override
+    public int count(String idvet) {
+        try{
+            ps = connect.prepareStatement("SELECT count(*) FROM consulta JOIN solicitud ON solicitud.idsolicitud = consulta.idsolicitud WHERE solicitud.idveterinario=?");
+            ps.setString(1, idvet);
+            rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException e){
+            e.printStackTrace();
+            return 0;
+        }finally{
+            ConnectionDB.closeDB(rs);
+            ConnectionDB.closeDB(ps);
+        }
     }
 
     public List<Consulta> ListOne(String InfoID, int option) {
@@ -136,10 +153,10 @@ public class ConsultaDAO implements consultaInterface {
             ConnectionDB.closeDB(ps);
         }
     }
-    
-    public List<Consulta> ListOne(int idpet){
+
+    public List<Consulta> ListOne(int idpet) {
         Solicitud tmp;
-        try{
+        try {
             list = new ArrayList<>();
             ps = connect.prepareStatement("SELECT idconsulta, solicitud.idveterinario, nombre, apPaterno, apMaterno, fechaconsulta, detalle FROM consulta "
                     + "JOIN solicitud ON solicitud.idsolicitud = consulta.idsolicitud "
@@ -148,22 +165,22 @@ public class ConsultaDAO implements consultaInterface {
                     + "WHERE solicitud.idmascota = ? ");
             ps.setInt(1, idpet);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 obj = new Consulta();
                 tmp = new Solicitud();
                 obj.setIdConsulta(rs.getInt("idconsulta"));
                 obj.setFechaConsulta(rs.getString("fechaconsulta"));
                 obj.setDetalle(rs.getString("detalle"));
                 tmp.setIdVeterinario(rs.getString("idveterinario"));
-                tmp.setvNombre(rs.getString("nombre")+" "+rs.getString("apPaterno"));
+                tmp.setvNombre(rs.getString("nombre") + " " + rs.getString("apPaterno"));
                 obj.setAux(tmp);
                 list.add(obj);
             }
             return list;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        }finally{
+        } finally {
             ConnectionDB.closeDB(rs);
             ConnectionDB.closeDB(ps);
         }
