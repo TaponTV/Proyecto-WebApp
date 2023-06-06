@@ -6,7 +6,7 @@ public class ConnectionDB {
 
     private static String user = "postgres";
     private static String pswd = "root";
-    private static String db = "petcoloria_webapp";
+    private static String db = "petcoloria";
     private static String server = "jdbc:postgresql://localhost:5432/" + db;
     private static String driver = "org.postgresql.Driver";
 

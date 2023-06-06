@@ -9,6 +9,12 @@
     } else {
         Usuario currentUser = (Usuario) request.getSession().getAttribute("CurrentUser");
         if (currentUser != null && currentUser.getIdRol() == 1) {
+            String msg = "";
+            if (request.getSession().getAttribute("msg") != null) {
+                msg = request.getSession().getAttribute("msg").toString();
+                out.print(msg);
+                request.getSession().removeAttribute("msg");
+            }
             name = currentUser.getNombre() + " " + currentUser.getApPaterno() + currentUser.getApMaterno();
             email = currentUser.getEmail();
         } else {

@@ -42,13 +42,9 @@
     <input type="text" value="<%= vet.getFechaTitulacion()%>" readonly><br>
     <label> Universidad </label>
     <input type="text" value="<%= vet.getUniversidad()%>" readonly><br>
-    <form method="post" action="/RipDataUser">
+    <form method="post" action="<%= request.getContextPath()%>/RipDataUser">
         <input type="text" value="<%= user.getIdUser()%>" name="UID" hidden>
         <button type="submit">Eliminar Usuario</button>
-    </form>
-    <form method="post" action="/ModifyDataUser">
-        <input type="text" value="<%= user.getIdUser()%>" name="UID" hidden>
-        <button type="submit">Aplicar Cambios</button>
     </form>
     <form action="<%= request.getContextPath()%>/ConnectionListController?typeuser=1" method="post">
         <input type="text" value="<%= user.getIdUser()%>" name="UserInfoID" hidden>

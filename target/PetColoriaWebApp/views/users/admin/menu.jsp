@@ -15,6 +15,7 @@
         <title>Dashboard</title>
     </head>
     <body>
+        
         <jsp:include page="content/sidebar.jsp"/>
         <div class="main-content">
             <jsp:include page="content/header.jsp"/>

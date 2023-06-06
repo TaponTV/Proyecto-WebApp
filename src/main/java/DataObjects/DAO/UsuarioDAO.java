@@ -145,8 +145,16 @@ public class UsuarioDAO implements usuarioInterface {
 
     @Override
     public boolean delete(int id) {
-        return false;
-        // TODO Auto-generated method stub
+        try{
+            ps = connect.prepareStatement("DELETE FROM usuario WHERE iduser = ?");
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally{
+            ConnectionDB.closeDB(ps);
+        }
 
     }
 
