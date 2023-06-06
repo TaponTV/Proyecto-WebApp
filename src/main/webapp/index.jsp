@@ -17,8 +17,6 @@
             </div>
             <ul class="navigation-list">
                 <li><a href="index.jsp">Inicio</a></li>
-                <li><a href="views/comments.jsp">Comentarios</a></li>
-                <li><a href="#">Nosotros</a></li>
                 <li><a href="views/contact.html">Contacto</a></li>
                 <li><a href="views/login/login.jsp">Sign In / Login</a></li>
             </ul>
